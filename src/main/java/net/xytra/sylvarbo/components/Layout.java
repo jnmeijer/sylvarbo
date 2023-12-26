@@ -9,6 +9,8 @@ import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.ioc.annotations.Symbol;
 
+import net.xytra.sylvarbo.pages.PersonList;
+
 import java.time.LocalDate;
 
 /**
@@ -45,5 +47,9 @@ public class Layout {
 
     public int getYear() {
         return LocalDate.now().getYear();
+    }
+
+    public Class<PersonList> onActionFromPersonList() {
+        return PersonList.class;
     }
 }

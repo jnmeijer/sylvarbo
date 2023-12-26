@@ -27,6 +27,9 @@
                                    <t:pagelink page="prop:pageName" class="prop:classForPageName">${pageName}</t:pagelink>
                                 </t:any>
                             </t:loop>
+                            <t:any element="li" class="nav-intem">
+                                <t:actionLink t:id="personList" class="prop:classForPageName">Person List</t:actionLink>
+                            </t:any>
                         </ul>
                         <span class="navbar-right">
                             <t:pagelink page="login" class="nav-link btn btn-light">Sign in</t:pagelink>
