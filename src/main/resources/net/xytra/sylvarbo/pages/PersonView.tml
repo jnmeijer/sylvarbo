@@ -1,0 +1,41 @@
+<html t:type="layout" title="View Person | sylvarbo"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_4.xsd"
+      xmlns:p="tapestry:parameter">
+
+<div class="row">
+    <div class="col-12">
+        <h1>View Person</h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+    <table border="1">
+     <tr>
+      <td>Primary identity</td>
+      <td>${viewedObject.primaryIdentity.displayableName}</td>
+     </tr>
+     <tr>
+      <td>Other identities</td>
+      <td>... todo ...</td>
+     </tr>
+     <tr>
+      <td>Events</td>
+      <td>... todo ...</td>
+     </tr>
+     <tr>
+      <td>Parents</td>
+      <td>... todo ...</td>
+     </tr>
+     <tr>
+      <td>Relationships</td>
+      <td>... todo ...</td>
+     </tr>
+    </table>
+
+    </div>
+</div>
+
+<t:actionLink t:id="return">Return</t:actionLink>
+
+</html>

@@ -10,8 +10,11 @@
 
 <div class="row">
     <div class="col-12">
-        <t:grid source="persistedObjects" row="currentObject" include="id" add="name">
+        <t:grid source="persistedObjects" row="currentObject" include="id" add="name,view">
          <p:nameCell>${currentObject.primaryIdentity.displayableName}</p:nameCell>
+         <p:viewCell>
+          <t:pageLink page="PersonView" context="[currentObject.id]">View</t:pageLink>
+         </p:viewCell>
         </t:grid>
 
     </div>
