@@ -1,35 +1,46 @@
 package net.xytra.sylvarbo.pages;
 
-import java.util.List;
+import static net.xytra.common.tapestry.CommonTapestryConstants.NEW_OBJECT_ID;
 
-import org.apache.cayenne.ObjectContext;
-import org.apache.cayenne.query.ObjectSelect;
+import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.Property;
-import org.apache.tapestry5.annotations.SessionState;
+import org.apache.tapestry5.beaneditor.Validate;
+import org.apache.tapestry5.corelib.components.Form;
+import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.services.PageRenderLinkSource;
 
+import net.xytra.common.tapestry.session.Session;
+import net.xytra.sylvarbo.base.AbstractListPage;
+import net.xytra.sylvarbo.enums.NameStyle;
 import net.xytra.sylvarbo.persistent.CayenneService;
 import net.xytra.sylvarbo.persistent.Person;
-import net.xytra.sylvarbo.session.Session;
 
-public class PersonList {
-    //@Property
-    @SessionState
-    protected Session session;
+public class PersonList extends AbstractListPage<Person> {
 
-    public PersonList() {
-        this.session = new Session(CayenneService.getInstance().sharedContext());
-    }
+    @Inject
+    private PageRenderLinkSource linkSource;
 
-    protected ObjectContext context() {
-        return session.context();
-    }
+    @Component
+    private Form editForm;
 
     @Property
-    protected Person currentObject;
+    private String currentError;
 
-    public List<Person> getPersistedObjects() {
-        // Get persisted objects to list
-        return ObjectSelect.query(Person.class).select(context());
+    @Property
+    @Validate("required")
+    private NameStyle style;
+
+    public PersonList() {
+        this.session = new Session(CayenneService.getInstance().newObjectContext());
+    }
+
+    protected Object onSuccess() {
+        return linkSource.createPageRenderLinkWithContext(NewPerson.class, style, NEW_OBJECT_ID);
+    }
+
+    @Override
+    protected Class<Person> getObjectType() {
+        return Person.class;
     }
 
 }

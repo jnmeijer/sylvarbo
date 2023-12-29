@@ -1,0 +1,44 @@
+<html t:type="layout" title="New Person | sylvarbo"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_4.xsd"
+      xmlns:p="tapestry:parameter">
+
+<div class="row">
+    <div class="col-12">
+        <h1>New Person</h1>
+
+
+ <t:form t:id="editForm">
+  <ul>
+   <t:loop source="validationErrors" value="currentError">
+    <li><font color="red">${currentError}</font></li>
+   </t:loop>
+  </ul>
+ <!-- if western ... -->
+<table>
+ <tr>
+  <td>Titles</td>
+  <td><t:textfield t:id="title"/></td>
+ </tr>
+ <tr>
+  <td>Given names</td>
+  <td><t:textfield t:id="given"/></td>
+ </tr>
+ <tr>
+  <td>Patronym</td>
+  <td><t:textfield t:id="patronym"/></td>
+ </tr>
+ <tr>
+  <td>Surnames</td>
+  <td><t:textfield t:id="surname"/></td>
+ </tr>
+ <tr>
+  <td>Suffixes</td>
+  <td><t:textfield t:id="suffix"/></td>
+ </tr>
+</table>
+  <t:actionLink t:id="cancel">Cancel</t:actionLink> - <t:submit value="Save"/>
+ </t:form>
+    </div>
+</div>
+
+</html>

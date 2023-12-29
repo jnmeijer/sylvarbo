@@ -10,6 +10,7 @@ import org.apache.cayenne.configuration.server.ServerRuntime;
 import org.apache.cayenne.configuration.server.ServerRuntimeBuilder;
 import org.apache.cayenne.di.Binder;
 import org.apache.cayenne.di.Module;
+import org.apache.cayenne.query.SQLExec;
 
 public class CayenneService {
     private CayenneService() {
@@ -85,7 +86,9 @@ public class CayenneService {
 
     public ObjectContext newObjectContext() {
         System.err.println("-- newObjectContext()!");
-        return cayenneRuntime.newContext();
+        ObjectContext context = cayenneRuntime.newContext();
+        SQLExec.query("SET DATABASE REFERENTIAL INTEGRITY FALSE").execute(context);
+        return context;
     }
 
     public ObjectContext newChildContext(ObjectContext context) {

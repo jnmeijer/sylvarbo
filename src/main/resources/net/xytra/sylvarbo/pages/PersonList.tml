@@ -10,9 +10,16 @@
 
 <div class="row">
     <div class="col-12">
-        <t:grid source="persistedObjects" row="currentObject" include="primaryIdentity.startDate">
+        <t:grid source="persistedObjects" row="currentObject" include="id" add="name">
+         <p:nameCell>${currentObject.primaryIdentity.displayableName}</p:nameCell>
         </t:grid>
+
     </div>
 </div>
+
+ <t:form t:id="editForm">
+  <t:select t:id="style"/>
+  <t:submit value="Add"/>
+ </t:form>
 
 </html>

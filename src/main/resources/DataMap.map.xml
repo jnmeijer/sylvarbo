@@ -44,26 +44,26 @@
 		<db-attribute name="RELATIONSHIP_ID" type="BIGINT" isMandatory="true"/>
 		<db-attribute name="TYPE" type="VARCHAR" length="4"/>
 	</db-entity>
-	<obj-entity name="Person" className="net.xytra.sylvarbo.persistent.Person" dbEntityName="XSA_PERSON"/>
-	<obj-entity name="PersonEvent" className="net.xytra.sylvarbo.persistent.PersonEvent" dbEntityName="XSA_PERSON_EVENT">
+	<obj-entity name="Person" className="net.xytra.sylvarbo.persistent.Person" dbEntityName="XSA_PERSON" superClassName="net.xytra.common.cayenne.persistent.AbstractPersistentWithId"/>
+	<obj-entity name="PersonEvent" className="net.xytra.sylvarbo.persistent.PersonEvent" dbEntityName="XSA_PERSON_EVENT" superClassName="net.xytra.common.cayenne.persistent.AbstractPersistentWithId">
 		<obj-attribute name="approximation" type="java.lang.String" lock="true" db-attribute-path="APPROXIMATION"/>
 		<obj-attribute name="dtm" type="long" lock="true" db-attribute-path="DTM"/>
 		<obj-attribute name="precision" type="java.lang.String" lock="true" db-attribute-path="PRECISION"/>
 		<obj-attribute name="type" type="java.lang.String" lock="true" db-attribute-path="TYPE"/>
 	</obj-entity>
-	<obj-entity name="PersonIdentity" className="net.xytra.sylvarbo.persistent.PersonIdentity" dbEntityName="XSA_PERSON_IDENTITY">
+	<obj-entity name="PersonIdentity" className="net.xytra.sylvarbo.persistent.PersonIdentity" dbEntityName="XSA_PERSON_IDENTITY" superClassName="net.xytra.common.cayenne.persistent.AbstractPersistentWithId">
 		<obj-attribute name="endDate" type="long" lock="true" db-attribute-path="END_DATE"/>
 		<obj-attribute name="startDate" type="long" lock="true" db-attribute-path="START_DATE"/>
 	</obj-entity>
-	<obj-entity name="PersonName" className="net.xytra.sylvarbo.persistent.PersonName" dbEntityName="XSA_PERSON_NAME">
+	<obj-entity name="PersonName" className="net.xytra.sylvarbo.persistent.PersonName" dbEntityName="XSA_PERSON_NAME" superClassName="net.xytra.common.cayenne.persistent.AbstractPersistentWithId">
 		<obj-attribute name="name" type="java.lang.String" lock="true" db-attribute-path="NAME"/>
 		<obj-attribute name="seqNum" type="short" lock="true" db-attribute-path="SEQ_NUM"/>
 		<obj-attribute name="type" type="java.lang.String" lock="true" db-attribute-path="TYPE"/>
 	</obj-entity>
-	<obj-entity name="Relationship" className="net.xytra.sylvarbo.persistent.Relationship" dbEntityName="XSA_RELATIONSHIP">
+	<obj-entity name="Relationship" className="net.xytra.sylvarbo.persistent.Relationship" dbEntityName="XSA_RELATIONSHIP" superClassName="net.xytra.common.cayenne.persistent.AbstractPersistentWithId">
 		<obj-attribute name="type" type="java.lang.String" lock="true" db-attribute-path="TYPE"/>
 	</obj-entity>
-	<obj-entity name="RelationshipEvent" className="net.xytra.sylvarbo.persistent.RelationshipEvent" dbEntityName="XSA_RELATIONSHIP_EVENT">
+	<obj-entity name="RelationshipEvent" className="net.xytra.sylvarbo.persistent.RelationshipEvent" dbEntityName="XSA_RELATIONSHIP_EVENT" superClassName="net.xytra.common.cayenne.persistent.AbstractPersistentWithId">
 		<obj-attribute name="approximation" type="java.lang.String" lock="true" db-attribute-path="APPROXIMATION"/>
 		<obj-attribute name="dtm" type="long" lock="true" db-attribute-path="DTM"/>
 		<obj-attribute name="precision" type="java.lang.String" lock="true" db-attribute-path="PRECISION"/>
@@ -129,9 +129,22 @@
 	<obj-relationship name="relationshipEvents" source="Relationship" target="RelationshipEvent" deleteRule="Deny" db-relationship-path="relationshipEvents"/>
 	<obj-relationship name="secondaryParent" source="Relationship" target="Person" deleteRule="Nullify" db-relationship-path="secondaryParent"/>
 	<obj-relationship name="relationship" source="RelationshipEvent" target="Relationship" deleteRule="Nullify" db-relationship-path="relationship"/>
+	<dbImport xmlns="http://cayenne.apache.org/schema/10/dbimport">
+		<tableTypes>
+			<tableType>TABLE</tableType>
+			<tableType>VIEW</tableType>
+		</tableTypes>
+		<forceDataMapCatalog>false</forceDataMapCatalog>
+		<forceDataMapSchema>false</forceDataMapSchema>
+		<namingStrategy>org.apache.cayenne.dbsync.naming.DefaultObjectNameGenerator</namingStrategy>
+		<skipPrimaryKeyLoading>false</skipPrimaryKeyLoading>
+		<skipRelationshipsLoading>false</skipRelationshipsLoading>
+		<useJava7Types>false</useJava7Types>
+		<usePrimitives>true</usePrimitives>
+	</dbImport>
 	<cgen xmlns="http://cayenne.apache.org/schema/10/cgen">
 		<destDir>../java</destDir>
-		<mode>entity</mode>
+		<mode>all</mode>
 		<template>templates/v4_1/subclass.vm</template>
 		<superTemplate>templates/v4_1/superclass.vm</superTemplate>
 		<template>templates/v4_1/subclass.vm</template>

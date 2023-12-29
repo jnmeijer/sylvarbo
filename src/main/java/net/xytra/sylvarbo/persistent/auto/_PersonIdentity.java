@@ -5,9 +5,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.List;
 
-import org.apache.cayenne.BaseDataObject;
 import org.apache.cayenne.exp.Property;
 
+import net.xytra.common.cayenne.persistent.AbstractPersistentWithId;
 import net.xytra.sylvarbo.persistent.Person;
 import net.xytra.sylvarbo.persistent.PersonName;
 
@@ -17,7 +17,7 @@ import net.xytra.sylvarbo.persistent.PersonName;
  * since it may be overwritten next time code is regenerated.
  * If you need to make any customizations, please use subclass.
  */
-public abstract class _PersonIdentity extends BaseDataObject {
+public abstract class _PersonIdentity extends AbstractPersistentWithId {
 
     private static final long serialVersionUID = 1L; 
 

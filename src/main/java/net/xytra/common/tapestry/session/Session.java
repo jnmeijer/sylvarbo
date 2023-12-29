@@ -1,4 +1,4 @@
-package net.xytra.sylvarbo.session;
+package net.xytra.common.tapestry.session;
 
 import org.apache.cayenne.ObjectContext;
 
