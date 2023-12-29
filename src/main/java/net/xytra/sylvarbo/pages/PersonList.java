@@ -2,6 +2,7 @@ package net.xytra.sylvarbo.pages;
 
 import static net.xytra.common.tapestry.CommonTapestryConstants.NEW_OBJECT_ID;
 
+import org.apache.cayenne.Cayenne;
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.beaneditor.Validate;
@@ -36,6 +37,18 @@ public class PersonList extends AbstractListPage<Person> {
 
     protected Object onSuccess() {
         return linkSource.createPageRenderLinkWithContext(NewPerson.class, style, NEW_OBJECT_ID);
+    }
+
+    public void onActionFromDelete(int id) {
+        System.err.println("--- onActionFromDelete: id="+id);
+        Person object = Cayenne.objectForPK(context(), getObjectType(), id);
+        if (object != null) {
+            context().deleteObject(object);
+            context().commitChanges();
+            System.err.println("--- Success!");
+        } else {
+            System.err.println("--- No object found!");
+        }
     }
 
     @Override

@@ -15,26 +15,12 @@
   </ul>
  <!-- if western ... -->
 <table>
- <tr>
-  <td>Titles</td>
-  <td><t:textfield t:id="title"/></td>
- </tr>
- <tr>
-  <td>Given names</td>
-  <td><t:textfield t:id="given"/></td>
- </tr>
- <tr>
-  <td>Patronym</td>
-  <td><t:textfield t:id="patronym"/></td>
- </tr>
- <tr>
-  <td>Surnames</td>
-  <td><t:textfield t:id="surname"/></td>
- </tr>
- <tr>
-  <td>Suffixes</td>
-  <td><t:textfield t:id="suffix"/></td>
- </tr>
+ <t:loop source="style.types" index="currentTypeIndex">
+  <tr>
+   <td>${currentType.name}</td>
+   <td><t:textfield t:id="namesField" value="currentTypeNames"/></td>
+  </tr>
+ </t:loop>
 </table>
   <t:actionLink t:id="cancel">Cancel</t:actionLink> - <t:submit value="Save"/>
  </t:form>

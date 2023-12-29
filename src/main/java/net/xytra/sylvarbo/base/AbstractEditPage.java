@@ -85,7 +85,7 @@ public abstract class AbstractEditPage<T extends AbstractPersistentWithId> exten
     }
 
     protected Object onSuccess() {
-        return getListPageObject();
+        return getSuccessPageObject();
     }
 
     // Cancel button
@@ -95,15 +95,15 @@ public abstract class AbstractEditPage<T extends AbstractPersistentWithId> exten
         // Cleanup: remove UUID lookup
         context().setUserProperty(editedObject.getUuid(), Null.class);
 
-        return getListPageObject();
+        return getSuccessPageObject();
     }
 
     // --- Abstract methods that define the specifics of the page
-    protected Object getListPageObject() {
-        return getListPageType();
+    protected Object getSuccessPageObject() {
+        return getSuccessPageType();
     }
 
-    protected Class<? extends AbstractListPage<T>> getListPageType() {
+    protected Class<? extends AbstractListPage<T>> getSuccessPageType() {
         throw new RuntimeException("Not implemented!");
     }
 

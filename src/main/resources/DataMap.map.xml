@@ -114,15 +114,15 @@
 	<db-relationship name="relationship" source="XSA_RELATIONSHIP_EVENT" target="XSA_RELATIONSHIP">
 		<db-attribute-pair source="RELATIONSHIP_ID" target="ID"/>
 	</db-relationship>
-	<obj-relationship name="personEvents" source="Person" target="PersonEvent" deleteRule="Deny" db-relationship-path="personEvents"/>
-	<obj-relationship name="personIdentities" source="Person" target="PersonIdentity" deleteRule="Deny" db-relationship-path="personIdentities"/>
+	<obj-relationship name="personEvents" source="Person" target="PersonEvent" deleteRule="Cascade" db-relationship-path="personEvents"/>
+	<obj-relationship name="personIdentities" source="Person" target="PersonIdentity" deleteRule="Cascade" db-relationship-path="personIdentities"/>
 	<obj-relationship name="primaryIdentity" source="Person" target="PersonIdentity" deleteRule="Nullify" db-relationship-path="primaryIdentity"/>
 	<obj-relationship name="relationshipAsChild" source="Person" target="Relationship" deleteRule="Nullify" db-relationship-path="relationshipAsChild"/>
 	<obj-relationship name="relationshipsAsPrimary" source="Person" target="Relationship" deleteRule="Deny" db-relationship-path="relationshipsAsPrimary"/>
 	<obj-relationship name="relationshipsAsSecondary" source="Person" target="Relationship" deleteRule="Deny" db-relationship-path="relationshipsAsSecondary"/>
 	<obj-relationship name="person" source="PersonEvent" target="Person" deleteRule="Nullify" db-relationship-path="person"/>
 	<obj-relationship name="person" source="PersonIdentity" target="Person" deleteRule="Nullify" db-relationship-path="person"/>
-	<obj-relationship name="personNames" source="PersonIdentity" target="PersonName" deleteRule="Deny" db-relationship-path="personNames"/>
+	<obj-relationship name="personNames" source="PersonIdentity" target="PersonName" deleteRule="Cascade" db-relationship-path="personNames"/>
 	<obj-relationship name="personIdentity" source="PersonName" target="PersonIdentity" deleteRule="Nullify" db-relationship-path="personIdentity"/>
 	<obj-relationship name="children" source="Relationship" target="Person" deleteRule="Deny" db-relationship-path="children"/>
 	<obj-relationship name="primaryParent" source="Relationship" target="Person" deleteRule="Nullify" db-relationship-path="primaryParent"/>

@@ -10,13 +10,15 @@
 
 <div class="row">
     <div class="col-12">
-        <t:grid source="persistedObjects" row="currentObject" include="id" add="name,view">
+        <t:grid source="persistedObjects" row="currentObject" include="id" add="name,view,delete">
          <p:nameCell>${currentObject.primaryIdentity.displayableName}</p:nameCell>
          <p:viewCell>
           <t:pageLink page="PersonView" context="[currentObject.id]">View</t:pageLink>
          </p:viewCell>
+         <p:deleteCell>
+          <t:actionLink t:id="delete" context="currentObject.id">Delete</t:actionLink>
+         </p:deleteCell>
         </t:grid>
-
     </div>
 </div>
 
