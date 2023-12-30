@@ -8,6 +8,7 @@
     </div>
 </div>
 
+ <t:form t:id="editForm">
 <div class="row">
     <div class="col-12">
     <table border="1">
@@ -16,8 +17,17 @@
       <td>${viewedObject.primaryIdentity.displayableName}</td>
      </tr>
      <tr>
-      <td>Other identities</td>
-      <td>... todo ...</td>
+      <td>All identities</td>
+      <td>
+       <ul>
+        <t:loop source="viewedObject.personIdentities" index="currentIdentityIndex">
+         <li>${currentIdentity.displayableName}</li>
+        </t:loop>
+       </ul>
+       <br/>
+       <t:select t:id="style"/>
+       <t:submit t:id="addIdentity" value="Add identity"/>
+      </td>
      </tr>
      <tr>
       <td>Events</td>
@@ -35,6 +45,7 @@
 
     </div>
 </div>
+ </t:form>
 
 <t:actionLink t:id="return">Return</t:actionLink>
 

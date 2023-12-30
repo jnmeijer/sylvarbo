@@ -1,10 +1,10 @@
 package net.xytra.sylvarbo.base;
 
 import static net.xytra.common.tapestry.CommonTapestryConstants.NEW_OBJECT_ID;
+import static net.xytra.common.tapestry.CommonTapestryConstants.NUMBER_PATTERN;
 
 import java.util.Iterator;
 import java.util.List;
-import java.util.regex.Pattern;
 
 import org.apache.cayenne.Cayenne;
 import org.apache.cayenne.validation.ValidationException;
@@ -18,8 +18,6 @@ import net.xytra.common.cayenne.persistent.AbstractPersistentWithId;
 
 // page to edit a persisted object
 public abstract class AbstractEditPage<T extends AbstractPersistentWithId> extends AbstractTypedPage<T> {
-    protected static final Pattern NUMBER_PATTERN = Pattern.compile("\\d*");
-
     @Component
     private Form editForm;
 
