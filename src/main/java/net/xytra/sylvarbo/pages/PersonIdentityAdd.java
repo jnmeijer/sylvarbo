@@ -81,7 +81,7 @@ public class PersonIdentityAdd extends AbstractEditPage<PersonIdentity> {
                         name.setName(currentPart.trim());
                         name.setSeqNum(seqNum++);
                         name.setType(style.getTypes()[i].toString());
-                        editedObject.addToPersonNames(name);
+                        editedObject.addToNames(name);
                     }
                 }
             }
@@ -99,7 +99,7 @@ public class PersonIdentityAdd extends AbstractEditPage<PersonIdentity> {
         if (person.getPrimaryIdentity() == null) {
             person.setPrimaryIdentity(editedObject);
         }
-        person.addToPersonIdentities(editedObject);
+        person.addToIdentities(editedObject);
 
         super.onValidateFromEditForm();
     }

@@ -20,7 +20,7 @@
       <td>All identities</td>
       <td>
        <table border="1">
-        <t:loop source="viewedObject.personIdentities" index="currentIdentityIndex">
+        <t:loop source="viewedObject.identities" index="currentIdentityIndex">
          <tr>
           <td>${currentIdentity.displayableName}</td>
           <td>

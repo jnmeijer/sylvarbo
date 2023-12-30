@@ -114,19 +114,19 @@
 	<db-relationship name="relationship" source="XSA_RELATIONSHIP_EVENT" target="XSA_RELATIONSHIP">
 		<db-attribute-pair source="RELATIONSHIP_ID" target="ID"/>
 	</db-relationship>
-	<obj-relationship name="personEvents" source="Person" target="PersonEvent" deleteRule="Cascade" db-relationship-path="personEvents"/>
-	<obj-relationship name="personIdentities" source="Person" target="PersonIdentity" deleteRule="Cascade" db-relationship-path="personIdentities"/>
+	<obj-relationship name="events" source="Person" target="PersonEvent" deleteRule="Cascade" db-relationship-path="personEvents"/>
+	<obj-relationship name="identities" source="Person" target="PersonIdentity" deleteRule="Cascade" db-relationship-path="personIdentities"/>
 	<obj-relationship name="primaryIdentity" source="Person" target="PersonIdentity" deleteRule="Nullify" db-relationship-path="primaryIdentity"/>
 	<obj-relationship name="relationshipAsChild" source="Person" target="Relationship" deleteRule="Nullify" db-relationship-path="relationshipAsChild"/>
 	<obj-relationship name="relationshipsAsPrimary" source="Person" target="Relationship" deleteRule="Deny" db-relationship-path="relationshipsAsPrimary"/>
 	<obj-relationship name="relationshipsAsSecondary" source="Person" target="Relationship" deleteRule="Deny" db-relationship-path="relationshipsAsSecondary"/>
 	<obj-relationship name="person" source="PersonEvent" target="Person" deleteRule="Nullify" db-relationship-path="person"/>
+	<obj-relationship name="names" source="PersonIdentity" target="PersonName" deleteRule="Cascade" db-relationship-path="personNames"/>
 	<obj-relationship name="person" source="PersonIdentity" target="Person" deleteRule="Nullify" db-relationship-path="person"/>
-	<obj-relationship name="personNames" source="PersonIdentity" target="PersonName" deleteRule="Cascade" db-relationship-path="personNames"/>
-	<obj-relationship name="personIdentity" source="PersonName" target="PersonIdentity" deleteRule="Nullify" db-relationship-path="personIdentity"/>
+	<obj-relationship name="identity" source="PersonName" target="PersonIdentity" deleteRule="Nullify" db-relationship-path="personIdentity"/>
 	<obj-relationship name="children" source="Relationship" target="Person" deleteRule="Deny" db-relationship-path="children"/>
+	<obj-relationship name="events" source="Relationship" target="RelationshipEvent" deleteRule="Deny" db-relationship-path="relationshipEvents"/>
 	<obj-relationship name="primaryParent" source="Relationship" target="Person" deleteRule="Nullify" db-relationship-path="primaryParent"/>
-	<obj-relationship name="relationshipEvents" source="Relationship" target="RelationshipEvent" deleteRule="Deny" db-relationship-path="relationshipEvents"/>
 	<obj-relationship name="secondaryParent" source="Relationship" target="Person" deleteRule="Nullify" db-relationship-path="secondaryParent"/>
 	<obj-relationship name="relationship" source="RelationshipEvent" target="Relationship" deleteRule="Nullify" db-relationship-path="relationship"/>
 	<dbImport xmlns="http://cayenne.apache.org/schema/10/dbimport">
@@ -144,7 +144,7 @@
 	</dbImport>
 	<cgen xmlns="http://cayenne.apache.org/schema/10/cgen">
 		<destDir>../java</destDir>
-		<mode>all</mode>
+		<mode>entity</mode>
 		<template>templates/v4_1/subclass.vm</template>
 		<superTemplate>templates/v4_1/superclass.vm</superTemplate>
 		<template>templates/v4_1/subclass.vm</template>

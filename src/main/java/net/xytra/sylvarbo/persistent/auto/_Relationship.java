@@ -25,15 +25,15 @@ public abstract class _Relationship extends AbstractPersistentWithId {
 
     public static final Property<String> TYPE = Property.create("type", String.class);
     public static final Property<List<Person>> CHILDREN = Property.create("children", List.class);
+    public static final Property<List<RelationshipEvent>> EVENTS = Property.create("events", List.class);
     public static final Property<Person> PRIMARY_PARENT = Property.create("primaryParent", Person.class);
-    public static final Property<List<RelationshipEvent>> RELATIONSHIP_EVENTS = Property.create("relationshipEvents", List.class);
     public static final Property<Person> SECONDARY_PARENT = Property.create("secondaryParent", Person.class);
 
     protected String type;
 
     protected Object children;
+    protected Object events;
     protected Object primaryParent;
-    protected Object relationshipEvents;
     protected Object secondaryParent;
 
     public void setType(String type) {
@@ -59,25 +59,25 @@ public abstract class _Relationship extends AbstractPersistentWithId {
         return (List<Person>)readProperty("children");
     }
 
+    public void addToEvents(RelationshipEvent obj) {
+        addToManyTarget("events", obj, true);
+    }
+
+    public void removeFromEvents(RelationshipEvent obj) {
+        removeToManyTarget("events", obj, true);
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<RelationshipEvent> getEvents() {
+        return (List<RelationshipEvent>)readProperty("events");
+    }
+
     public void setPrimaryParent(Person primaryParent) {
         setToOneTarget("primaryParent", primaryParent, true);
     }
 
     public Person getPrimaryParent() {
         return (Person)readProperty("primaryParent");
-    }
-
-    public void addToRelationshipEvents(RelationshipEvent obj) {
-        addToManyTarget("relationshipEvents", obj, true);
-    }
-
-    public void removeFromRelationshipEvents(RelationshipEvent obj) {
-        removeToManyTarget("relationshipEvents", obj, true);
-    }
-
-    @SuppressWarnings("unchecked")
-    public List<RelationshipEvent> getRelationshipEvents() {
-        return (List<RelationshipEvent>)readProperty("relationshipEvents");
     }
 
     public void setSecondaryParent(Person secondaryParent) {
@@ -99,10 +99,10 @@ public abstract class _Relationship extends AbstractPersistentWithId {
                 return this.type;
             case "children":
                 return this.children;
+            case "events":
+                return this.events;
             case "primaryParent":
                 return this.primaryParent;
-            case "relationshipEvents":
-                return this.relationshipEvents;
             case "secondaryParent":
                 return this.secondaryParent;
             default:
@@ -123,11 +123,11 @@ public abstract class _Relationship extends AbstractPersistentWithId {
             case "children":
                 this.children = val;
                 break;
+            case "events":
+                this.events = val;
+                break;
             case "primaryParent":
                 this.primaryParent = val;
-                break;
-            case "relationshipEvents":
-                this.relationshipEvents = val;
                 break;
             case "secondaryParent":
                 this.secondaryParent = val;
@@ -150,8 +150,8 @@ public abstract class _Relationship extends AbstractPersistentWithId {
         super.writeState(out);
         out.writeObject(this.type);
         out.writeObject(this.children);
+        out.writeObject(this.events);
         out.writeObject(this.primaryParent);
-        out.writeObject(this.relationshipEvents);
         out.writeObject(this.secondaryParent);
     }
 
@@ -160,8 +160,8 @@ public abstract class _Relationship extends AbstractPersistentWithId {
         super.readState(in);
         this.type = (String)in.readObject();
         this.children = in.readObject();
+        this.events = in.readObject();
         this.primaryParent = in.readObject();
-        this.relationshipEvents = in.readObject();
         this.secondaryParent = in.readObject();
     }
 

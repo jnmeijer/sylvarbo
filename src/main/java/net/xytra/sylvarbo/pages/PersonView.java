@@ -48,25 +48,30 @@ public class PersonView extends AbstractViewPage<Person> {
     }
 
     Object onActionFromDeleteIdentity(int index) {
-        PersonIdentity identity = viewedObject.getPersonIdentities().get(index);
-        viewedObject.removeFromPersonIdentities(identity);
+        PersonIdentity identity = viewedObject.getIdentities().get(index);
+        viewedObject.removeFromIdentities(identity);
 
         // This assumes that Delete can never be called on one remaining identity
         if (identity.equals(viewedObject.getPrimaryIdentity())) {
             // Take the first remaining one
-            viewedObject.setPrimaryIdentity(viewedObject.getPersonIdentities().get(0));
+            viewedObject.setPrimaryIdentity(viewedObject.getIdentities().get(0));
         }
+
+        context().deleteObject(identity);
+
+        // Save changes
+        context().commitChanges();
 
         // Return to same page
         return null;
     }
 
     public PersonIdentity getCurrentIdentity() {
-        return viewedObject.getPersonIdentities().get(currentIdentityIndex);
+        return viewedObject.getIdentities().get(currentIdentityIndex);
     }
 
     public boolean getCanDeleteIdentities() {
-        return viewedObject.getPersonIdentities().size() > 1;
+        return viewedObject.getIdentities().size() > 1;
     }
 
     @Override

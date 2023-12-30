@@ -15,8 +15,8 @@ public class PersonIdentity extends _PersonIdentity {
     public String getDisplayableName() {
         if (displayableName == null) {
             // Sort the names List
-            List<PersonName> personNames = getPersonNames();
-            Collections.sort(getPersonNames(), new Comparator<PersonName>(){
+            List<PersonName> personNames = getNames();
+            Collections.sort(getNames(), new Comparator<PersonName>(){
                 public int compare(PersonName n1, PersonName n2) {
                     return n1.getSeqNum() - n2.getSeqNum();
                 }

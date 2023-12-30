@@ -25,14 +25,14 @@ public abstract class _PersonIdentity extends AbstractPersistentWithId {
 
     public static final Property<Long> END_DATE = Property.create("endDate", Long.class);
     public static final Property<Long> START_DATE = Property.create("startDate", Long.class);
+    public static final Property<List<PersonName>> NAMES = Property.create("names", List.class);
     public static final Property<Person> PERSON = Property.create("person", Person.class);
-    public static final Property<List<PersonName>> PERSON_NAMES = Property.create("personNames", List.class);
 
     protected Long endDate;
     protected Long startDate;
 
+    protected Object names;
     protected Object person;
-    protected Object personNames;
 
     public void setEndDate(long endDate) {
         beforePropertyWrite("endDate", this.endDate, endDate);
@@ -60,25 +60,25 @@ public abstract class _PersonIdentity extends AbstractPersistentWithId {
         return this.startDate;
     }
 
+    public void addToNames(PersonName obj) {
+        addToManyTarget("names", obj, true);
+    }
+
+    public void removeFromNames(PersonName obj) {
+        removeToManyTarget("names", obj, true);
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<PersonName> getNames() {
+        return (List<PersonName>)readProperty("names");
+    }
+
     public void setPerson(Person person) {
         setToOneTarget("person", person, true);
     }
 
     public Person getPerson() {
         return (Person)readProperty("person");
-    }
-
-    public void addToPersonNames(PersonName obj) {
-        addToManyTarget("personNames", obj, true);
-    }
-
-    public void removeFromPersonNames(PersonName obj) {
-        removeToManyTarget("personNames", obj, true);
-    }
-
-    @SuppressWarnings("unchecked")
-    public List<PersonName> getPersonNames() {
-        return (List<PersonName>)readProperty("personNames");
     }
 
     @Override
@@ -92,10 +92,10 @@ public abstract class _PersonIdentity extends AbstractPersistentWithId {
                 return this.endDate;
             case "startDate":
                 return this.startDate;
+            case "names":
+                return this.names;
             case "person":
                 return this.person;
-            case "personNames":
-                return this.personNames;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -114,11 +114,11 @@ public abstract class _PersonIdentity extends AbstractPersistentWithId {
             case "startDate":
                 this.startDate = (Long)val;
                 break;
+            case "names":
+                this.names = val;
+                break;
             case "person":
                 this.person = val;
-                break;
-            case "personNames":
-                this.personNames = val;
                 break;
             default:
                 super.writePropertyDirectly(propName, val);
@@ -138,8 +138,8 @@ public abstract class _PersonIdentity extends AbstractPersistentWithId {
         super.writeState(out);
         out.writeObject(this.endDate);
         out.writeObject(this.startDate);
+        out.writeObject(this.names);
         out.writeObject(this.person);
-        out.writeObject(this.personNames);
     }
 
     @Override
@@ -147,8 +147,8 @@ public abstract class _PersonIdentity extends AbstractPersistentWithId {
         super.readState(in);
         this.endDate = (Long)in.readObject();
         this.startDate = (Long)in.readObject();
+        this.names = in.readObject();
         this.person = in.readObject();
-        this.personNames = in.readObject();
     }
 
 }

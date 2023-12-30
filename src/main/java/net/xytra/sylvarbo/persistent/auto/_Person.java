@@ -24,45 +24,45 @@ public abstract class _Person extends AbstractPersistentWithId {
 
     public static final String ID_PK_COLUMN = "ID";
 
-    public static final Property<List<PersonEvent>> PERSON_EVENTS = Property.create("personEvents", List.class);
-    public static final Property<List<PersonIdentity>> PERSON_IDENTITIES = Property.create("personIdentities", List.class);
+    public static final Property<List<PersonEvent>> EVENTS = Property.create("events", List.class);
+    public static final Property<List<PersonIdentity>> IDENTITIES = Property.create("identities", List.class);
     public static final Property<PersonIdentity> PRIMARY_IDENTITY = Property.create("primaryIdentity", PersonIdentity.class);
     public static final Property<Relationship> RELATIONSHIP_AS_CHILD = Property.create("relationshipAsChild", Relationship.class);
     public static final Property<List<Relationship>> RELATIONSHIPS_AS_PRIMARY = Property.create("relationshipsAsPrimary", List.class);
     public static final Property<List<Relationship>> RELATIONSHIPS_AS_SECONDARY = Property.create("relationshipsAsSecondary", List.class);
 
 
-    protected Object personEvents;
-    protected Object personIdentities;
+    protected Object events;
+    protected Object identities;
     protected Object primaryIdentity;
     protected Object relationshipAsChild;
     protected Object relationshipsAsPrimary;
     protected Object relationshipsAsSecondary;
 
-    public void addToPersonEvents(PersonEvent obj) {
-        addToManyTarget("personEvents", obj, true);
+    public void addToEvents(PersonEvent obj) {
+        addToManyTarget("events", obj, true);
     }
 
-    public void removeFromPersonEvents(PersonEvent obj) {
-        removeToManyTarget("personEvents", obj, true);
-    }
-
-    @SuppressWarnings("unchecked")
-    public List<PersonEvent> getPersonEvents() {
-        return (List<PersonEvent>)readProperty("personEvents");
-    }
-
-    public void addToPersonIdentities(PersonIdentity obj) {
-        addToManyTarget("personIdentities", obj, true);
-    }
-
-    public void removeFromPersonIdentities(PersonIdentity obj) {
-        removeToManyTarget("personIdentities", obj, true);
+    public void removeFromEvents(PersonEvent obj) {
+        removeToManyTarget("events", obj, true);
     }
 
     @SuppressWarnings("unchecked")
-    public List<PersonIdentity> getPersonIdentities() {
-        return (List<PersonIdentity>)readProperty("personIdentities");
+    public List<PersonEvent> getEvents() {
+        return (List<PersonEvent>)readProperty("events");
+    }
+
+    public void addToIdentities(PersonIdentity obj) {
+        addToManyTarget("identities", obj, true);
+    }
+
+    public void removeFromIdentities(PersonIdentity obj) {
+        removeToManyTarget("identities", obj, true);
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<PersonIdentity> getIdentities() {
+        return (List<PersonIdentity>)readProperty("identities");
     }
 
     public void setPrimaryIdentity(PersonIdentity primaryIdentity) {
@@ -114,10 +114,10 @@ public abstract class _Person extends AbstractPersistentWithId {
         }
 
         switch(propName) {
-            case "personEvents":
-                return this.personEvents;
-            case "personIdentities":
-                return this.personIdentities;
+            case "events":
+                return this.events;
+            case "identities":
+                return this.identities;
             case "primaryIdentity":
                 return this.primaryIdentity;
             case "relationshipAsChild":
@@ -138,11 +138,11 @@ public abstract class _Person extends AbstractPersistentWithId {
         }
 
         switch (propName) {
-            case "personEvents":
-                this.personEvents = val;
+            case "events":
+                this.events = val;
                 break;
-            case "personIdentities":
-                this.personIdentities = val;
+            case "identities":
+                this.identities = val;
                 break;
             case "primaryIdentity":
                 this.primaryIdentity = val;
@@ -172,8 +172,8 @@ public abstract class _Person extends AbstractPersistentWithId {
     @Override
     protected void writeState(ObjectOutputStream out) throws IOException {
         super.writeState(out);
-        out.writeObject(this.personEvents);
-        out.writeObject(this.personIdentities);
+        out.writeObject(this.events);
+        out.writeObject(this.identities);
         out.writeObject(this.primaryIdentity);
         out.writeObject(this.relationshipAsChild);
         out.writeObject(this.relationshipsAsPrimary);
@@ -183,8 +183,8 @@ public abstract class _Person extends AbstractPersistentWithId {
     @Override
     protected void readState(ObjectInputStream in) throws IOException, ClassNotFoundException {
         super.readState(in);
-        this.personEvents = in.readObject();
-        this.personIdentities = in.readObject();
+        this.events = in.readObject();
+        this.identities = in.readObject();
         this.primaryIdentity = in.readObject();
         this.relationshipAsChild = in.readObject();
         this.relationshipsAsPrimary = in.readObject();

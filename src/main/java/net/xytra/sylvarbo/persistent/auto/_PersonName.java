@@ -24,13 +24,13 @@ public abstract class _PersonName extends AbstractPersistentWithId {
     public static final Property<String> NAME = Property.create("name", String.class);
     public static final Property<Short> SEQ_NUM = Property.create("seqNum", Short.class);
     public static final Property<String> TYPE = Property.create("type", String.class);
-    public static final Property<PersonIdentity> PERSON_IDENTITY = Property.create("personIdentity", PersonIdentity.class);
+    public static final Property<PersonIdentity> IDENTITY = Property.create("identity", PersonIdentity.class);
 
     protected String name;
     protected short seqNum;
     protected String type;
 
-    protected Object personIdentity;
+    protected Object identity;
 
     public void setName(String name) {
         beforePropertyWrite("name", this.name, name);
@@ -62,12 +62,12 @@ public abstract class _PersonName extends AbstractPersistentWithId {
         return this.type;
     }
 
-    public void setPersonIdentity(PersonIdentity personIdentity) {
-        setToOneTarget("personIdentity", personIdentity, true);
+    public void setIdentity(PersonIdentity identity) {
+        setToOneTarget("identity", identity, true);
     }
 
-    public PersonIdentity getPersonIdentity() {
-        return (PersonIdentity)readProperty("personIdentity");
+    public PersonIdentity getIdentity() {
+        return (PersonIdentity)readProperty("identity");
     }
 
     @Override
@@ -83,8 +83,8 @@ public abstract class _PersonName extends AbstractPersistentWithId {
                 return this.seqNum;
             case "type":
                 return this.type;
-            case "personIdentity":
-                return this.personIdentity;
+            case "identity":
+                return this.identity;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -106,8 +106,8 @@ public abstract class _PersonName extends AbstractPersistentWithId {
             case "type":
                 this.type = (String)val;
                 break;
-            case "personIdentity":
-                this.personIdentity = val;
+            case "identity":
+                this.identity = val;
                 break;
             default:
                 super.writePropertyDirectly(propName, val);
@@ -128,7 +128,7 @@ public abstract class _PersonName extends AbstractPersistentWithId {
         out.writeObject(this.name);
         out.writeShort(this.seqNum);
         out.writeObject(this.type);
-        out.writeObject(this.personIdentity);
+        out.writeObject(this.identity);
     }
 
     @Override
@@ -137,7 +137,7 @@ public abstract class _PersonName extends AbstractPersistentWithId {
         this.name = (String)in.readObject();
         this.seqNum = in.readShort();
         this.type = (String)in.readObject();
-        this.personIdentity = in.readObject();
+        this.identity = in.readObject();
     }
 
 }
