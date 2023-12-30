@@ -39,7 +39,16 @@
      </tr>
      <tr>
       <td>Events</td>
-      <td>... todo ...</td>
+      <td>
+       <table border="1">
+        <t:loop source="viewedObject.events" index="currentEventIndex">
+         <tr>
+          <td>${currentEvent.displayedType}</td>
+          <td>${currentEvent.displayedDate}</td>
+         </tr>
+        </t:loop>
+       </table>
+      </td>
      </tr>
      <tr>
       <td>Parents</td>

@@ -10,12 +10,12 @@
 		<db-attribute name="PRIMARY_IDENTITY_ID" type="BIGINT" isMandatory="true"/>
 	</db-entity>
 	<db-entity name="XSA_PERSON_EVENT">
-		<db-attribute name="APPROXIMATION" type="VARCHAR" length="4"/>
+		<db-attribute name="APPROXIMATION" type="VARCHAR" length="8"/>
 		<db-attribute name="DTM" type="BIGINT" isMandatory="true"/>
 		<db-attribute name="ID" type="BIGINT" isPrimaryKey="true" isMandatory="true"/>
 		<db-attribute name="PERSON_ID" type="BIGINT" isMandatory="true"/>
 		<db-attribute name="PRECISION" type="VARCHAR" isMandatory="true" length="8"/>
-		<db-attribute name="TYPE" type="VARCHAR" isMandatory="true" length="4"/>
+		<db-attribute name="TYPE" type="VARCHAR" isMandatory="true" length="8"/>
 	</db-entity>
 	<db-entity name="XSA_PERSON_IDENTITY">
 		<db-attribute name="END_DATE" type="BIGINT"/>
@@ -37,7 +37,7 @@
 		<db-attribute name="TYPE" type="VARCHAR" length="4"/>
 	</db-entity>
 	<db-entity name="XSA_RELATIONSHIP_EVENT">
-		<db-attribute name="APPROXIMATION" type="VARCHAR" length="4"/>
+		<db-attribute name="APPROXIMATION" type="VARCHAR" length="8"/>
 		<db-attribute name="DTM" type="BIGINT"/>
 		<db-attribute name="ID" type="BIGINT" isPrimaryKey="true" isMandatory="true"/>
 		<db-attribute name="PRECISION" type="VARCHAR" length="8"/>

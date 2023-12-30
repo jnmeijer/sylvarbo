@@ -11,6 +11,7 @@ import org.apache.tapestry5.services.PageRenderLinkSource;
 import net.xytra.sylvarbo.base.AbstractViewPage;
 import net.xytra.sylvarbo.enums.NameStyle;
 import net.xytra.sylvarbo.persistent.Person;
+import net.xytra.sylvarbo.persistent.PersonEvent;
 import net.xytra.sylvarbo.persistent.PersonIdentity;
 
 /**
@@ -19,6 +20,9 @@ import net.xytra.sylvarbo.persistent.PersonIdentity;
 public class PersonView extends AbstractViewPage<Person> {
     @Inject
     private PageRenderLinkSource linkSource;
+
+    @Property
+    private int currentEventIndex;
 
     @Property
     private int currentIdentityIndex;
@@ -76,6 +80,16 @@ public class PersonView extends AbstractViewPage<Person> {
         return null;
     }
 
+    // --- Event
+    public PersonEvent getCurrentEvent() {
+        return getEventForIndex(currentEventIndex);
+    }
+
+    private PersonEvent getEventForIndex(int index) {
+        return viewedObject.getEvents().get(index);
+    }
+
+    // --- Identity
     public PersonIdentity getCurrentIdentity() {
         return getIdentityForIndex(currentIdentityIndex);
     }
