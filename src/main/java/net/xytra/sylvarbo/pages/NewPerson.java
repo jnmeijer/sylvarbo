@@ -56,14 +56,16 @@ public class NewPerson extends AbstractEditPage<PersonIdentity> {
         short seqNum = 0; // Start at zero
 
         for (int i=0; i<style.getTypes().length; i++) {
-            String[] parts = StringUtils.split(namesArray[i]);
+            String[] parts = StringUtils.split(namesArray[i], ',');
             if (parts != null && parts.length > 0) {
                 for (String currentPart: parts) {
-                    PersonName name = context().newObject(PersonName.class);
-                    name.setName(currentPart);
-                    name.setSeqNum(seqNum++);
-                    name.setType(style.getTypes()[i].toString());
-                    editedObject.addToPersonNames(name);
+                    if (StringUtils.isNotBlank(currentPart)) {
+                        PersonName name = context().newObject(PersonName.class);
+                        name.setName(currentPart.trim());
+                        name.setSeqNum(seqNum++);
+                        name.setType(style.getTypes()[i].toString());
+                        editedObject.addToPersonNames(name);
+                    }
                 }
             }
         }

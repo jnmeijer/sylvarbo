@@ -14,6 +14,7 @@
    </t:loop>
   </ul>
  <!-- if western ... -->
+Enter comma-separated names:
 <table>
  <t:loop source="style.types" index="currentTypeIndex">
   <tr>
