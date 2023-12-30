@@ -13,25 +13,25 @@
     <div class="col-12">
     <table border="1">
      <tr>
-      <td>Primary identity</td>
-      <td>${viewedObject.primaryIdentity.displayableName}</td>
-     </tr>
-     <tr>
       <td>All identities</td>
       <td>
-       <table border="1">
-        <t:loop source="viewedObject.identities" index="currentIdentityIndex">
-         <tr>
-          <td>${currentIdentity.displayableName}</td>
-          <td>
-           <t:if test="canDeleteIdentities">
-            <t:actionLink t:id="deleteIdentity" context="currentIdentityIndex">Delete</t:actionLink>
-            <p:else>&nbsp;</p:else>
-           </t:if>
-          </td>
-         </tr>
-        </t:loop>
-       </table>
+       <t:if test="canDeleteIdentities">
+        <table border="1">
+         <t:loop source="viewedObject.identities" index="currentIdentityIndex">
+          <tr>
+           <td>
+            <t:if test="currentIdentityIsPrimary">
+             <b>${currentIdentity.displayableName}</b>
+             <p:else>${currentIdentity.displayableName}</p:else>
+            </t:if>
+           </td>
+           <td><t:actionLink t:id="markIdentityAsPrimary" context="currentIdentityIndex">Mark as primary</t:actionLink></td>
+           <td><t:actionLink t:id="deleteIdentity" context="currentIdentityIndex">Delete</t:actionLink></td>
+          </tr>
+         </t:loop>
+        </table>
+        <p:else><b>${viewedObject.primaryIdentity.displayableName}</b></p:else>
+       </t:if>
        <br/>
        <t:select t:id="style"/>
        <t:submit t:id="addIdentity" value="Add identity"/>
