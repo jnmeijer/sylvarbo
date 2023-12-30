@@ -104,6 +104,13 @@ public class PersonIdentityAdd extends AbstractEditPage<PersonIdentity> {
         super.onValidateFromEditForm();
     }
 
+    protected Object onSuccess() {
+        // On success, need personId to be set so we can then navigate to PersonView
+        personId = editedObject.getPerson().getId().longValue();
+
+        return getSuccessPageObject();
+    }
+
     // ---- Property methods
     public NameType getCurrentType() {
         return style.getTypes()[currentTypeIndex];

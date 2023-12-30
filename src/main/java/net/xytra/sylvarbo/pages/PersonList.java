@@ -36,7 +36,7 @@ public class PersonList extends AbstractListPage<Person> {
     }
 
     protected Object onSuccess() {
-        return linkSource.createPageRenderLinkWithContext(NewPerson.class, style, NEW_OBJECT_ID);
+        return linkSource.createPageRenderLinkWithContext(PersonIdentityAdd.class, NEW_OBJECT_ID, style, NEW_OBJECT_ID);
     }
 
     public void onActionFromDelete(int id) {
