@@ -19,11 +19,19 @@
      <tr>
       <td>All identities</td>
       <td>
-       <ul>
+       <table border="1">
         <t:loop source="viewedObject.personIdentities" index="currentIdentityIndex">
-         <li>${currentIdentity.displayableName}</li>
+         <tr>
+          <td>${currentIdentity.displayableName}</td>
+          <td>
+           <t:if test="canDeleteIdentities">
+            <t:actionLink t:id="deleteIdentity" context="currentIdentityIndex">Delete</t:actionLink>
+            <p:else>&nbsp;</p:else>
+           </t:if>
+          </td>
+         </tr>
         </t:loop>
-       </ul>
+       </table>
        <br/>
        <t:select t:id="style"/>
        <t:submit t:id="addIdentity" value="Add identity"/>
