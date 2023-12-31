@@ -3,7 +3,7 @@ package net.xytra.sylvarbo.enums;
 /*
  * Not used for exact dates.
  */
-public enum DateApproximation {
+public enum DateApproximation implements DisplayableEnum {
     LT("<"),
     LTE("<="),
     GT(">"),

@@ -1,0 +1,41 @@
+<html t:type="layout" title="Add an Event | sylvarbo"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_4.xsd"
+      xmlns:p="tapestry:parameter">
+
+<div class="row">
+    <div class="col-12">
+        <h1>Add an Event</h1>
+
+
+ <t:form t:id="editForm">
+  <ul>
+   <t:loop source="validationErrors" value="currentError">
+    <li><font color="red">${currentError}</font></li>
+   </t:loop>
+  </ul>
+ <!-- if western ... -->
+Enter comma-separated names:
+<table>
+ <tr>
+  <td>Type</td>
+  <td><t:select t:id="eventType" model="eventTypeModel"/></td>
+ </tr>
+ <tr>
+  <td>Precision</td>
+  <td><t:select t:id="precision" model="precisionModel"/></td>
+ </tr>
+ <tr>
+  <td>Approximation</td>
+  <td><t:select t:id="approximation" model="approximationModel"/></td>
+ </tr>
+ <tr>
+  <td>Date</td>
+  <td><t:textfield value="dateField"/></td>
+ </tr>
+</table>
+  <t:actionLink t:id="cancel">Cancel</t:actionLink> - <t:submit value="Save"/>
+ </t:form>
+    </div>
+</div>
+
+</html>

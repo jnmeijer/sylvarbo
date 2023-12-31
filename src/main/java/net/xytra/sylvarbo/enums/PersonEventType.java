@@ -1,19 +1,19 @@
 package net.xytra.sylvarbo.enums;
 
-public enum PersonEventType {
+public enum PersonEventType implements DisplayableEnum {
     BIRTH("Birth"),
     BAPTISM("Baptism"),
     DEATH("Death"),
     BURIAL("Burial");
 
-    private String displayName;
+    private String displayed;
 
-    private PersonEventType(String displayName) {
-        this.displayName = displayName;
+    private PersonEventType(String displayed) {
+        this.displayed = displayed;
     }
 
-    public String getDisplayName() {
-        return displayName;
+    public String getDisplayed() {
+        return displayed;
     }
 
 }

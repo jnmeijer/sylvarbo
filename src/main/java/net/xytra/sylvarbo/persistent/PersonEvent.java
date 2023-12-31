@@ -15,14 +15,22 @@ public class PersonEvent extends _PersonEvent {
     private String displayedDate;
 
     public String getDisplayedType() {
-        return PersonEventType.valueOf(getType()).getDisplayName();
+        return PersonEventType.valueOf(getType()).getDisplayed();
     }
 
     public String getDisplayedDate() {
         // With approximation
         if (displayedDate == null) {
-            displayedDate = DateApproximation.valueOf(getApproximation()).getDisplayed() + ' ' +
-                    new SimpleDateFormat(DatePrecision.valueOf(getPrecision()).getDateFormat()).format(getDate());
+            StringBuilder sb = new StringBuilder();
+
+            DateApproximation approximation = getApproximationEnum();
+            if (approximation != null) {
+                sb.append(approximation.getDisplayed()).append(' ');
+            }
+
+            sb.append(new SimpleDateFormat(DatePrecision.valueOf(getPrecision()).getDateFormat()).format(getDate()));
+
+            displayedDate = sb.toString();
         }
 
         return displayedDate;
@@ -33,6 +41,37 @@ public class PersonEvent extends _PersonEvent {
      */
     private Date getDate() {
         return new Date(getDtm());
+    }
+
+    // Enum accessors/getters
+    public PersonEventType getTypeEnum() {
+        String typeStr = getType();
+
+        if (typeStr == null) {
+            return null;
+        } else {
+            return PersonEventType.valueOf(typeStr);
+        }
+    }
+
+    public DateApproximation getApproximationEnum() {
+        String approximationStr = getApproximation();
+
+        if (approximationStr == null) {
+            return null;
+        } else {
+            return DateApproximation.valueOf(approximationStr);
+        }
+    }
+
+    public DatePrecision getPrecisionEnum() {
+        String precisionStr = getPrecision();
+
+        if (precisionStr == null) {
+            return null;
+        } else {
+            return DatePrecision.valueOf(precisionStr);
+        }
     }
 
 }

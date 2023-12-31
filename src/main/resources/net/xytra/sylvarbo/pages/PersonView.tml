@@ -48,6 +48,7 @@
          </tr>
         </t:loop>
        </table>
+       <t:pageLink page="PersonEventAdd" context="[viewedObject.id, 'new']">Add event</t:pageLink>
       </td>
      </tr>
      <tr>

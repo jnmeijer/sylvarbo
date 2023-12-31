@@ -19,7 +19,7 @@ import net.xytra.common.cayenne.persistent.AbstractPersistentWithId;
 // page to edit a persisted object
 public abstract class AbstractEditPage<T extends AbstractPersistentWithId> extends AbstractTypedPage<T> {
     @Component
-    private Form editForm;
+    protected Form editForm;
 
     @Property
     protected T editedObject;
