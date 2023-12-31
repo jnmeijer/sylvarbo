@@ -51,6 +51,19 @@ public class PersonView extends AbstractViewPage<Person> {
         }
     }
 
+    Object onActionFromDeleteEvent(int index) {
+        PersonEvent event = getEventForIndex(index);
+        viewedObject.removeFromEvents(event);
+
+        context().deleteObject(event);
+
+        // Save changes
+        context().commitChanges();
+
+        // Return to same page
+        return null;
+    }
+
     Object onActionFromDeleteIdentity(int index) {
         PersonIdentity identity = getIdentityForIndex(index);
         viewedObject.removeFromIdentities(identity);

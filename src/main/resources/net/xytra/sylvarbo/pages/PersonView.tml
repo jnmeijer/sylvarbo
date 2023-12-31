@@ -45,6 +45,7 @@
          <tr>
           <td>${currentEvent.displayedType}</td>
           <td>${currentEvent.displayedDate}</td>
+          <td><t:actionLink t:id="deleteEvent" context="currentEventIndex">Delete</t:actionLink></td>
          </tr>
         </t:loop>
        </table>
