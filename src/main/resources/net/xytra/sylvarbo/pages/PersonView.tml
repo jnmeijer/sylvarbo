@@ -54,11 +54,67 @@
      </tr>
      <tr>
       <td>Parents</td>
-      <td>... todo ...</td>
+      <td>
+       <t:if test="viewedObject.relationshipAsChild">
+        <ul>
+         <li>
+          <t:if test="viewedObject.relationshipAsChild.primaryParent">
+           <t:pageLink page="PersonView" context="viewedObject.relationshipAsChild.primaryParent.id">${viewedObject.relationshipAsChild.primaryParent.primaryIdentity.displayableName}</t:pageLink>
+           <p:else>(unspecified)</p:else>
+          </t:if>
+         </li>
+         <li>
+          <t:if test="viewedObject.relationshipAsChild.secondaryParent">
+           <t:pageLink page="PersonView" context="viewedObject.relationshipAsChild.secondaryParent.id">${viewedObject.relationshipAsChild.secondaryParent.primaryIdentity.displayableName}</t:pageLink>
+           <p:else>(unspecified)</p:else>
+          </t:if>
+         </li>
+        </ul>
+        <t:pageLink page="RelationshipView" context="viewedObject.relationshipAsChild.id">View relationship</t:pageLink>
+        <p:else>Create relationship TODO</p:else>
+       </t:if>
+      </td>
      </tr>
      <tr>
       <td>Relationships</td>
-      <td>... todo ...</td>
+      <td>
+       <ul>
+        <t:loop source="viewedObject.relationshipsAsPrimary" index="currentRelationshipIndex">
+         <li>
+          <t:if test="currentRelationshipAsPrimary.secondaryParent">
+           With <t:pageLink page="PersonView" context="currentRelationshipAsPrimary.secondaryParent.id">${currentRelationshipAsPrimary.secondaryParent.primaryIdentity.displayableName}</t:pageLink>
+           <p:else><i>No partner indicated</i></p:else>
+          </t:if>
+          &nbsp;(<t:pageLink page="RelationshipView" context="currentRelationshipAsPrimary.id">View relationship</t:pageLink>)
+          <t:if test="currentRelationshipAsPrimary.children">
+           <ul>
+            <t:loop source="currentRelationshipAsPrimary.children" index="currentChildIndex">
+             <li><t:pageLink page="PersonView" context="currentChildAsPrimary.id">${currentChildAsPrimary.primaryIdentity.displayableName}</t:pageLink></li>
+            </t:loop>
+           </ul>
+           <p:else><br/><i>No children</i></p:else>
+          </t:if>
+         </li>
+        </t:loop>
+        <t:loop source="viewedObject.relationshipsAsSecondary" index="currentRelationshipIndex">
+         <li>
+          <t:if test="currentRelationshipAsSecondary.secondaryParent">
+           With <t:pageLink page="PersonView" context="currentRelationshipAsSecondary.primaryParent.id">${currentRelationshipAsSecondary.primaryParent.primaryIdentity.displayableName}</t:pageLink>
+           <p:else><i>No partner indicated</i></p:else>
+          </t:if>
+          &nbsp;(<t:pageLink page="RelationshipView" context="currentRelationshipAsSecondary.id">View relationship</t:pageLink>)
+          <t:if test="currentRelationshipAsSecondary.children">
+           <ul>
+            <t:loop source="currentRelationshipAsSecondary.children" index="currentChildIndex">
+             <li><t:pageLink page="PersonView" context="currentChildAsSecondary.id">${currentChildAsSecondary.primaryIdentity.displayableName}</t:pageLink></li>
+            </t:loop>
+           </ul>
+           <p:else><br/><i>No children</i></p:else>
+          </t:if>
+         </li>
+        </t:loop>
+       </ul>
+      </td>
      </tr>
     </table>
 

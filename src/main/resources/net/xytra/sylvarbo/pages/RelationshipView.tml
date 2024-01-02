@@ -1,0 +1,66 @@
+<html t:type="layout" title="View Relationship | sylvarbo"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_4.xsd"
+      xmlns:p="tapestry:parameter">
+
+<div class="row">
+    <div class="col-12">
+        <h1>View Relationship</h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+    <table border="1">
+     <tr>
+      <td>Parents</td>
+      <td>
+       <ul>
+        <li>
+         <t:if test="viewedObject.primaryParent">
+          <t:pageLink page="PersonView" context="viewedObject.primaryParent.id">${viewedObject.primaryParent.primaryIdentity.displayableName}</t:pageLink>
+          &nbsp;<t:actionLink t:id="removePrimaryParent">Remove</t:actionLink>
+          <p:else>Pick parent</p:else>
+         </t:if>
+        </li>
+        <li>
+         <t:if test="viewedObject.secondaryParent">
+          <t:pageLink page="PersonView" context="viewedObject.secondaryParent.id">${viewedObject.secondaryParent.primaryIdentity.displayableName}</t:pageLink>
+          &nbsp;<t:actionLink t:id="removeSecondaryParent">Remove</t:actionLink>
+          <p:else>Pick parent</p:else>
+         </t:if>
+        </li>
+       </ul>
+      </td>
+     </tr>
+     <tr>
+      <td>Events</td>
+      <td>
+       <table border="1">
+        <tr><td>placeholder</td></tr>
+       </table>
+       Add event
+      </td>
+     </tr>
+     <tr>
+      <td>Children</td>
+      <td>
+       <ul>
+        <t:loop source="viewedObject.children" index="currentChildIndex">
+         <li>
+          <t:pageLink page="PersonView" context="currentChild.id">${currentChild.primaryIdentity.displayableName}</t:pageLink>
+          &nbsp;<t:actionLink t:id="removeChild" context="currentChildIndex">Remove</t:actionLink>
+         </li>
+        </t:loop>
+       </ul>
+       Add child TODO
+      </td>
+     </tr>
+    </table>
+
+    </div>
+</div>
+ 
+
+<t:actionLink t:id="return">Return</t:actionLink>
+
+</html>

@@ -13,6 +13,7 @@ import net.xytra.sylvarbo.enums.NameStyle;
 import net.xytra.sylvarbo.persistent.Person;
 import net.xytra.sylvarbo.persistent.PersonEvent;
 import net.xytra.sylvarbo.persistent.PersonIdentity;
+import net.xytra.sylvarbo.persistent.Relationship;
 
 /**
  * First page when creating a new person is actually creating the primaryIdentity name
@@ -22,10 +23,16 @@ public class PersonView extends AbstractViewPage<Person> {
     private PageRenderLinkSource linkSource;
 
     @Property
+    private int currentChildIndex;
+
+    @Property
     private int currentEventIndex;
 
     @Property
     private int currentIdentityIndex;
+
+    @Property
+    private int currentRelationshipIndex;
 
     @Property
     @Validate("required")
@@ -93,6 +100,15 @@ public class PersonView extends AbstractViewPage<Person> {
         return null;
     }
 
+    // --- Child
+    public Person getCurrentChildAsPrimary() {
+        return getCurrentRelationshipAsPrimary().getChildren().get(currentChildIndex);
+    }
+
+    public Person getCurrentChildAsSecondary() {
+        return getCurrentRelationshipAsSecondary().getChildren().get(currentChildIndex);
+    }
+
     // --- Event
     public PersonEvent getCurrentEvent() {
         return getEventForIndex(currentEventIndex);
@@ -117,6 +133,15 @@ public class PersonView extends AbstractViewPage<Person> {
 
     public boolean getCurrentIdentityIsPrimary() {
         return getCurrentIdentity().equals(viewedObject.getPrimaryIdentity());
+    }
+
+    // --- Relationships
+    public Relationship getCurrentRelationshipAsPrimary() {
+        return viewedObject.getRelationshipsAsPrimary().get(currentRelationshipIndex);
+    }
+
+    public Relationship getCurrentRelationshipAsSecondary() {
+        return viewedObject.getRelationshipsAsSecondary().get(currentRelationshipIndex);
     }
 
     @Override
