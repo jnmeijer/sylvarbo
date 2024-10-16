@@ -121,11 +121,25 @@ public class PickPerson extends AbstractTypedPage<Person> {
         Person person = Cayenne.objectForPK(context(), Person.class, personId);
 
         if (relationship != null && person != null) {
+            boolean wasSet = false;
+
             if ("c".equals(pickType)) {
                 relationship.addToChildren(person);
-                context().commitChanges();
+                wasSet = true;
+            } else if ("p1".equals(pickType)) {
+                relationship.setPrimaryParent(person);
+                wasSet = true;
+            } else if ("p2".equals(pickType)) {
+                relationship.setSecondaryParent(person);
+                wasSet = true;
             }
-            System.err.println("--- Success!");
+
+            if (wasSet) {
+                context().commitChanges();
+                System.err.println("--- Success!");
+            } else {
+                throw new RuntimeException("Invalid relationship link type! " + pickType);
+            }
         } else {
             System.err.println("--- No object found!");
         }

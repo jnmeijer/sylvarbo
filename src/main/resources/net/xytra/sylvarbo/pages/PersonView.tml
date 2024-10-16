@@ -71,7 +71,7 @@
          </li>
         </ul>
         <t:pageLink page="RelationshipView" context="viewedObject.relationshipAsChild.id">View relationship</t:pageLink>
-        <p:else>Create relationship TODO</p:else>
+        <p:else><t:pageLink page="RelationshipView" context="['new', 'c', viewedObject.id]">Create relationship as child</t:pageLink></p:else>
        </t:if>
       </td>
      </tr>
@@ -114,6 +114,7 @@
          </li>
         </t:loop>
        </ul>
+       Create relationship as <t:pageLink page="RelationshipView" context="['new', 'p1', viewedObject.id]">primary</t:pageLink> or <t:pageLink page="RelationshipView" context="['new', 'p2', viewedObject.id]">secondary</t:pageLink> parent.
       </td>
      </tr>
     </table>
@@ -121,7 +122,5 @@
     </div>
 </div>
  </t:form>
-
-<t:actionLink t:id="return">Return</t:actionLink>
 
 </html>

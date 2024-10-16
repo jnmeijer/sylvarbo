@@ -42,18 +42,18 @@ public abstract class AbstractViewPage<T extends AbstractPersistentWithId> exten
         System.err.println("--- AbstractViewPage.activate() with id="+id);
         if (NUMBER_PATTERN.matcher(id).matches()) {
             viewedObject = Cayenne.objectForPK(context(), getObjectType(), parseIdString(id));
-        } else if (NEW_OBJECT_ID.equals(id)) {
+        /*} else if (NEW_OBJECT_ID.equals(id)) {
             viewedObject = context().newObject(getObjectType());
             context().setUserProperty(viewedObject.getUuid(), viewedObject);
         } else { // assume UUID String
             viewedObject = (T)context().getUserProperty(id);
             System.err.println("---- AbstractViewPage.activate() obtained viewedObject="+viewedObject);
-        }
+        */}
     }
 
-    protected Object onActionFromReturn() {
+    /*protected Object onActionFromReturn() {
         return getReturnPageObject();
-    }
+    }*/
 
     protected abstract Number parseIdString(String id);
 
