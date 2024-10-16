@@ -52,7 +52,7 @@
          </li>
         </t:loop>
        </ul>
-       Add child TODO
+       <t:pageLink page="PickPerson" context="[viewedObject.id, 'c']">Add child</t:pageLink>
       </td>
      </tr>
     </table>

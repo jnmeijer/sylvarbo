@@ -1,0 +1,36 @@
+<html t:type="layout" title="Pick a Person | sylvarbo"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_4.xsd"
+      xmlns:p="tapestry:parameter">
+
+<div class="row">
+    <div class="col-12">
+        <h1>Pick a Person</h1>
+    </div>
+</div>
+
+<t:form t:id="searchForm">
+ <table border="0">
+  <tr>
+   <td>Given name</td>
+   <td><t:textfield value="criteria.givenName"/></td>
+  </tr>
+  <tr>
+   <td>Patronym</td>
+   <td><t:textfield value="criteria.patronym"/></td>
+  </tr>
+  <tr>
+   <td>Surname</td>
+   <td><t:textfield value="criteria.surname"/></td>
+  </tr>
+ </table>
+ <t:submit value="Search"/>
+</t:form>
+
+<t:grid source="results" row="currentPersonIdentity" include="id" add="name,pick">
+ <p:nameCell>${currentPersonIdentity.displayableName}</p:nameCell>
+ <p:pickCell>
+  <t:actionLink t:id="pick" context="currentPersonIdentity.person.id">Pick</t:actionLink>
+ </p:pickCell>
+</t:grid>
+
+</html>
