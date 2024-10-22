@@ -1,0 +1,27 @@
+<html t:type="layout" title="View a person's ancestry | sylvarbo"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_4.xsd"
+      xmlns:p="tapestry:parameter">
+
+<div class="row">
+    <div class="col-12">
+        <h1>View Ancestry</h1>
+    </div>
+</div>
+
+<table border="1">
+ <tr>
+  <t:loop source="headers" value="currentHeader">
+   <th>${currentHeader}</th>
+  </t:loop>
+ </tr>
+ <t:loop source="rowIds" value="currentRowId">
+  <tr>
+   <t:loop source="itemsForCurrentRowId" value="currentRowItem">
+    <td colspan="${currentRowItem.colSpan}" rowspan="${currentRowItem.rowSpan}">
+     <t:if test="isCurrentRowItemAPerson">${currentRowItem.identifier}. ${currentRowItemPerson.primaryIdentity.displayableName}<p:else>${currentRowItem.item}</p:else></t:if>
+    </td>
+   </t:loop>
+  </tr>
+ </t:loop>
+</table>
+</html>
