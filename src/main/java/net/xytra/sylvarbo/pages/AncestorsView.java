@@ -13,7 +13,9 @@ import org.apache.tapestry5.services.PageRenderLinkSource;
 
 import net.xytra.sylvarbo.AncestorsViewRowItem;
 import net.xytra.sylvarbo.base.AbstractViewPage;
+import net.xytra.sylvarbo.enums.PersonEventType;
 import net.xytra.sylvarbo.persistent.Person;
+import net.xytra.sylvarbo.persistent.PersonEvent;
 import net.xytra.sylvarbo.persistent.Relationship;
 
 /**
@@ -92,6 +94,49 @@ public class AncestorsView extends AbstractViewPage<Person> {
 
     public Person getCurrentRowItemPerson() {
         return (Person)currentRowItem.getItem();
+    }
+
+    // Details
+    public String getBirthOrBaptismLine() {
+        PersonEvent birth = null;
+        PersonEvent baptism = null;
+
+        for (PersonEvent event: getCurrentRowItemPerson().getEvents().values()) {
+            if (event.getTypeEnum() == PersonEventType.BIRTH) {
+                birth = event;
+            } else if (event.getTypeEnum() == PersonEventType.BAPTISM) {
+                baptism = event;
+            }
+        }
+
+        if (birth != null) {
+            return ("n. " + birth.getDisplayedDate());
+        } else if (baptism != null) {
+            return ("b. " + baptism.getDisplayedDate());
+        } else {
+            return null;
+        }
+    }
+
+    public String getDeathOrBurialLine() {
+        PersonEvent death = null;
+        PersonEvent burial = null;
+
+        for (PersonEvent event: getCurrentRowItemPerson().getEvents().values()) {
+            if (event.getTypeEnum() == PersonEventType.DEATH) {
+                death = event;
+            } else if (event.getTypeEnum() == PersonEventType.BURIAL) {
+                burial = event;
+            }
+        }
+
+        if (death != null) {
+            return ("d. " + death.getDisplayedDate());
+        } else if (burial != null) {
+            return ("s. " + burial.getDisplayedDate());
+        } else {
+            return null;
+        }
     }
 
     // Headers

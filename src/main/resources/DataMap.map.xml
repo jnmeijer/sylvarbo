@@ -13,6 +13,7 @@
 		<db-attribute name="APPROXIMATION" type="VARCHAR" length="8"/>
 		<db-attribute name="DTM" type="BIGINT" isMandatory="true"/>
 		<db-attribute name="ID" type="BIGINT" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="LOCATION_DESC" type="VARCHAR" length="256"/>
 		<db-attribute name="PERSON_ID" type="BIGINT" isMandatory="true"/>
 		<db-attribute name="PRECISION" type="VARCHAR" isMandatory="true" length="8"/>
 		<db-attribute name="TYPE" type="VARCHAR" isMandatory="true" length="8"/>
@@ -48,6 +49,7 @@
 	<obj-entity name="PersonEvent" className="net.xytra.sylvarbo.persistent.PersonEvent" dbEntityName="XSA_PERSON_EVENT" superClassName="net.xytra.common.cayenne.persistent.AbstractPersistentWithId">
 		<obj-attribute name="approximation" type="java.lang.String" lock="true" db-attribute-path="APPROXIMATION"/>
 		<obj-attribute name="dtm" type="long" lock="true" db-attribute-path="DTM"/>
+		<obj-attribute name="locationDesc" type="java.lang.String" db-attribute-path="LOCATION_DESC"/>
 		<obj-attribute name="precision" type="java.lang.String" lock="true" db-attribute-path="PRECISION"/>
 		<obj-attribute name="type" type="java.lang.String" lock="true" db-attribute-path="TYPE"/>
 	</obj-entity>
@@ -114,7 +116,7 @@
 	<db-relationship name="relationship" source="XSA_RELATIONSHIP_EVENT" target="XSA_RELATIONSHIP">
 		<db-attribute-pair source="RELATIONSHIP_ID" target="ID"/>
 	</db-relationship>
-	<obj-relationship name="events" source="Person" target="PersonEvent" deleteRule="Cascade" db-relationship-path="personEvents"/>
+	<obj-relationship name="events" source="Person" target="PersonEvent" collection-type="java.util.Map" deleteRule="Cascade" db-relationship-path="personEvents"/>
 	<obj-relationship name="identities" source="Person" target="PersonIdentity" deleteRule="Cascade" db-relationship-path="personIdentities"/>
 	<obj-relationship name="primaryIdentity" source="Person" target="PersonIdentity" deleteRule="Nullify" db-relationship-path="primaryIdentity"/>
 	<obj-relationship name="relationshipAsChild" source="Person" target="Relationship" deleteRule="Nullify" db-relationship-path="relationshipAsChild"/>

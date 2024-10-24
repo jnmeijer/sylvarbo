@@ -32,6 +32,10 @@ Enter comma-separated names:
   <td>Date</td>
   <td><t:textfield value="dateField"/></td>
  </tr>
+ <tr>
+  <td>Location</td>
+  <td><t:textfield value="location"/></td>
+ </tr>
 </table>
   <t:actionLink t:id="cancel">Cancel</t:actionLink> - <t:submit value="Save"/>
  </t:form>

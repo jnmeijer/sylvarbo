@@ -43,6 +43,9 @@ public class PersonEventAdd extends AbstractEditPage<PersonEvent> {
     private String dateField;
 
     @Property
+    private String location;
+
+    @Property
     private Long personId;
 
     // --- Passivate/Activate
@@ -86,6 +89,7 @@ public class PersonEventAdd extends AbstractEditPage<PersonEvent> {
         editedObject.setType(eventType != null ? eventType.toString() : null);
         editedObject.setPrecision(precision != null ? precision.toString() : null);
         editedObject.setApproximation(approximation != null ? approximation.toString() : null);
+        editedObject.setLocationDesc(location);
 
         // Figure out the date if possible
         if (precision != null && StringUtils.isNotBlank(dateField)) {
@@ -104,6 +108,10 @@ public class PersonEventAdd extends AbstractEditPage<PersonEvent> {
         editedObject.setPerson(person);
 
         super.onValidateFromEditForm();
+
+        // The following is required otherwise the new item does not get shown
+        // in the events list of PersonView:
+        context().invalidateObjects(person);
     }
 
     // ---- Models

@@ -74,4 +74,8 @@ public class PersonEvent extends _PersonEvent {
         }
     }
 
+    public Long getId() {
+        return (Long)getObjectId().getIdSnapshot().get("ID");
+    }
+
 }

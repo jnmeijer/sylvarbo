@@ -23,12 +23,14 @@ public abstract class _PersonEvent extends AbstractPersistentWithId {
 
     public static final Property<String> APPROXIMATION = Property.create("approximation", String.class);
     public static final Property<Long> DTM = Property.create("dtm", Long.class);
+    public static final Property<String> LOCATION_DESC = Property.create("locationDesc", String.class);
     public static final Property<String> PRECISION = Property.create("precision", String.class);
     public static final Property<String> TYPE = Property.create("type", String.class);
     public static final Property<Person> PERSON = Property.create("person", Person.class);
 
     protected String approximation;
     protected long dtm;
+    protected String locationDesc;
     protected String precision;
     protected String type;
 
@@ -52,6 +54,16 @@ public abstract class _PersonEvent extends AbstractPersistentWithId {
     public long getDtm() {
         beforePropertyRead("dtm");
         return this.dtm;
+    }
+
+    public void setLocationDesc(String locationDesc) {
+        beforePropertyWrite("locationDesc", this.locationDesc, locationDesc);
+        this.locationDesc = locationDesc;
+    }
+
+    public String getLocationDesc() {
+        beforePropertyRead("locationDesc");
+        return this.locationDesc;
     }
 
     public void setPrecision(String precision) {
@@ -93,6 +105,8 @@ public abstract class _PersonEvent extends AbstractPersistentWithId {
                 return this.approximation;
             case "dtm":
                 return this.dtm;
+            case "locationDesc":
+                return this.locationDesc;
             case "precision":
                 return this.precision;
             case "type":
@@ -116,6 +130,9 @@ public abstract class _PersonEvent extends AbstractPersistentWithId {
                 break;
             case "dtm":
                 this.dtm = val == null ? 0 : (long)val;
+                break;
+            case "locationDesc":
+                this.locationDesc = (String)val;
                 break;
             case "precision":
                 this.precision = (String)val;
@@ -144,6 +161,7 @@ public abstract class _PersonEvent extends AbstractPersistentWithId {
         super.writeState(out);
         out.writeObject(this.approximation);
         out.writeLong(this.dtm);
+        out.writeObject(this.locationDesc);
         out.writeObject(this.precision);
         out.writeObject(this.type);
         out.writeObject(this.person);
@@ -154,6 +172,7 @@ public abstract class _PersonEvent extends AbstractPersistentWithId {
         super.readState(in);
         this.approximation = (String)in.readObject();
         this.dtm = in.readLong();
+        this.locationDesc = (String)in.readObject();
         this.precision = (String)in.readObject();
         this.type = (String)in.readObject();
         this.person = in.readObject();

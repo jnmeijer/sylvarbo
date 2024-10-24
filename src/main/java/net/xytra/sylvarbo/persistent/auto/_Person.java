@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.cayenne.exp.Property;
 
@@ -24,7 +25,7 @@ public abstract class _Person extends AbstractPersistentWithId {
 
     public static final String ID_PK_COLUMN = "ID";
 
-    public static final Property<List<PersonEvent>> EVENTS = Property.create("events", List.class);
+    public static final Property<Map<Object, PersonEvent>> EVENTS = Property.create("events", Map.class);
     public static final Property<List<PersonIdentity>> IDENTITIES = Property.create("identities", List.class);
     public static final Property<PersonIdentity> PRIMARY_IDENTITY = Property.create("primaryIdentity", PersonIdentity.class);
     public static final Property<Relationship> RELATIONSHIP_AS_CHILD = Property.create("relationshipAsChild", Relationship.class);
@@ -48,8 +49,8 @@ public abstract class _Person extends AbstractPersistentWithId {
     }
 
     @SuppressWarnings("unchecked")
-    public List<PersonEvent> getEvents() {
-        return (List<PersonEvent>)readProperty("events");
+    public Map<Object, PersonEvent> getEvents() {
+        return (Map<Object, PersonEvent>)readProperty("events");
     }
 
     public void addToIdentities(PersonIdentity obj) {

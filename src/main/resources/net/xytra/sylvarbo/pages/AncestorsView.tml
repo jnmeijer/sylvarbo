@@ -18,7 +18,11 @@
   <tr>
    <t:loop source="itemsForCurrentRowId" value="currentRowItem">
     <td colspan="${currentRowItem.colSpan}" rowspan="${currentRowItem.rowSpan}">
-     <t:if test="isCurrentRowItemAPerson">${currentRowItem.identifier}. ${currentRowItemPerson.primaryIdentity.displayableName}<p:else>${currentRowItem.item}</p:else></t:if>
+     <t:if test="isCurrentRowItemAPerson">${currentRowItem.identifier}. ${currentRowItemPerson.primaryIdentity.displayableName}<br/>
+      <i>${birthOrBaptismLine}<br/>
+      ${deathOrBurialLine}</i>
+      <p:else><i>${currentRowItem.item}</i></p:else>
+     </t:if>
     </td>
    </t:loop>
   </tr>

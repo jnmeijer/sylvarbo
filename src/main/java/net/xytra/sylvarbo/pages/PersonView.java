@@ -26,7 +26,7 @@ public class PersonView extends AbstractViewPage<Person> {
     private int currentChildIndex;
 
     @Property
-    private int currentEventIndex;
+    private long currentEventId;
 
     @Property
     private int currentIdentityIndex;
@@ -58,8 +58,8 @@ public class PersonView extends AbstractViewPage<Person> {
         }
     }
 
-    Object onActionFromDeleteEvent(int index) {
-        PersonEvent event = getEventForIndex(index);
+    Object onActionFromDeleteEvent(long id) {
+        PersonEvent event = viewedObject.getEvents().get(id);
         viewedObject.removeFromEvents(event);
 
         context().deleteObject(event);
@@ -107,15 +107,6 @@ public class PersonView extends AbstractViewPage<Person> {
 
     public Person getCurrentChildAsSecondary() {
         return getCurrentRelationshipAsSecondary().getChildren().get(currentChildIndex);
-    }
-
-    // --- Event
-    public PersonEvent getCurrentEvent() {
-        return getEventForIndex(currentEventIndex);
-    }
-
-    private PersonEvent getEventForIndex(int index) {
-        return viewedObject.getEvents().get(index);
     }
 
     // --- Identity

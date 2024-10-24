@@ -41,11 +41,12 @@
       <td>Events</td>
       <td>
        <table border="1">
-        <t:loop source="viewedObject.events" index="currentEventIndex">
+        <t:loop source="viewedObject.eventIDsSortedByDtm" value="currentEventId">
          <tr>
-          <td>${currentEvent.displayedType}</td>
-          <td>${currentEvent.displayedDate}</td>
-          <td><t:actionLink t:id="deleteEvent" context="currentEventIndex">Delete</t:actionLink></td>
+          <td>${viewedObject.events.get(currentEventId)?.displayedType}</td>
+          <td>${viewedObject.events.get(currentEventId)?.displayedDate}</td>
+          <td>${viewedObject.events.get(currentEventId)?.locationDesc}</td>
+          <td><t:actionLink t:id="deleteEvent" context="currentEventId">Delete</t:actionLink></td>
          </tr>
         </t:loop>
        </table>
@@ -98,7 +99,7 @@
         </t:loop>
         <t:loop source="viewedObject.relationshipsAsSecondary" index="currentRelationshipIndex">
          <li>
-          <t:if test="currentRelationshipAsSecondary.secondaryParent">
+          <t:if test="currentRelationshipAsSecondary.primaryParent">
            With <t:pageLink page="PersonView" context="currentRelationshipAsSecondary.primaryParent.id">${currentRelationshipAsSecondary.primaryParent.primaryIdentity.displayableName}</t:pageLink>
            <p:else><i>No partner indicated</i></p:else>
           </t:if>
