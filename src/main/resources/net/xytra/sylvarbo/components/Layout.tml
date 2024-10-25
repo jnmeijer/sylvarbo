@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_4.xsd">
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_4.xsd"
+      xmlns:p="tapestry:parameter">
 <head>
     <meta charset="utf-8"/>
     <title>${title}</title>
@@ -27,12 +28,19 @@
                                    <t:pagelink page="prop:pageName" class="prop:classForPageName">${pageName}</t:pagelink>
                                 </t:any>
                             </t:loop>
-                            <t:any element="li" class="nav-intem">
-                                <t:actionLink t:id="personList" class="prop:classForPageName">Person List</t:actionLink>
-                            </t:any>
+                            <t:if test="${session?.user}">
+                                <t:any element="li" class="nav-intem">
+                                    <t:pagelink page="personList" class="prop:classForPageName">Person List</t:pagelink>
+                                </t:any>
+                            </t:if>
                         </ul>
                         <span class="navbar-right">
-                            <t:pagelink page="login" class="nav-link btn btn-light">Sign in</t:pagelink>
+                            <t:if test="${session?.user}">
+                                <t:actionLink t:id="logout" class="nav-link btn btn-light">Sign out</t:actionLink>
+                                <p:else>
+                                    <t:pagelink page="login" class="nav-link btn btn-light">Sign in</t:pagelink>
+                                </p:else>
+                            </t:if>
                         </span>
                     </div>
                 </div>

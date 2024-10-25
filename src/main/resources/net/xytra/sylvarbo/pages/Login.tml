@@ -6,15 +6,9 @@
     <div class="col-12">
         <t:form t:id="login">
             <h2>Please sign in</h2>
-            <div class="mb-3">
-                <t:textfield t:id="email" class="form-control" validate="required" placeholder="Email address"/>
-            </div>
-            <div class="mb-3">
-                <t:passwordfield t:id="password" class="form-control" validate="required" placeholder="Password"/>
-            </div>
-            <div class="mb-3">
-                <t:submit class="btn btn-primary btn-large" value="Sign in"/>
-            </div>
+            <t:textfield t:id="username" class="input-block-level" validate="required" placeholder="Username"/>
+            <t:passwordfield t:id="password" class="input-block-level" validate="required" placeholder="Password"/>
+            <t:submit class="btn btn-large btn-primary" value="Sign in"/>
         </t:form>
     </div>
 </div>

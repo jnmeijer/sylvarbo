@@ -3,11 +3,13 @@ package net.xytra.sylvarbo.persistent.auto;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.cayenne.exp.Property;
 
-import net.xytra.common.cayenne.persistent.AbstractPersistentWithId;
+import net.xytra.common.cayenne.persistent.AbstractModifiable;
+import net.xytra.common.cayenne.persistent.User;
 import net.xytra.sylvarbo.persistent.Person;
 import net.xytra.sylvarbo.persistent.PersonName;
 
@@ -17,22 +19,40 @@ import net.xytra.sylvarbo.persistent.PersonName;
  * since it may be overwritten next time code is regenerated.
  * If you need to make any customizations, please use subclass.
  */
-public abstract class _PersonIdentity extends AbstractPersistentWithId {
+public abstract class _PersonIdentity extends AbstractModifiable {
 
     private static final long serialVersionUID = 1L; 
 
     public static final String ID_PK_COLUMN = "ID";
 
+    public static final Property<Date> CREATED_DTM = Property.create("createdDtm", Date.class);
     public static final Property<Long> END_DATE = Property.create("endDate", Long.class);
+    public static final Property<Date> MODIFIED_DTM = Property.create("modifiedDtm", Date.class);
     public static final Property<Long> START_DATE = Property.create("startDate", Long.class);
     public static final Property<List<PersonName>> NAMES = Property.create("names", List.class);
     public static final Property<Person> PERSON = Property.create("person", Person.class);
+    public static final Property<User> USER_CREATED = Property.create("userCreated", User.class);
+    public static final Property<User> USER_MODIFIED = Property.create("userModified", User.class);
 
+    protected Date createdDtm;
     protected Long endDate;
+    protected Date modifiedDtm;
     protected Long startDate;
 
     protected Object names;
     protected Object person;
+    protected Object userCreated;
+    protected Object userModified;
+
+    public void setCreatedDtm(Date createdDtm) {
+        beforePropertyWrite("createdDtm", this.createdDtm, createdDtm);
+        this.createdDtm = createdDtm;
+    }
+
+    public Date getCreatedDtm() {
+        beforePropertyRead("createdDtm");
+        return this.createdDtm;
+    }
 
     public void setEndDate(long endDate) {
         beforePropertyWrite("endDate", this.endDate, endDate);
@@ -45,6 +65,16 @@ public abstract class _PersonIdentity extends AbstractPersistentWithId {
             return 0;
         }
         return this.endDate;
+    }
+
+    public void setModifiedDtm(Date modifiedDtm) {
+        beforePropertyWrite("modifiedDtm", this.modifiedDtm, modifiedDtm);
+        this.modifiedDtm = modifiedDtm;
+    }
+
+    public Date getModifiedDtm() {
+        beforePropertyRead("modifiedDtm");
+        return this.modifiedDtm;
     }
 
     public void setStartDate(long startDate) {
@@ -81,6 +111,22 @@ public abstract class _PersonIdentity extends AbstractPersistentWithId {
         return (Person)readProperty("person");
     }
 
+    public void setUserCreated(User userCreated) {
+        setToOneTarget("userCreated", userCreated, true);
+    }
+
+    public User getUserCreated() {
+        return (User)readProperty("userCreated");
+    }
+
+    public void setUserModified(User userModified) {
+        setToOneTarget("userModified", userModified, true);
+    }
+
+    public User getUserModified() {
+        return (User)readProperty("userModified");
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -88,14 +134,22 @@ public abstract class _PersonIdentity extends AbstractPersistentWithId {
         }
 
         switch(propName) {
+            case "createdDtm":
+                return this.createdDtm;
             case "endDate":
                 return this.endDate;
+            case "modifiedDtm":
+                return this.modifiedDtm;
             case "startDate":
                 return this.startDate;
             case "names":
                 return this.names;
             case "person":
                 return this.person;
+            case "userCreated":
+                return this.userCreated;
+            case "userModified":
+                return this.userModified;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -108,8 +162,14 @@ public abstract class _PersonIdentity extends AbstractPersistentWithId {
         }
 
         switch (propName) {
+            case "createdDtm":
+                this.createdDtm = (Date)val;
+                break;
             case "endDate":
                 this.endDate = (Long)val;
+                break;
+            case "modifiedDtm":
+                this.modifiedDtm = (Date)val;
                 break;
             case "startDate":
                 this.startDate = (Long)val;
@@ -119,6 +179,12 @@ public abstract class _PersonIdentity extends AbstractPersistentWithId {
                 break;
             case "person":
                 this.person = val;
+                break;
+            case "userCreated":
+                this.userCreated = val;
+                break;
+            case "userModified":
+                this.userModified = val;
                 break;
             default:
                 super.writePropertyDirectly(propName, val);
@@ -136,19 +202,27 @@ public abstract class _PersonIdentity extends AbstractPersistentWithId {
     @Override
     protected void writeState(ObjectOutputStream out) throws IOException {
         super.writeState(out);
+        out.writeObject(this.createdDtm);
         out.writeObject(this.endDate);
+        out.writeObject(this.modifiedDtm);
         out.writeObject(this.startDate);
         out.writeObject(this.names);
         out.writeObject(this.person);
+        out.writeObject(this.userCreated);
+        out.writeObject(this.userModified);
     }
 
     @Override
     protected void readState(ObjectInputStream in) throws IOException, ClassNotFoundException {
         super.readState(in);
+        this.createdDtm = (Date)in.readObject();
         this.endDate = (Long)in.readObject();
+        this.modifiedDtm = (Date)in.readObject();
         this.startDate = (Long)in.readObject();
         this.names = in.readObject();
         this.person = in.readObject();
+        this.userCreated = in.readObject();
+        this.userModified = in.readObject();
     }
 
 }

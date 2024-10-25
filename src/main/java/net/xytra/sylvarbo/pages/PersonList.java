@@ -10,10 +10,8 @@ import org.apache.tapestry5.corelib.components.Form;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.PageRenderLinkSource;
 
-import net.xytra.common.tapestry.session.Session;
 import net.xytra.sylvarbo.base.AbstractListPage;
 import net.xytra.sylvarbo.enums.NameStyle;
-import net.xytra.sylvarbo.persistent.CayenneService;
 import net.xytra.sylvarbo.persistent.Person;
 
 public class PersonList extends AbstractListPage<Person> {
@@ -30,10 +28,6 @@ public class PersonList extends AbstractListPage<Person> {
     @Property
     @Validate("required")
     private NameStyle style;
-
-    public PersonList() {
-        this.session = new Session(CayenneService.getInstance().newObjectContext());
-    }
 
     protected Object onSuccess() {
         return linkSource.createPageRenderLinkWithContext(PersonIdentityAdd.class, NEW_OBJECT_ID, style, NEW_OBJECT_ID);

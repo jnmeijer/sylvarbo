@@ -5,10 +5,14 @@ import org.apache.logging.log4j.Logger;
 import org.apache.tapestry5.alerts.AlertManager;
 import org.apache.tapestry5.annotations.InjectComponent;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.corelib.components.Form;
 import org.apache.tapestry5.corelib.components.PasswordField;
 import org.apache.tapestry5.corelib.components.TextField;
 import org.apache.tapestry5.ioc.annotations.Inject;
+
+import net.xytra.common.cayenne.persistent.User;
+import net.xytra.common.tapestry.session.Session;
 
 public class Login {
 
@@ -20,34 +24,43 @@ public class Login {
     @InjectComponent
     private Form login;
 
-    @InjectComponent("email")
-    private TextField emailField;
+    @InjectComponent("username")
+    private TextField usernameField;
 
     @InjectComponent("password")
     private PasswordField passwordField;
 
     @Property
-    private String email;
+    private String username;
 
     @Property
     private String password;
 
-    void onValidateFromLogin() {
-        if (!email.equals("users@tapestry.apache.org"))
-            login.recordError(emailField, "Try with user: users@tapestry.apache.org");
+    private User user;
 
-        if (!password.equals("Tapestry5"))
-            login.recordError(passwordField, "Try with password: Tapestry5");
+    @SessionState
+    private Session session;
+
+    void onValidateFromLogin()
+    {
+        user = User.getUserForUsernameAndPassword(username, password);
+        System.err.println("user="+user);
+        if (user == null) {
+            login.recordError("Invalid username or password");
+        }
     }
 
-    Object onSuccessFromLogin() {
-        logger.info("Login successful!");
-        alertManager.success("Welcome aboard!");
-        return Index.class;
+    Object onSuccessFromLogin()
+    {
+//        logger.info("Login successful!");
+        session = new Session(user);
+
+        return PersonList.class;
     }
 
-    void onFailureFromLogin() {
+    void onFailureFromLogin()
+    {
         logger.warn("Login error!");
-        alertManager.error("I'm sorry but I can't log you in!");
+        alertManager.error("Invalid username or password");
     }
 }

@@ -14,11 +14,10 @@ import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.PageRenderLinkSource;
 
-import net.xytra.sylvarbo.base.AbstractEditPage;
+import net.xytra.sylvarbo.base.AbstractEditModifiablePage;
 import net.xytra.sylvarbo.enums.DateApproximation;
 import net.xytra.sylvarbo.enums.DatePrecision;
 import net.xytra.sylvarbo.enums.PersonEventType;
-import net.xytra.sylvarbo.model.DisplayableSelectModel;
 import net.xytra.sylvarbo.model.PresetModels;
 import net.xytra.sylvarbo.persistent.Person;
 import net.xytra.sylvarbo.persistent.PersonEvent;
@@ -26,7 +25,7 @@ import net.xytra.sylvarbo.persistent.PersonEvent;
 /**
  * To add a PersonIdentity with names.  Not meant to edit
  */
-public class PersonEventAdd extends AbstractEditPage<PersonEvent> {
+public class PersonEventAdd extends AbstractEditModifiablePage<PersonEvent> {
     @Inject
     private PageRenderLinkSource linkSource;
 

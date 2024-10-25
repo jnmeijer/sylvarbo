@@ -3,10 +3,12 @@ package net.xytra.sylvarbo.persistent.auto;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Date;
 
 import org.apache.cayenne.exp.Property;
 
-import net.xytra.common.cayenne.persistent.AbstractPersistentWithId;
+import net.xytra.common.cayenne.persistent.AbstractModifiable;
+import net.xytra.common.cayenne.persistent.User;
 import net.xytra.sylvarbo.persistent.Person;
 
 /**
@@ -15,26 +17,34 @@ import net.xytra.sylvarbo.persistent.Person;
  * since it may be overwritten next time code is regenerated.
  * If you need to make any customizations, please use subclass.
  */
-public abstract class _PersonEvent extends AbstractPersistentWithId {
+public abstract class _PersonEvent extends AbstractModifiable {
 
     private static final long serialVersionUID = 1L; 
 
     public static final String ID_PK_COLUMN = "ID";
 
     public static final Property<String> APPROXIMATION = Property.create("approximation", String.class);
+    public static final Property<Date> CREATED_DTM = Property.create("createdDtm", Date.class);
     public static final Property<Long> DTM = Property.create("dtm", Long.class);
     public static final Property<String> LOCATION_DESC = Property.create("locationDesc", String.class);
+    public static final Property<Date> MODIFIED_DTM = Property.create("modifiedDtm", Date.class);
     public static final Property<String> PRECISION = Property.create("precision", String.class);
     public static final Property<String> TYPE = Property.create("type", String.class);
     public static final Property<Person> PERSON = Property.create("person", Person.class);
+    public static final Property<User> USER_CREATED = Property.create("userCreated", User.class);
+    public static final Property<User> USER_MODIFIED = Property.create("userModified", User.class);
 
     protected String approximation;
+    protected Date createdDtm;
     protected long dtm;
     protected String locationDesc;
+    protected Date modifiedDtm;
     protected String precision;
     protected String type;
 
     protected Object person;
+    protected Object userCreated;
+    protected Object userModified;
 
     public void setApproximation(String approximation) {
         beforePropertyWrite("approximation", this.approximation, approximation);
@@ -44,6 +54,16 @@ public abstract class _PersonEvent extends AbstractPersistentWithId {
     public String getApproximation() {
         beforePropertyRead("approximation");
         return this.approximation;
+    }
+
+    public void setCreatedDtm(Date createdDtm) {
+        beforePropertyWrite("createdDtm", this.createdDtm, createdDtm);
+        this.createdDtm = createdDtm;
+    }
+
+    public Date getCreatedDtm() {
+        beforePropertyRead("createdDtm");
+        return this.createdDtm;
     }
 
     public void setDtm(long dtm) {
@@ -64,6 +84,16 @@ public abstract class _PersonEvent extends AbstractPersistentWithId {
     public String getLocationDesc() {
         beforePropertyRead("locationDesc");
         return this.locationDesc;
+    }
+
+    public void setModifiedDtm(Date modifiedDtm) {
+        beforePropertyWrite("modifiedDtm", this.modifiedDtm, modifiedDtm);
+        this.modifiedDtm = modifiedDtm;
+    }
+
+    public Date getModifiedDtm() {
+        beforePropertyRead("modifiedDtm");
+        return this.modifiedDtm;
     }
 
     public void setPrecision(String precision) {
@@ -94,6 +124,22 @@ public abstract class _PersonEvent extends AbstractPersistentWithId {
         return (Person)readProperty("person");
     }
 
+    public void setUserCreated(User userCreated) {
+        setToOneTarget("userCreated", userCreated, true);
+    }
+
+    public User getUserCreated() {
+        return (User)readProperty("userCreated");
+    }
+
+    public void setUserModified(User userModified) {
+        setToOneTarget("userModified", userModified, true);
+    }
+
+    public User getUserModified() {
+        return (User)readProperty("userModified");
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -103,16 +149,24 @@ public abstract class _PersonEvent extends AbstractPersistentWithId {
         switch(propName) {
             case "approximation":
                 return this.approximation;
+            case "createdDtm":
+                return this.createdDtm;
             case "dtm":
                 return this.dtm;
             case "locationDesc":
                 return this.locationDesc;
+            case "modifiedDtm":
+                return this.modifiedDtm;
             case "precision":
                 return this.precision;
             case "type":
                 return this.type;
             case "person":
                 return this.person;
+            case "userCreated":
+                return this.userCreated;
+            case "userModified":
+                return this.userModified;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -128,11 +182,17 @@ public abstract class _PersonEvent extends AbstractPersistentWithId {
             case "approximation":
                 this.approximation = (String)val;
                 break;
+            case "createdDtm":
+                this.createdDtm = (Date)val;
+                break;
             case "dtm":
                 this.dtm = val == null ? 0 : (long)val;
                 break;
             case "locationDesc":
                 this.locationDesc = (String)val;
+                break;
+            case "modifiedDtm":
+                this.modifiedDtm = (Date)val;
                 break;
             case "precision":
                 this.precision = (String)val;
@@ -142,6 +202,12 @@ public abstract class _PersonEvent extends AbstractPersistentWithId {
                 break;
             case "person":
                 this.person = val;
+                break;
+            case "userCreated":
+                this.userCreated = val;
+                break;
+            case "userModified":
+                this.userModified = val;
                 break;
             default:
                 super.writePropertyDirectly(propName, val);
@@ -160,22 +226,30 @@ public abstract class _PersonEvent extends AbstractPersistentWithId {
     protected void writeState(ObjectOutputStream out) throws IOException {
         super.writeState(out);
         out.writeObject(this.approximation);
+        out.writeObject(this.createdDtm);
         out.writeLong(this.dtm);
         out.writeObject(this.locationDesc);
+        out.writeObject(this.modifiedDtm);
         out.writeObject(this.precision);
         out.writeObject(this.type);
         out.writeObject(this.person);
+        out.writeObject(this.userCreated);
+        out.writeObject(this.userModified);
     }
 
     @Override
     protected void readState(ObjectInputStream in) throws IOException, ClassNotFoundException {
         super.readState(in);
         this.approximation = (String)in.readObject();
+        this.createdDtm = (Date)in.readObject();
         this.dtm = in.readLong();
         this.locationDesc = (String)in.readObject();
+        this.modifiedDtm = (Date)in.readObject();
         this.precision = (String)in.readObject();
         this.type = (String)in.readObject();
         this.person = in.readObject();
+        this.userCreated = in.readObject();
+        this.userModified = in.readObject();
     }
 
 }

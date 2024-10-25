@@ -5,71 +5,127 @@
 	 project-version="10">
 	<property name="defaultPackage" value="net.xytra.sylvarbo.persistent"/>
 	<db-entity name="XSA_PERSON">
+		<db-attribute name="CREATED_DTM" type="TIMESTAMP" isMandatory="true"/>
+		<db-attribute name="CREATED_USER_ID" type="INTEGER" isMandatory="true"/>
 		<db-attribute name="ID" type="BIGINT" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="MODIFIED_BY_ID" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="MODIFIED_DTM" type="TIMESTAMP" isMandatory="true"/>
 		<db-attribute name="PARENT_RELATIONSHIP_ID" type="BIGINT"/>
 		<db-attribute name="PRIMARY_IDENTITY_ID" type="BIGINT" isMandatory="true"/>
 	</db-entity>
 	<db-entity name="XSA_PERSON_EVENT">
 		<db-attribute name="APPROXIMATION" type="VARCHAR" length="8"/>
+		<db-attribute name="CREATED_BY_ID" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="CREATED_DTM" type="TIMESTAMP" isMandatory="true"/>
 		<db-attribute name="DTM" type="BIGINT" isMandatory="true"/>
 		<db-attribute name="ID" type="BIGINT" isPrimaryKey="true" isMandatory="true"/>
 		<db-attribute name="LOCATION_DESC" type="VARCHAR" length="256"/>
+		<db-attribute name="MODIFIED_BY_ID" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="MODIFIED_DTM" type="TIMESTAMP" isMandatory="true"/>
 		<db-attribute name="PERSON_ID" type="BIGINT" isMandatory="true"/>
 		<db-attribute name="PRECISION" type="VARCHAR" isMandatory="true" length="8"/>
 		<db-attribute name="TYPE" type="VARCHAR" isMandatory="true" length="8"/>
 	</db-entity>
 	<db-entity name="XSA_PERSON_IDENTITY">
+		<db-attribute name="CREATED_BY_ID" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="CREATED_DTM" type="TIMESTAMP" isMandatory="true"/>
 		<db-attribute name="END_DATE" type="BIGINT"/>
 		<db-attribute name="ID" type="BIGINT" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="MODIFIED_BY_ID" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="MODIFIED_DTM" type="TIMESTAMP" isMandatory="true"/>
 		<db-attribute name="PERSON_ID" type="BIGINT" isMandatory="true"/>
 		<db-attribute name="START_DATE" type="BIGINT"/>
 	</db-entity>
 	<db-entity name="XSA_PERSON_NAME">
+		<db-attribute name="CREATED_BY_ID" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="CREATED_DTM" type="TIMESTAMP" isMandatory="true"/>
 		<db-attribute name="ID" type="BIGINT" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="MODIFIED_BY_ID" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="MODIFIED_DTM" type="TIMESTAMP" isMandatory="true"/>
 		<db-attribute name="NAME" type="VARCHAR" isMandatory="true" length="128"/>
 		<db-attribute name="PERSON_IDENTITY_ID" type="BIGINT" isMandatory="true"/>
 		<db-attribute name="SEQ_NUM" type="SMALLINT" isMandatory="true"/>
 		<db-attribute name="TYPE" type="VARCHAR" isMandatory="true" length="16"/>
 	</db-entity>
 	<db-entity name="XSA_RELATIONSHIP">
+		<db-attribute name="CREATED_BY_ID" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="CREATED_DTM" type="TIMESTAMP" isMandatory="true"/>
 		<db-attribute name="ID" type="BIGINT" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="MODIFIED_BY_ID" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="MODIFIED_DTM" type="TIMESTAMP" isMandatory="true"/>
 		<db-attribute name="PRIMARY_PARENT_ID" type="BIGINT"/>
 		<db-attribute name="SECONDARY_PARENT_ID" type="BIGINT"/>
 		<db-attribute name="TYPE" type="VARCHAR" length="4"/>
 	</db-entity>
 	<db-entity name="XSA_RELATIONSHIP_EVENT">
 		<db-attribute name="APPROXIMATION" type="VARCHAR" length="8"/>
+		<db-attribute name="CREATED_BY_ID" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="CREATED_DTM" type="TIMESTAMP" isMandatory="true"/>
 		<db-attribute name="DTM" type="BIGINT"/>
 		<db-attribute name="ID" type="BIGINT" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="MODIFIED_BY_ID" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="MODIFIED_DTM" type="TIMESTAMP" isMandatory="true"/>
 		<db-attribute name="PRECISION" type="VARCHAR" length="8"/>
 		<db-attribute name="RELATIONSHIP_ID" type="BIGINT" isMandatory="true"/>
 		<db-attribute name="TYPE" type="VARCHAR" length="4"/>
 	</db-entity>
-	<obj-entity name="Person" className="net.xytra.sylvarbo.persistent.Person" dbEntityName="XSA_PERSON" superClassName="net.xytra.common.cayenne.persistent.AbstractPersistentWithId"/>
-	<obj-entity name="PersonEvent" className="net.xytra.sylvarbo.persistent.PersonEvent" dbEntityName="XSA_PERSON_EVENT" superClassName="net.xytra.common.cayenne.persistent.AbstractPersistentWithId">
+	<db-entity name="XSA_USER">
+		<db-attribute name="CREATED_DTM" type="TIMESTAMP" isMandatory="true"/>
+		<db-attribute name="CREATED_USER_ID" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="DISPLAYED_NAME" type="VARCHAR" isMandatory="true" length="256"/>
+		<db-attribute name="EMAIL_ADDRESS" type="VARCHAR" isMandatory="true" length="256"/>
+		<db-attribute name="ID" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="MODIFIED_DTM" type="TIMESTAMP" isMandatory="true"/>
+		<db-attribute name="MODIFIED_USER_ID" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="PASSWORD" type="VARCHAR" isMandatory="true" length="256"/>
+		<db-attribute name="USERNAME" type="VARCHAR" isMandatory="true" length="256"/>
+	</db-entity>
+	<obj-entity name="Person" className="net.xytra.sylvarbo.persistent.Person" dbEntityName="XSA_PERSON" superClassName="net.xytra.common.cayenne.persistent.AbstractModifiable">
+		<obj-attribute name="createdDtm" type="java.util.Date" db-attribute-path="CREATED_DTM"/>
+		<obj-attribute name="modifiedDtm" type="java.util.Date" db-attribute-path="MODIFIED_DTM"/>
+	</obj-entity>
+	<obj-entity name="PersonEvent" className="net.xytra.sylvarbo.persistent.PersonEvent" dbEntityName="XSA_PERSON_EVENT" superClassName="net.xytra.common.cayenne.persistent.AbstractModifiable">
 		<obj-attribute name="approximation" type="java.lang.String" lock="true" db-attribute-path="APPROXIMATION"/>
+		<obj-attribute name="createdDtm" type="java.util.Date" db-attribute-path="CREATED_DTM"/>
 		<obj-attribute name="dtm" type="long" lock="true" db-attribute-path="DTM"/>
 		<obj-attribute name="locationDesc" type="java.lang.String" db-attribute-path="LOCATION_DESC"/>
+		<obj-attribute name="modifiedDtm" type="java.util.Date" db-attribute-path="MODIFIED_DTM"/>
 		<obj-attribute name="precision" type="java.lang.String" lock="true" db-attribute-path="PRECISION"/>
 		<obj-attribute name="type" type="java.lang.String" lock="true" db-attribute-path="TYPE"/>
 	</obj-entity>
-	<obj-entity name="PersonIdentity" className="net.xytra.sylvarbo.persistent.PersonIdentity" dbEntityName="XSA_PERSON_IDENTITY" superClassName="net.xytra.common.cayenne.persistent.AbstractPersistentWithId">
+	<obj-entity name="PersonIdentity" className="net.xytra.sylvarbo.persistent.PersonIdentity" dbEntityName="XSA_PERSON_IDENTITY" superClassName="net.xytra.common.cayenne.persistent.AbstractModifiable">
+		<obj-attribute name="createdDtm" type="java.util.Date" db-attribute-path="CREATED_DTM"/>
 		<obj-attribute name="endDate" type="long" lock="true" db-attribute-path="END_DATE"/>
+		<obj-attribute name="modifiedDtm" type="java.util.Date" db-attribute-path="MODIFIED_DTM"/>
 		<obj-attribute name="startDate" type="long" lock="true" db-attribute-path="START_DATE"/>
 	</obj-entity>
-	<obj-entity name="PersonName" className="net.xytra.sylvarbo.persistent.PersonName" dbEntityName="XSA_PERSON_NAME" superClassName="net.xytra.common.cayenne.persistent.AbstractPersistentWithId">
+	<obj-entity name="PersonName" className="net.xytra.sylvarbo.persistent.PersonName" dbEntityName="XSA_PERSON_NAME" superClassName="net.xytra.common.cayenne.persistent.AbstractModifiable">
+		<obj-attribute name="createdDtm" type="java.util.Date" db-attribute-path="CREATED_DTM"/>
+		<obj-attribute name="modifiedDtm" type="java.util.Date" db-attribute-path="MODIFIED_DTM"/>
 		<obj-attribute name="name" type="java.lang.String" lock="true" db-attribute-path="NAME"/>
 		<obj-attribute name="seqNum" type="short" lock="true" db-attribute-path="SEQ_NUM"/>
 		<obj-attribute name="type" type="java.lang.String" lock="true" db-attribute-path="TYPE"/>
 	</obj-entity>
-	<obj-entity name="Relationship" className="net.xytra.sylvarbo.persistent.Relationship" dbEntityName="XSA_RELATIONSHIP" superClassName="net.xytra.common.cayenne.persistent.AbstractPersistentWithId">
+	<obj-entity name="Relationship" className="net.xytra.sylvarbo.persistent.Relationship" dbEntityName="XSA_RELATIONSHIP" superClassName="net.xytra.common.cayenne.persistent.AbstractModifiable">
+		<obj-attribute name="createdDtm" type="java.util.Date" db-attribute-path="CREATED_DTM"/>
+		<obj-attribute name="modifiedDtm" type="java.util.Date" db-attribute-path="MODIFIED_DTM"/>
 		<obj-attribute name="type" type="java.lang.String" lock="true" db-attribute-path="TYPE"/>
 	</obj-entity>
-	<obj-entity name="RelationshipEvent" className="net.xytra.sylvarbo.persistent.RelationshipEvent" dbEntityName="XSA_RELATIONSHIP_EVENT" superClassName="net.xytra.common.cayenne.persistent.AbstractPersistentWithId">
+	<obj-entity name="RelationshipEvent" className="net.xytra.sylvarbo.persistent.RelationshipEvent" dbEntityName="XSA_RELATIONSHIP_EVENT" superClassName="net.xytra.common.cayenne.persistent.AbstractModifiable">
 		<obj-attribute name="approximation" type="java.lang.String" lock="true" db-attribute-path="APPROXIMATION"/>
+		<obj-attribute name="createdDtm" type="java.util.Date" db-attribute-path="CREATED_DTM"/>
 		<obj-attribute name="dtm" type="long" lock="true" db-attribute-path="DTM"/>
+		<obj-attribute name="modifiedDtm" type="java.util.Date" db-attribute-path="MODIFIED_DTM"/>
 		<obj-attribute name="precision" type="java.lang.String" lock="true" db-attribute-path="PRECISION"/>
 		<obj-attribute name="type" type="java.lang.String" lock="true" db-attribute-path="TYPE"/>
+	</obj-entity>
+	<obj-entity name="User" className="net.xytra.common.cayenne.persistent.User" dbEntityName="XSA_USER" superClassName="net.xytra.common.cayenne.persistent.AbstractModifiable">
+		<obj-attribute name="createdDtm" type="java.util.Date" lock="true" db-attribute-path="CREATED_DTM"/>
+		<obj-attribute name="displayedName" type="java.lang.String" db-attribute-path="DISPLAYED_NAME"/>
+		<obj-attribute name="emailAddress" type="java.lang.String" lock="true" db-attribute-path="EMAIL_ADDRESS"/>
+		<obj-attribute name="modifiedDtm" type="java.util.Date" lock="true" db-attribute-path="MODIFIED_DTM"/>
+		<obj-attribute name="password" type="java.lang.String" lock="true" db-attribute-path="PASSWORD"/>
+		<obj-attribute name="username" type="java.lang.String" lock="true" db-attribute-path="USERNAME"/>
 	</obj-entity>
 	<db-relationship name="personEvents" source="XSA_PERSON" target="XSA_PERSON_EVENT" toMany="true">
 		<db-attribute-pair source="ID" target="PERSON_ID"/>
@@ -89,8 +145,20 @@
 	<db-relationship name="relationshipsAsSecondary" source="XSA_PERSON" target="XSA_RELATIONSHIP" toMany="true">
 		<db-attribute-pair source="ID" target="SECONDARY_PARENT_ID"/>
 	</db-relationship>
+	<db-relationship name="userCreated" source="XSA_PERSON" target="XSA_USER">
+		<db-attribute-pair source="CREATED_USER_ID" target="ID"/>
+	</db-relationship>
+	<db-relationship name="userModified" source="XSA_PERSON" target="XSA_USER">
+		<db-attribute-pair source="MODIFIED_BY_ID" target="ID"/>
+	</db-relationship>
 	<db-relationship name="person" source="XSA_PERSON_EVENT" target="XSA_PERSON">
 		<db-attribute-pair source="PERSON_ID" target="ID"/>
+	</db-relationship>
+	<db-relationship name="userCreated" source="XSA_PERSON_EVENT" target="XSA_USER">
+		<db-attribute-pair source="CREATED_BY_ID" target="ID"/>
+	</db-relationship>
+	<db-relationship name="userModified" source="XSA_PERSON_EVENT" target="XSA_USER">
+		<db-attribute-pair source="MODIFIED_BY_ID" target="ID"/>
 	</db-relationship>
 	<db-relationship name="person" source="XSA_PERSON_IDENTITY" target="XSA_PERSON">
 		<db-attribute-pair source="PERSON_ID" target="ID"/>
@@ -98,8 +166,20 @@
 	<db-relationship name="personNames" source="XSA_PERSON_IDENTITY" target="XSA_PERSON_NAME" toMany="true">
 		<db-attribute-pair source="ID" target="PERSON_IDENTITY_ID"/>
 	</db-relationship>
+	<db-relationship name="userCreated" source="XSA_PERSON_IDENTITY" target="XSA_USER">
+		<db-attribute-pair source="CREATED_BY_ID" target="ID"/>
+	</db-relationship>
+	<db-relationship name="userModified" source="XSA_PERSON_IDENTITY" target="XSA_USER">
+		<db-attribute-pair source="MODIFIED_BY_ID" target="ID"/>
+	</db-relationship>
 	<db-relationship name="personIdentity" source="XSA_PERSON_NAME" target="XSA_PERSON_IDENTITY">
 		<db-attribute-pair source="PERSON_IDENTITY_ID" target="ID"/>
+	</db-relationship>
+	<db-relationship name="userCreated" source="XSA_PERSON_NAME" target="XSA_USER">
+		<db-attribute-pair source="CREATED_BY_ID" target="ID"/>
+	</db-relationship>
+	<db-relationship name="userModified" source="XSA_PERSON_NAME" target="XSA_USER">
+		<db-attribute-pair source="MODIFIED_BY_ID" target="ID"/>
 	</db-relationship>
 	<db-relationship name="children" source="XSA_RELATIONSHIP" target="XSA_PERSON" toMany="true">
 		<db-attribute-pair source="ID" target="PARENT_RELATIONSHIP_ID"/>
@@ -113,8 +193,26 @@
 	<db-relationship name="secondaryParent" source="XSA_RELATIONSHIP" target="XSA_PERSON">
 		<db-attribute-pair source="SECONDARY_PARENT_ID" target="ID"/>
 	</db-relationship>
+	<db-relationship name="userCreated" source="XSA_RELATIONSHIP" target="XSA_USER">
+		<db-attribute-pair source="CREATED_BY_ID" target="ID"/>
+	</db-relationship>
+	<db-relationship name="userModified" source="XSA_RELATIONSHIP" target="XSA_USER">
+		<db-attribute-pair source="MODIFIED_BY_ID" target="ID"/>
+	</db-relationship>
 	<db-relationship name="relationship" source="XSA_RELATIONSHIP_EVENT" target="XSA_RELATIONSHIP">
 		<db-attribute-pair source="RELATIONSHIP_ID" target="ID"/>
+	</db-relationship>
+	<db-relationship name="userCreated" source="XSA_RELATIONSHIP_EVENT" target="XSA_USER">
+		<db-attribute-pair source="CREATED_BY_ID" target="ID"/>
+	</db-relationship>
+	<db-relationship name="userModified" source="XSA_RELATIONSHIP_EVENT" target="XSA_USER">
+		<db-attribute-pair source="MODIFIED_BY_ID" target="ID"/>
+	</db-relationship>
+	<db-relationship name="userCreated" source="XSA_USER" target="XSA_USER">
+		<db-attribute-pair source="CREATED_USER_ID" target="ID"/>
+	</db-relationship>
+	<db-relationship name="userModified" source="XSA_USER" target="XSA_USER">
+		<db-attribute-pair source="MODIFIED_USER_ID" target="ID"/>
 	</db-relationship>
 	<obj-relationship name="events" source="Person" target="PersonEvent" collection-type="java.util.Map" deleteRule="Cascade" db-relationship-path="personEvents"/>
 	<obj-relationship name="identities" source="Person" target="PersonIdentity" deleteRule="Cascade" db-relationship-path="personIdentities"/>
@@ -122,15 +220,29 @@
 	<obj-relationship name="relationshipAsChild" source="Person" target="Relationship" deleteRule="Nullify" db-relationship-path="relationshipAsChild"/>
 	<obj-relationship name="relationshipsAsPrimary" source="Person" target="Relationship" deleteRule="Deny" db-relationship-path="relationshipsAsPrimary"/>
 	<obj-relationship name="relationshipsAsSecondary" source="Person" target="Relationship" deleteRule="Deny" db-relationship-path="relationshipsAsSecondary"/>
+	<obj-relationship name="userCreated" source="Person" target="User" deleteRule="Nullify" db-relationship-path="userCreated"/>
+	<obj-relationship name="userModified" source="Person" target="User" deleteRule="Nullify" db-relationship-path="userModified"/>
 	<obj-relationship name="person" source="PersonEvent" target="Person" deleteRule="Nullify" db-relationship-path="person"/>
+	<obj-relationship name="userCreated" source="PersonEvent" target="User" deleteRule="Nullify" db-relationship-path="userCreated"/>
+	<obj-relationship name="userModified" source="PersonEvent" target="User" deleteRule="Nullify" db-relationship-path="userModified"/>
 	<obj-relationship name="names" source="PersonIdentity" target="PersonName" deleteRule="Cascade" db-relationship-path="personNames"/>
 	<obj-relationship name="person" source="PersonIdentity" target="Person" deleteRule="Nullify" db-relationship-path="person"/>
+	<obj-relationship name="userCreated" source="PersonIdentity" target="User" deleteRule="Nullify" db-relationship-path="userCreated"/>
+	<obj-relationship name="userModified" source="PersonIdentity" target="User" deleteRule="Nullify" db-relationship-path="userModified"/>
 	<obj-relationship name="identity" source="PersonName" target="PersonIdentity" deleteRule="Nullify" db-relationship-path="personIdentity"/>
+	<obj-relationship name="userCreated" source="PersonName" target="User" deleteRule="Nullify" db-relationship-path="userCreated"/>
+	<obj-relationship name="userModified" source="PersonName" target="User" deleteRule="Nullify" db-relationship-path="userModified"/>
 	<obj-relationship name="children" source="Relationship" target="Person" deleteRule="Deny" db-relationship-path="children"/>
 	<obj-relationship name="events" source="Relationship" target="RelationshipEvent" deleteRule="Deny" db-relationship-path="relationshipEvents"/>
 	<obj-relationship name="primaryParent" source="Relationship" target="Person" deleteRule="Nullify" db-relationship-path="primaryParent"/>
 	<obj-relationship name="secondaryParent" source="Relationship" target="Person" deleteRule="Nullify" db-relationship-path="secondaryParent"/>
+	<obj-relationship name="userCreated" source="Relationship" target="User" deleteRule="Nullify" db-relationship-path="userCreated"/>
+	<obj-relationship name="userModified" source="Relationship" target="User" deleteRule="Nullify" db-relationship-path="userModified"/>
 	<obj-relationship name="relationship" source="RelationshipEvent" target="Relationship" deleteRule="Nullify" db-relationship-path="relationship"/>
+	<obj-relationship name="userCreated" source="RelationshipEvent" target="User" deleteRule="Nullify" db-relationship-path="userCreated"/>
+	<obj-relationship name="userModified" source="RelationshipEvent" target="User" deleteRule="Nullify" db-relationship-path="userModified"/>
+	<obj-relationship name="userCreated" source="User" target="User" lock="true" deleteRule="Nullify" db-relationship-path="userCreated"/>
+	<obj-relationship name="userModified" source="User" target="User" lock="true" deleteRule="Nullify" db-relationship-path="userModified"/>
 	<dbImport xmlns="http://cayenne.apache.org/schema/10/dbimport">
 		<tableTypes>
 			<tableType>TABLE</tableType>

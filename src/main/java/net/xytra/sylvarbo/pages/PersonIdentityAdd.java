@@ -10,7 +10,7 @@ import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.PageRenderLinkSource;
 
-import net.xytra.sylvarbo.base.AbstractEditPage;
+import net.xytra.sylvarbo.base.AbstractEditModifiablePage;
 import net.xytra.sylvarbo.enums.NameStyle;
 import net.xytra.sylvarbo.enums.NameType;
 import net.xytra.sylvarbo.persistent.Person;
@@ -20,7 +20,7 @@ import net.xytra.sylvarbo.persistent.PersonName;
 /**
  * To add a PersonIdentity with names.  Not meant to edit
  */
-public class PersonIdentityAdd extends AbstractEditPage<PersonIdentity> {
+public class PersonIdentityAdd extends AbstractEditModifiablePage<PersonIdentity> {
     @Inject
     private PageRenderLinkSource linkSource;
 
@@ -81,6 +81,8 @@ public class PersonIdentityAdd extends AbstractEditPage<PersonIdentity> {
                         name.setName(currentPart.trim());
                         name.setSeqNum(seqNum++);
                         name.setType(style.getTypes()[i].toString());
+                        name.setCreatedNowBy(session.getUser());
+                        name.setModifiedNowBy(session.getUser());
                         editedObject.addToNames(name);
                     }
                 }
@@ -91,9 +93,11 @@ public class PersonIdentityAdd extends AbstractEditPage<PersonIdentity> {
         Person person;
         if (personId == null) {
             person = context().newObject(Person.class);
+            person.setCreatedNowBy(session.getUser());
         } else {
             person = Cayenne.objectForPK(context(), Person.class, personId);
         }
+        person.setModifiedNowBy(session.getUser());
 
         // Tie the identity
         if (person.getPrimaryIdentity() == null) {

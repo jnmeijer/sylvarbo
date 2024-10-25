@@ -3,11 +3,13 @@ package net.xytra.sylvarbo.persistent.auto;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.cayenne.exp.Property;
 
-import net.xytra.common.cayenne.persistent.AbstractPersistentWithId;
+import net.xytra.common.cayenne.persistent.AbstractModifiable;
+import net.xytra.common.cayenne.persistent.User;
 import net.xytra.sylvarbo.persistent.Person;
 import net.xytra.sylvarbo.persistent.RelationshipEvent;
 
@@ -17,24 +19,52 @@ import net.xytra.sylvarbo.persistent.RelationshipEvent;
  * since it may be overwritten next time code is regenerated.
  * If you need to make any customizations, please use subclass.
  */
-public abstract class _Relationship extends AbstractPersistentWithId {
+public abstract class _Relationship extends AbstractModifiable {
 
     private static final long serialVersionUID = 1L; 
 
     public static final String ID_PK_COLUMN = "ID";
 
+    public static final Property<Date> CREATED_DTM = Property.create("createdDtm", Date.class);
+    public static final Property<Date> MODIFIED_DTM = Property.create("modifiedDtm", Date.class);
     public static final Property<String> TYPE = Property.create("type", String.class);
     public static final Property<List<Person>> CHILDREN = Property.create("children", List.class);
     public static final Property<List<RelationshipEvent>> EVENTS = Property.create("events", List.class);
     public static final Property<Person> PRIMARY_PARENT = Property.create("primaryParent", Person.class);
     public static final Property<Person> SECONDARY_PARENT = Property.create("secondaryParent", Person.class);
+    public static final Property<User> USER_CREATED = Property.create("userCreated", User.class);
+    public static final Property<User> USER_MODIFIED = Property.create("userModified", User.class);
 
+    protected Date createdDtm;
+    protected Date modifiedDtm;
     protected String type;
 
     protected Object children;
     protected Object events;
     protected Object primaryParent;
     protected Object secondaryParent;
+    protected Object userCreated;
+    protected Object userModified;
+
+    public void setCreatedDtm(Date createdDtm) {
+        beforePropertyWrite("createdDtm", this.createdDtm, createdDtm);
+        this.createdDtm = createdDtm;
+    }
+
+    public Date getCreatedDtm() {
+        beforePropertyRead("createdDtm");
+        return this.createdDtm;
+    }
+
+    public void setModifiedDtm(Date modifiedDtm) {
+        beforePropertyWrite("modifiedDtm", this.modifiedDtm, modifiedDtm);
+        this.modifiedDtm = modifiedDtm;
+    }
+
+    public Date getModifiedDtm() {
+        beforePropertyRead("modifiedDtm");
+        return this.modifiedDtm;
+    }
 
     public void setType(String type) {
         beforePropertyWrite("type", this.type, type);
@@ -88,6 +118,22 @@ public abstract class _Relationship extends AbstractPersistentWithId {
         return (Person)readProperty("secondaryParent");
     }
 
+    public void setUserCreated(User userCreated) {
+        setToOneTarget("userCreated", userCreated, true);
+    }
+
+    public User getUserCreated() {
+        return (User)readProperty("userCreated");
+    }
+
+    public void setUserModified(User userModified) {
+        setToOneTarget("userModified", userModified, true);
+    }
+
+    public User getUserModified() {
+        return (User)readProperty("userModified");
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -95,6 +141,10 @@ public abstract class _Relationship extends AbstractPersistentWithId {
         }
 
         switch(propName) {
+            case "createdDtm":
+                return this.createdDtm;
+            case "modifiedDtm":
+                return this.modifiedDtm;
             case "type":
                 return this.type;
             case "children":
@@ -105,6 +155,10 @@ public abstract class _Relationship extends AbstractPersistentWithId {
                 return this.primaryParent;
             case "secondaryParent":
                 return this.secondaryParent;
+            case "userCreated":
+                return this.userCreated;
+            case "userModified":
+                return this.userModified;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -117,6 +171,12 @@ public abstract class _Relationship extends AbstractPersistentWithId {
         }
 
         switch (propName) {
+            case "createdDtm":
+                this.createdDtm = (Date)val;
+                break;
+            case "modifiedDtm":
+                this.modifiedDtm = (Date)val;
+                break;
             case "type":
                 this.type = (String)val;
                 break;
@@ -131,6 +191,12 @@ public abstract class _Relationship extends AbstractPersistentWithId {
                 break;
             case "secondaryParent":
                 this.secondaryParent = val;
+                break;
+            case "userCreated":
+                this.userCreated = val;
+                break;
+            case "userModified":
+                this.userModified = val;
                 break;
             default:
                 super.writePropertyDirectly(propName, val);
@@ -148,21 +214,29 @@ public abstract class _Relationship extends AbstractPersistentWithId {
     @Override
     protected void writeState(ObjectOutputStream out) throws IOException {
         super.writeState(out);
+        out.writeObject(this.createdDtm);
+        out.writeObject(this.modifiedDtm);
         out.writeObject(this.type);
         out.writeObject(this.children);
         out.writeObject(this.events);
         out.writeObject(this.primaryParent);
         out.writeObject(this.secondaryParent);
+        out.writeObject(this.userCreated);
+        out.writeObject(this.userModified);
     }
 
     @Override
     protected void readState(ObjectInputStream in) throws IOException, ClassNotFoundException {
         super.readState(in);
+        this.createdDtm = (Date)in.readObject();
+        this.modifiedDtm = (Date)in.readObject();
         this.type = (String)in.readObject();
         this.children = in.readObject();
         this.events = in.readObject();
         this.primaryParent = in.readObject();
         this.secondaryParent = in.readObject();
+        this.userCreated = in.readObject();
+        this.userModified = in.readObject();
     }
 
 }

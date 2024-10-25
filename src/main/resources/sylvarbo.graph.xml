@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <graphs xmlns="http://cayenne.apache.org/schema/10/graph">
 	<graph type="ER" scale="1.0">
-		<entity name="XSA_PERSON_EVENT" x="0.0" y="0.0" width="140.0" height="137.0"/>
-		<entity name="XSA_PERSON_NAME" x="0.0" y="0.0" width="136.0" height="107.0"/>
-		<entity name="XSA_RELATIONSHIP_EVENT" x="0.0" y="0.0" width="183.0" height="122.0"/>
-		<entity name="XSA_RELATIONSHIP" x="0.0" y="0.0" width="148.0" height="92.0"/>
-		<entity name="XSA_PERSON_IDENTITY" x="0.0" y="0.0" width="157.0" height="92.0"/>
-		<entity name="XSA_PERSON" x="0.0" y="0.0" width="160.0" height="77.0"/>
+		<entity name="XSA_PERSON_EVENT" x="0.0" y="0.0" width="140.0" height="197.0"/>
+		<entity name="XSA_PERSON_NAME" x="0.0" y="0.0" width="136.0" height="167.0"/>
+		<entity name="XSA_RELATIONSHIP_EVENT" x="0.0" y="0.0" width="183.0" height="182.0"/>
+		<entity name="XSA_RELATIONSHIP" x="0.0" y="0.0" width="148.0" height="152.0"/>
+		<entity name="XSA_PERSON_IDENTITY" x="0.0" y="0.0" width="157.0" height="152.0"/>
+		<entity name="XSA_USER" x="0.0" y="0.0" width="117.0" height="167.0"/>
+		<entity name="XSA_PERSON" x="0.0" y="0.0" width="160.0" height="137.0"/>
 	</graph>
 </graphs>

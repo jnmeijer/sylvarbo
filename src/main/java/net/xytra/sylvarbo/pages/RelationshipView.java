@@ -57,6 +57,8 @@ public class RelationshipView extends AbstractViewPage<Relationship> {
                 } else {
                     throw new RuntimeException("Invalid relationship link type: " + linkType);
                 }
+                relationship.setCreatedNowBy(session.getUser());
+                relationship.setModifiedNowBy(session.getUser());
 
                 // Get this relationship and link created immediately
                 context().commitChanges();

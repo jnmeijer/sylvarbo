@@ -64,6 +64,8 @@ public class PersonView extends AbstractViewPage<Person> {
 
         context().deleteObject(event);
 
+        viewedObject.setModifiedNowBy(session.getUser());
+
         // Save changes
         context().commitChanges();
 
@@ -83,6 +85,8 @@ public class PersonView extends AbstractViewPage<Person> {
 
         context().deleteObject(identity);
 
+        viewedObject.setModifiedNowBy(session.getUser());
+
         // Save changes
         context().commitChanges();
 
@@ -92,6 +96,8 @@ public class PersonView extends AbstractViewPage<Person> {
 
     Object onActionFromMarkIdentityAsPrimary(int index) {
         viewedObject.setPrimaryIdentity(getIdentityForIndex(index));
+
+        viewedObject.setModifiedNowBy(session.getUser());
 
         // Save changes
         context().commitChanges();

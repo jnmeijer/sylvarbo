@@ -3,12 +3,14 @@ package net.xytra.sylvarbo.persistent.auto;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.cayenne.exp.Property;
 
-import net.xytra.common.cayenne.persistent.AbstractPersistentWithId;
+import net.xytra.common.cayenne.persistent.AbstractModifiable;
+import net.xytra.common.cayenne.persistent.User;
 import net.xytra.sylvarbo.persistent.PersonEvent;
 import net.xytra.sylvarbo.persistent.PersonIdentity;
 import net.xytra.sylvarbo.persistent.Relationship;
@@ -19,19 +21,25 @@ import net.xytra.sylvarbo.persistent.Relationship;
  * since it may be overwritten next time code is regenerated.
  * If you need to make any customizations, please use subclass.
  */
-public abstract class _Person extends AbstractPersistentWithId {
+public abstract class _Person extends AbstractModifiable {
 
     private static final long serialVersionUID = 1L; 
 
     public static final String ID_PK_COLUMN = "ID";
 
+    public static final Property<Date> CREATED_DTM = Property.create("createdDtm", Date.class);
+    public static final Property<Date> MODIFIED_DTM = Property.create("modifiedDtm", Date.class);
     public static final Property<Map<Object, PersonEvent>> EVENTS = Property.create("events", Map.class);
     public static final Property<List<PersonIdentity>> IDENTITIES = Property.create("identities", List.class);
     public static final Property<PersonIdentity> PRIMARY_IDENTITY = Property.create("primaryIdentity", PersonIdentity.class);
     public static final Property<Relationship> RELATIONSHIP_AS_CHILD = Property.create("relationshipAsChild", Relationship.class);
     public static final Property<List<Relationship>> RELATIONSHIPS_AS_PRIMARY = Property.create("relationshipsAsPrimary", List.class);
     public static final Property<List<Relationship>> RELATIONSHIPS_AS_SECONDARY = Property.create("relationshipsAsSecondary", List.class);
+    public static final Property<User> USER_CREATED = Property.create("userCreated", User.class);
+    public static final Property<User> USER_MODIFIED = Property.create("userModified", User.class);
 
+    protected Date createdDtm;
+    protected Date modifiedDtm;
 
     protected Object events;
     protected Object identities;
@@ -39,6 +47,28 @@ public abstract class _Person extends AbstractPersistentWithId {
     protected Object relationshipAsChild;
     protected Object relationshipsAsPrimary;
     protected Object relationshipsAsSecondary;
+    protected Object userCreated;
+    protected Object userModified;
+
+    public void setCreatedDtm(Date createdDtm) {
+        beforePropertyWrite("createdDtm", this.createdDtm, createdDtm);
+        this.createdDtm = createdDtm;
+    }
+
+    public Date getCreatedDtm() {
+        beforePropertyRead("createdDtm");
+        return this.createdDtm;
+    }
+
+    public void setModifiedDtm(Date modifiedDtm) {
+        beforePropertyWrite("modifiedDtm", this.modifiedDtm, modifiedDtm);
+        this.modifiedDtm = modifiedDtm;
+    }
+
+    public Date getModifiedDtm() {
+        beforePropertyRead("modifiedDtm");
+        return this.modifiedDtm;
+    }
 
     public void addToEvents(PersonEvent obj) {
         addToManyTarget("events", obj, true);
@@ -108,6 +138,22 @@ public abstract class _Person extends AbstractPersistentWithId {
         return (List<Relationship>)readProperty("relationshipsAsSecondary");
     }
 
+    public void setUserCreated(User userCreated) {
+        setToOneTarget("userCreated", userCreated, true);
+    }
+
+    public User getUserCreated() {
+        return (User)readProperty("userCreated");
+    }
+
+    public void setUserModified(User userModified) {
+        setToOneTarget("userModified", userModified, true);
+    }
+
+    public User getUserModified() {
+        return (User)readProperty("userModified");
+    }
+
     @Override
     public Object readPropertyDirectly(String propName) {
         if(propName == null) {
@@ -115,6 +161,10 @@ public abstract class _Person extends AbstractPersistentWithId {
         }
 
         switch(propName) {
+            case "createdDtm":
+                return this.createdDtm;
+            case "modifiedDtm":
+                return this.modifiedDtm;
             case "events":
                 return this.events;
             case "identities":
@@ -127,6 +177,10 @@ public abstract class _Person extends AbstractPersistentWithId {
                 return this.relationshipsAsPrimary;
             case "relationshipsAsSecondary":
                 return this.relationshipsAsSecondary;
+            case "userCreated":
+                return this.userCreated;
+            case "userModified":
+                return this.userModified;
             default:
                 return super.readPropertyDirectly(propName);
         }
@@ -139,6 +193,12 @@ public abstract class _Person extends AbstractPersistentWithId {
         }
 
         switch (propName) {
+            case "createdDtm":
+                this.createdDtm = (Date)val;
+                break;
+            case "modifiedDtm":
+                this.modifiedDtm = (Date)val;
+                break;
             case "events":
                 this.events = val;
                 break;
@@ -157,6 +217,12 @@ public abstract class _Person extends AbstractPersistentWithId {
             case "relationshipsAsSecondary":
                 this.relationshipsAsSecondary = val;
                 break;
+            case "userCreated":
+                this.userCreated = val;
+                break;
+            case "userModified":
+                this.userModified = val;
+                break;
             default:
                 super.writePropertyDirectly(propName, val);
         }
@@ -173,23 +239,31 @@ public abstract class _Person extends AbstractPersistentWithId {
     @Override
     protected void writeState(ObjectOutputStream out) throws IOException {
         super.writeState(out);
+        out.writeObject(this.createdDtm);
+        out.writeObject(this.modifiedDtm);
         out.writeObject(this.events);
         out.writeObject(this.identities);
         out.writeObject(this.primaryIdentity);
         out.writeObject(this.relationshipAsChild);
         out.writeObject(this.relationshipsAsPrimary);
         out.writeObject(this.relationshipsAsSecondary);
+        out.writeObject(this.userCreated);
+        out.writeObject(this.userModified);
     }
 
     @Override
     protected void readState(ObjectInputStream in) throws IOException, ClassNotFoundException {
         super.readState(in);
+        this.createdDtm = (Date)in.readObject();
+        this.modifiedDtm = (Date)in.readObject();
         this.events = in.readObject();
         this.identities = in.readObject();
         this.primaryIdentity = in.readObject();
         this.relationshipAsChild = in.readObject();
         this.relationshipsAsPrimary = in.readObject();
         this.relationshipsAsSecondary = in.readObject();
+        this.userCreated = in.readObject();
+        this.userModified = in.readObject();
     }
 
 }

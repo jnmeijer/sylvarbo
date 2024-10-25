@@ -6,10 +6,12 @@ import org.apache.tapestry5.SymbolConstants;
 import org.apache.tapestry5.annotations.Import;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.ioc.annotations.Symbol;
 
-import net.xytra.sylvarbo.pages.PersonList;
+import net.xytra.common.tapestry.session.Session;
+import net.xytra.sylvarbo.pages.Login;
 
 import java.time.LocalDate;
 
@@ -18,9 +20,12 @@ import java.time.LocalDate;
  */
 @Import(stylesheet = "context:css/app.css")
 public class Layout {
-
     @Inject
     private ComponentResources resources;
+
+    @Property
+    @SessionState(create=false)
+    protected Session session;
 
     /**
     * The page title, for the <title> element and the <h1> element.
@@ -42,14 +47,18 @@ public class Layout {
     }
 
     public String[] getPageNames() {
-        return new String[]{ "Index", "About" };
+        return new String[]{ };
     }
 
     public int getYear() {
         return LocalDate.now().getYear();
     }
 
-    public Class<PersonList> onActionFromPersonList() {
-        return PersonList.class;
+    public Class<Login> onActionFromLogout() {
+        session.invalidate();
+        session = null;
+
+        return Login.class;
     }
+
 }

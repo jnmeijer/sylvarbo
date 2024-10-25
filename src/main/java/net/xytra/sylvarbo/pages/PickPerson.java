@@ -135,6 +135,8 @@ public class PickPerson extends AbstractTypedPage<Person> {
             }
 
             if (wasSet) {
+                relationship.setModifiedNowBy(session.getUser());
+
                 context().commitChanges();
                 System.err.println("--- Success!");
             } else {
