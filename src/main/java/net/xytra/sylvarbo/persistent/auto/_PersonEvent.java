@@ -7,8 +7,8 @@ import java.util.Date;
 
 import org.apache.cayenne.exp.Property;
 
-import net.xytra.common.cayenne.persistent.AbstractModifiable;
 import net.xytra.common.cayenne.persistent.User;
+import net.xytra.sylvarbo.persistent.AbstractEvent;
 import net.xytra.sylvarbo.persistent.Person;
 
 /**
@@ -17,7 +17,7 @@ import net.xytra.sylvarbo.persistent.Person;
  * since it may be overwritten next time code is regenerated.
  * If you need to make any customizations, please use subclass.
  */
-public abstract class _PersonEvent extends AbstractModifiable {
+public abstract class _PersonEvent extends AbstractEvent {
 
     private static final long serialVersionUID = 1L; 
 

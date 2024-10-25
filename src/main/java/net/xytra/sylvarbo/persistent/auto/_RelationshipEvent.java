@@ -7,8 +7,8 @@ import java.util.Date;
 
 import org.apache.cayenne.exp.Property;
 
-import net.xytra.common.cayenne.persistent.AbstractModifiable;
 import net.xytra.common.cayenne.persistent.User;
+import net.xytra.sylvarbo.persistent.AbstractEvent;
 import net.xytra.sylvarbo.persistent.Relationship;
 
 /**
@@ -17,7 +17,7 @@ import net.xytra.sylvarbo.persistent.Relationship;
  * since it may be overwritten next time code is regenerated.
  * If you need to make any customizations, please use subclass.
  */
-public abstract class _RelationshipEvent extends AbstractModifiable {
+public abstract class _RelationshipEvent extends AbstractEvent {
 
     private static final long serialVersionUID = 1L; 
 
@@ -26,7 +26,9 @@ public abstract class _RelationshipEvent extends AbstractModifiable {
     public static final Property<String> APPROXIMATION = Property.create("approximation", String.class);
     public static final Property<Date> CREATED_DTM = Property.create("createdDtm", Date.class);
     public static final Property<Long> DTM = Property.create("dtm", Long.class);
+    public static final Property<String> LOCATION_DESC = Property.create("locationDesc", String.class);
     public static final Property<Date> MODIFIED_DTM = Property.create("modifiedDtm", Date.class);
+    public static final Property<String> ORIGINAL_DATE = Property.create("originalDate", String.class);
     public static final Property<String> PRECISION = Property.create("precision", String.class);
     public static final Property<String> TYPE = Property.create("type", String.class);
     public static final Property<Relationship> RELATIONSHIP = Property.create("relationship", Relationship.class);
@@ -36,7 +38,9 @@ public abstract class _RelationshipEvent extends AbstractModifiable {
     protected String approximation;
     protected Date createdDtm;
     protected Long dtm;
+    protected String locationDesc;
     protected Date modifiedDtm;
+    protected String originalDate;
     protected String precision;
     protected String type;
 
@@ -77,6 +81,16 @@ public abstract class _RelationshipEvent extends AbstractModifiable {
         return this.dtm;
     }
 
+    public void setLocationDesc(String locationDesc) {
+        beforePropertyWrite("locationDesc", this.locationDesc, locationDesc);
+        this.locationDesc = locationDesc;
+    }
+
+    public String getLocationDesc() {
+        beforePropertyRead("locationDesc");
+        return this.locationDesc;
+    }
+
     public void setModifiedDtm(Date modifiedDtm) {
         beforePropertyWrite("modifiedDtm", this.modifiedDtm, modifiedDtm);
         this.modifiedDtm = modifiedDtm;
@@ -85,6 +99,16 @@ public abstract class _RelationshipEvent extends AbstractModifiable {
     public Date getModifiedDtm() {
         beforePropertyRead("modifiedDtm");
         return this.modifiedDtm;
+    }
+
+    public void setOriginalDate(String originalDate) {
+        beforePropertyWrite("originalDate", this.originalDate, originalDate);
+        this.originalDate = originalDate;
+    }
+
+    public String getOriginalDate() {
+        beforePropertyRead("originalDate");
+        return this.originalDate;
     }
 
     public void setPrecision(String precision) {
@@ -144,8 +168,12 @@ public abstract class _RelationshipEvent extends AbstractModifiable {
                 return this.createdDtm;
             case "dtm":
                 return this.dtm;
+            case "locationDesc":
+                return this.locationDesc;
             case "modifiedDtm":
                 return this.modifiedDtm;
+            case "originalDate":
+                return this.originalDate;
             case "precision":
                 return this.precision;
             case "type":
@@ -177,8 +205,14 @@ public abstract class _RelationshipEvent extends AbstractModifiable {
             case "dtm":
                 this.dtm = (Long)val;
                 break;
+            case "locationDesc":
+                this.locationDesc = (String)val;
+                break;
             case "modifiedDtm":
                 this.modifiedDtm = (Date)val;
+                break;
+            case "originalDate":
+                this.originalDate = (String)val;
                 break;
             case "precision":
                 this.precision = (String)val;
@@ -214,7 +248,9 @@ public abstract class _RelationshipEvent extends AbstractModifiable {
         out.writeObject(this.approximation);
         out.writeObject(this.createdDtm);
         out.writeObject(this.dtm);
+        out.writeObject(this.locationDesc);
         out.writeObject(this.modifiedDtm);
+        out.writeObject(this.originalDate);
         out.writeObject(this.precision);
         out.writeObject(this.type);
         out.writeObject(this.relationship);
@@ -228,7 +264,9 @@ public abstract class _RelationshipEvent extends AbstractModifiable {
         this.approximation = (String)in.readObject();
         this.createdDtm = (Date)in.readObject();
         this.dtm = (Long)in.readObject();
+        this.locationDesc = (String)in.readObject();
         this.modifiedDtm = (Date)in.readObject();
+        this.originalDate = (String)in.readObject();
         this.precision = (String)in.readObject();
         this.type = (String)in.readObject();
         this.relationship = in.readObject();

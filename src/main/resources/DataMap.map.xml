@@ -64,8 +64,10 @@
 		<db-attribute name="CREATED_DTM" type="TIMESTAMP" isMandatory="true"/>
 		<db-attribute name="DTM" type="BIGINT"/>
 		<db-attribute name="ID" type="BIGINT" isPrimaryKey="true" isMandatory="true"/>
+		<db-attribute name="LOCATION_DESC" type="VARCHAR" length="256"/>
 		<db-attribute name="MODIFIED_BY_ID" type="INTEGER" isMandatory="true"/>
 		<db-attribute name="MODIFIED_DTM" type="TIMESTAMP" isMandatory="true"/>
+		<db-attribute name="ORIGINAL_DATE" type="VARCHAR" length="256"/>
 		<db-attribute name="PRECISION" type="VARCHAR" length="8"/>
 		<db-attribute name="RELATIONSHIP_ID" type="BIGINT" isMandatory="true"/>
 		<db-attribute name="TYPE" type="VARCHAR" length="4"/>
@@ -85,7 +87,7 @@
 		<obj-attribute name="createdDtm" type="java.util.Date" db-attribute-path="CREATED_DTM"/>
 		<obj-attribute name="modifiedDtm" type="java.util.Date" db-attribute-path="MODIFIED_DTM"/>
 	</obj-entity>
-	<obj-entity name="PersonEvent" className="net.xytra.sylvarbo.persistent.PersonEvent" dbEntityName="XSA_PERSON_EVENT" superClassName="net.xytra.common.cayenne.persistent.AbstractModifiable">
+	<obj-entity name="PersonEvent" className="net.xytra.sylvarbo.persistent.PersonEvent" dbEntityName="XSA_PERSON_EVENT" superClassName="net.xytra.sylvarbo.persistent.AbstractEvent">
 		<obj-attribute name="approximation" type="java.lang.String" lock="true" db-attribute-path="APPROXIMATION"/>
 		<obj-attribute name="createdDtm" type="java.util.Date" db-attribute-path="CREATED_DTM"/>
 		<obj-attribute name="dtm" type="long" lock="true" db-attribute-path="DTM"/>
@@ -113,11 +115,13 @@
 		<obj-attribute name="modifiedDtm" type="java.util.Date" db-attribute-path="MODIFIED_DTM"/>
 		<obj-attribute name="type" type="java.lang.String" lock="true" db-attribute-path="TYPE"/>
 	</obj-entity>
-	<obj-entity name="RelationshipEvent" className="net.xytra.sylvarbo.persistent.RelationshipEvent" dbEntityName="XSA_RELATIONSHIP_EVENT" superClassName="net.xytra.common.cayenne.persistent.AbstractModifiable">
+	<obj-entity name="RelationshipEvent" className="net.xytra.sylvarbo.persistent.RelationshipEvent" dbEntityName="XSA_RELATIONSHIP_EVENT" superClassName="net.xytra.sylvarbo.persistent.AbstractEvent">
 		<obj-attribute name="approximation" type="java.lang.String" lock="true" db-attribute-path="APPROXIMATION"/>
 		<obj-attribute name="createdDtm" type="java.util.Date" db-attribute-path="CREATED_DTM"/>
 		<obj-attribute name="dtm" type="long" lock="true" db-attribute-path="DTM"/>
+		<obj-attribute name="locationDesc" type="java.lang.String" db-attribute-path="LOCATION_DESC"/>
 		<obj-attribute name="modifiedDtm" type="java.util.Date" db-attribute-path="MODIFIED_DTM"/>
+		<obj-attribute name="originalDate" type="java.lang.String" db-attribute-path="ORIGINAL_DATE"/>
 		<obj-attribute name="precision" type="java.lang.String" lock="true" db-attribute-path="PRECISION"/>
 		<obj-attribute name="type" type="java.lang.String" lock="true" db-attribute-path="TYPE"/>
 	</obj-entity>

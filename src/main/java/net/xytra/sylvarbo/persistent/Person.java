@@ -4,7 +4,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import net.xytra.sylvarbo.enums.PersonEventType;
 import net.xytra.sylvarbo.persistent.auto._Person;
 
 public class Person extends _Person {
