@@ -28,6 +28,7 @@ public abstract class _PersonEvent extends AbstractModifiable {
     public static final Property<Long> DTM = Property.create("dtm", Long.class);
     public static final Property<String> LOCATION_DESC = Property.create("locationDesc", String.class);
     public static final Property<Date> MODIFIED_DTM = Property.create("modifiedDtm", Date.class);
+    public static final Property<String> ORIGINAL_DATE = Property.create("originalDate", String.class);
     public static final Property<String> PRECISION = Property.create("precision", String.class);
     public static final Property<String> TYPE = Property.create("type", String.class);
     public static final Property<Person> PERSON = Property.create("person", Person.class);
@@ -39,6 +40,7 @@ public abstract class _PersonEvent extends AbstractModifiable {
     protected long dtm;
     protected String locationDesc;
     protected Date modifiedDtm;
+    protected String originalDate;
     protected String precision;
     protected String type;
 
@@ -94,6 +96,16 @@ public abstract class _PersonEvent extends AbstractModifiable {
     public Date getModifiedDtm() {
         beforePropertyRead("modifiedDtm");
         return this.modifiedDtm;
+    }
+
+    public void setOriginalDate(String originalDate) {
+        beforePropertyWrite("originalDate", this.originalDate, originalDate);
+        this.originalDate = originalDate;
+    }
+
+    public String getOriginalDate() {
+        beforePropertyRead("originalDate");
+        return this.originalDate;
     }
 
     public void setPrecision(String precision) {
@@ -157,6 +169,8 @@ public abstract class _PersonEvent extends AbstractModifiable {
                 return this.locationDesc;
             case "modifiedDtm":
                 return this.modifiedDtm;
+            case "originalDate":
+                return this.originalDate;
             case "precision":
                 return this.precision;
             case "type":
@@ -194,6 +208,9 @@ public abstract class _PersonEvent extends AbstractModifiable {
             case "modifiedDtm":
                 this.modifiedDtm = (Date)val;
                 break;
+            case "originalDate":
+                this.originalDate = (String)val;
+                break;
             case "precision":
                 this.precision = (String)val;
                 break;
@@ -230,6 +247,7 @@ public abstract class _PersonEvent extends AbstractModifiable {
         out.writeLong(this.dtm);
         out.writeObject(this.locationDesc);
         out.writeObject(this.modifiedDtm);
+        out.writeObject(this.originalDate);
         out.writeObject(this.precision);
         out.writeObject(this.type);
         out.writeObject(this.person);
@@ -245,6 +263,7 @@ public abstract class _PersonEvent extends AbstractModifiable {
         this.dtm = in.readLong();
         this.locationDesc = (String)in.readObject();
         this.modifiedDtm = (Date)in.readObject();
+        this.originalDate = (String)in.readObject();
         this.precision = (String)in.readObject();
         this.type = (String)in.readObject();
         this.person = in.readObject();

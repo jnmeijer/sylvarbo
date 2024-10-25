@@ -22,6 +22,7 @@
 		<db-attribute name="LOCATION_DESC" type="VARCHAR" length="256"/>
 		<db-attribute name="MODIFIED_BY_ID" type="INTEGER" isMandatory="true"/>
 		<db-attribute name="MODIFIED_DTM" type="TIMESTAMP" isMandatory="true"/>
+		<db-attribute name="ORIGINAL_DATE" type="VARCHAR" length="256"/>
 		<db-attribute name="PERSON_ID" type="BIGINT" isMandatory="true"/>
 		<db-attribute name="PRECISION" type="VARCHAR" isMandatory="true" length="8"/>
 		<db-attribute name="TYPE" type="VARCHAR" isMandatory="true" length="8"/>
@@ -90,6 +91,7 @@
 		<obj-attribute name="dtm" type="long" lock="true" db-attribute-path="DTM"/>
 		<obj-attribute name="locationDesc" type="java.lang.String" db-attribute-path="LOCATION_DESC"/>
 		<obj-attribute name="modifiedDtm" type="java.util.Date" db-attribute-path="MODIFIED_DTM"/>
+		<obj-attribute name="originalDate" type="java.lang.String" db-attribute-path="ORIGINAL_DATE"/>
 		<obj-attribute name="precision" type="java.lang.String" lock="true" db-attribute-path="PRECISION"/>
 		<obj-attribute name="type" type="java.lang.String" lock="true" db-attribute-path="TYPE"/>
 	</obj-entity>

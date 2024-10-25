@@ -42,6 +42,9 @@ public class PersonEventAdd extends AbstractEditModifiablePage<PersonEvent> {
     private String dateField;
 
     @Property
+    private String originalDate;
+
+    @Property
     private String location;
 
     @Property
@@ -79,6 +82,8 @@ public class PersonEventAdd extends AbstractEditModifiablePage<PersonEvent> {
         approximation = editedObject.getApproximationEnum();
         eventType = editedObject.getTypeEnum();
         precision = editedObject.getPrecisionEnum();
+        location = editedObject.getLocationDesc();
+        originalDate = editedObject.getOriginalDate();
     }
 
     // ---- Actions
@@ -89,6 +94,7 @@ public class PersonEventAdd extends AbstractEditModifiablePage<PersonEvent> {
         editedObject.setPrecision(precision != null ? precision.toString() : null);
         editedObject.setApproximation(approximation != null ? approximation.toString() : null);
         editedObject.setLocationDesc(location);
+        editedObject.setOriginalDate(originalDate);
 
         // Figure out the date if possible
         if (precision != null && StringUtils.isNotBlank(dateField)) {

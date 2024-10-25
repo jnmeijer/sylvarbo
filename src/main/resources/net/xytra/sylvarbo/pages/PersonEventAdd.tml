@@ -33,6 +33,10 @@ Enter comma-separated names:
   <td><t:textfield value="dateField"/></td>
  </tr>
  <tr>
+  <td>Original date</td>
+  <td><t:textfield value="originalDate"/></td>
+ </tr>
+ <tr>
   <td>Location</td>
   <td><t:textfield value="location"/></td>
  </tr>

@@ -43,9 +43,11 @@
        <table border="1">
         <t:loop source="viewedObject.eventIDsSortedByDtm" value="currentEventId">
          <tr>
-          <td>${viewedObject.events.get(currentEventId)?.displayedType}</td>
-          <td>${viewedObject.events.get(currentEventId)?.displayedDate}</td>
-          <td>${viewedObject.events.get(currentEventId)?.locationDesc}</td>
+          <td>${viewedObject.events.get(currentEventId).displayedType}</td>
+          <td>${viewedObject.events.get(currentEventId).displayedDate}
+           <t:if test="viewedObject.events.get(currentEventId).originalDate">(${viewedObject.events.get(currentEventId).originalDate})</t:if>
+          </td>
+          <td>${viewedObject.events.get(currentEventId).locationDesc}</td>
           <td><t:actionLink t:id="deleteEvent" context="currentEventId">Delete</t:actionLink></td>
          </tr>
         </t:loop>
