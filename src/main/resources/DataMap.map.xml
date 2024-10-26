@@ -70,7 +70,7 @@
 		<db-attribute name="ORIGINAL_DATE" type="VARCHAR" length="256"/>
 		<db-attribute name="PRECISION" type="VARCHAR" length="8"/>
 		<db-attribute name="RELATIONSHIP_ID" type="BIGINT" isMandatory="true"/>
-		<db-attribute name="TYPE" type="VARCHAR" length="4"/>
+		<db-attribute name="TYPE" type="VARCHAR" length="32"/>
 	</db-entity>
 	<db-entity name="XSA_USER">
 		<db-attribute name="CREATED_DTM" type="TIMESTAMP" isMandatory="true"/>
@@ -239,7 +239,7 @@
 	<obj-relationship name="userCreated" source="PersonName" target="User" deleteRule="Nullify" db-relationship-path="userCreated"/>
 	<obj-relationship name="userModified" source="PersonName" target="User" deleteRule="Nullify" db-relationship-path="userModified"/>
 	<obj-relationship name="children" source="Relationship" target="Person" deleteRule="Deny" db-relationship-path="children"/>
-	<obj-relationship name="events" source="Relationship" target="RelationshipEvent" deleteRule="Deny" db-relationship-path="relationshipEvents"/>
+	<obj-relationship name="events" source="Relationship" target="RelationshipEvent" collection-type="java.util.Map" deleteRule="Deny" db-relationship-path="relationshipEvents"/>
 	<obj-relationship name="primaryParent" source="Relationship" target="Person" deleteRule="Nullify" db-relationship-path="primaryParent"/>
 	<obj-relationship name="secondaryParent" source="Relationship" target="Person" deleteRule="Nullify" db-relationship-path="secondaryParent"/>
 	<obj-relationship name="userCreated" source="Relationship" target="User" deleteRule="Nullify" db-relationship-path="userCreated"/>

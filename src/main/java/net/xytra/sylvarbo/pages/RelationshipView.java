@@ -10,7 +10,9 @@ import org.apache.tapestry5.services.PageRenderLinkSource;
 
 import net.xytra.sylvarbo.base.AbstractViewPage;
 import net.xytra.sylvarbo.persistent.Person;
+import net.xytra.sylvarbo.persistent.PersonEvent;
 import net.xytra.sylvarbo.persistent.Relationship;
+import net.xytra.sylvarbo.persistent.RelationshipEvent;
 
 /**
  * Page to view a relationship
@@ -23,7 +25,7 @@ public class RelationshipView extends AbstractViewPage<Relationship> {
     private int currentChildIndex;
 
     @Property
-    private int currentEventIndex;
+    private long currentEventId;
 
     void onActivate(EventContext eventContext) {
         if (eventContext.getCount() != 1 && eventContext.getCount() != 3) {
@@ -71,6 +73,21 @@ public class RelationshipView extends AbstractViewPage<Relationship> {
     }
 
     // --- Actions
+    Object onActionFromDeleteEvent(long id) {
+        RelationshipEvent event = viewedObject.getEvents().get(id);
+        viewedObject.removeFromEvents(event);
+
+        context().deleteObject(event);
+
+        viewedObject.setModifiedNowBy(session.getUser());
+
+        // Save changes
+        context().commitChanges();
+
+        // Return to same page
+        return null;
+    }
+
     Object onActionFromRemoveChild(int index) {
         Person child = getChildForIndex(index);
         viewedObject.removeFromChildren(child);

@@ -36,9 +36,18 @@
       <td>Events</td>
       <td>
        <table border="1">
-        <tr><td>placeholder</td></tr>
+        <t:loop source="viewedObject.eventIDsSortedByDtm" value="currentEventId">
+         <tr>
+          <td>${viewedObject.events.get(currentEventId).displayedType}</td>
+          <td>${viewedObject.events.get(currentEventId).displayedDate}
+           <t:if test="viewedObject.events.get(currentEventId).originalDate">(${viewedObject.events.get(currentEventId).originalDate})</t:if>
+          </td>
+          <td>${viewedObject.events.get(currentEventId).locationDesc}</td>
+          <td><t:actionLink t:id="deleteEvent" context="currentEventId">Delete</t:actionLink></td>
+         </tr>
+        </t:loop>
        </table>
-       Add event
+       <t:pageLink page="RelationshipEventAdd" context="[viewedObject.id, 'new']">Add event</t:pageLink>
       </td>
      </tr>
      <tr>

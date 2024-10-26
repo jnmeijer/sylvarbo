@@ -5,6 +5,7 @@ import org.apache.tapestry5.SelectModel;
 import net.xytra.sylvarbo.enums.DateApproximation;
 import net.xytra.sylvarbo.enums.DatePrecision;
 import net.xytra.sylvarbo.enums.PersonEventType;
+import net.xytra.sylvarbo.enums.RelationshipEventType;
 
 public interface PresetModels {
     public static final SelectModel DateApproximationSelectModel =
@@ -15,5 +16,8 @@ public interface PresetModels {
 
     public static final SelectModel PersonEventTypeSelectModel =
             new DisplayableSelectModel(PersonEventType.values());
+
+    public static final SelectModel RelationshipEventTypeSelectModel =
+            new DisplayableSelectModel(RelationshipEventType.values());
 
 }

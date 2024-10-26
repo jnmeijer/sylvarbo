@@ -5,6 +5,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.cayenne.exp.Property;
 
@@ -29,7 +30,7 @@ public abstract class _Relationship extends AbstractModifiable {
     public static final Property<Date> MODIFIED_DTM = Property.create("modifiedDtm", Date.class);
     public static final Property<String> TYPE = Property.create("type", String.class);
     public static final Property<List<Person>> CHILDREN = Property.create("children", List.class);
-    public static final Property<List<RelationshipEvent>> EVENTS = Property.create("events", List.class);
+    public static final Property<Map<Object, RelationshipEvent>> EVENTS = Property.create("events", Map.class);
     public static final Property<Person> PRIMARY_PARENT = Property.create("primaryParent", Person.class);
     public static final Property<Person> SECONDARY_PARENT = Property.create("secondaryParent", Person.class);
     public static final Property<User> USER_CREATED = Property.create("userCreated", User.class);
@@ -98,8 +99,8 @@ public abstract class _Relationship extends AbstractModifiable {
     }
 
     @SuppressWarnings("unchecked")
-    public List<RelationshipEvent> getEvents() {
-        return (List<RelationshipEvent>)readProperty("events");
+    public Map<Object, RelationshipEvent> getEvents() {
+        return (Map<Object, RelationshipEvent>)readProperty("events");
     }
 
     public void setPrimaryParent(Person primaryParent) {

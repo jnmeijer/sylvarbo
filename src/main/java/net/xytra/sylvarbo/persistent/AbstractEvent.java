@@ -6,6 +6,7 @@ import java.util.Date;
 import net.xytra.common.cayenne.persistent.AbstractModifiable;
 import net.xytra.sylvarbo.enums.DateApproximation;
 import net.xytra.sylvarbo.enums.DatePrecision;
+import net.xytra.sylvarbo.enums.DisplayableEnum;
 import net.xytra.sylvarbo.enums.PersonEventType;
 
 public abstract class AbstractEvent extends AbstractModifiable {
@@ -16,13 +17,20 @@ public abstract class AbstractEvent extends AbstractModifiable {
 
     public abstract String getApproximation();
     public abstract long getDtm();
+    public abstract String getLocationDesc();
+    public abstract String getOriginalDate();
     public abstract String getPrecision();
     public abstract String getType();
 
+    public abstract void setApproximation(String approximation);
+    public abstract void setDtm(long dtm);
+    public abstract void setLocationDesc(String locationDesc);
+    public abstract void setOriginalDate(String originalDate);
+    public abstract void setPrecision(String precision);
+    public abstract void setType(String type);
+
     // ---
-    public String getDisplayedType() {
-        return PersonEventType.valueOf(getType()).getDisplayed();
-    }
+    public abstract String getDisplayedType();
 
     public String getDisplayedDate() {
         // With approximation
@@ -50,15 +58,7 @@ public abstract class AbstractEvent extends AbstractModifiable {
     }
 
     // Enum accessors/getters
-    public PersonEventType getTypeEnum() {
-        String typeStr = getType();
-
-        if (typeStr == null) {
-            return null;
-        } else {
-            return PersonEventType.valueOf(typeStr);
-        }
-    }
+    public abstract DisplayableEnum getTypeEnum();
 
     public DateApproximation getApproximationEnum() {
         String approximationStr = getApproximation();
