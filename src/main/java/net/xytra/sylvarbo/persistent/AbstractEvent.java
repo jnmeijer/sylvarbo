@@ -7,7 +7,6 @@ import net.xytra.common.cayenne.persistent.AbstractModifiable;
 import net.xytra.sylvarbo.enums.DateApproximation;
 import net.xytra.sylvarbo.enums.DatePrecision;
 import net.xytra.sylvarbo.enums.DisplayableEnum;
-import net.xytra.sylvarbo.enums.PersonEventType;
 
 public abstract class AbstractEvent extends AbstractModifiable {
 

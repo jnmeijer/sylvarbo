@@ -13,6 +13,7 @@ import net.xytra.common.cayenne.persistent.AbstractModifiable;
 import net.xytra.common.cayenne.persistent.User;
 import net.xytra.sylvarbo.persistent.PersonEvent;
 import net.xytra.sylvarbo.persistent.PersonIdentity;
+import net.xytra.sylvarbo.persistent.PersonReference;
 import net.xytra.sylvarbo.persistent.Relationship;
 
 /**
@@ -27,10 +28,14 @@ public abstract class _Person extends AbstractModifiable {
 
     public static final String ID_PK_COLUMN = "ID";
 
+    public static final Property<String> ADDITIONAL_INFO = Property.create("additionalInfo", String.class);
     public static final Property<Date> CREATED_DTM = Property.create("createdDtm", Date.class);
+    public static final Property<String> GENDER = Property.create("gender", String.class);
+    public static final Property<String> GENDER_DESC = Property.create("genderDesc", String.class);
     public static final Property<Date> MODIFIED_DTM = Property.create("modifiedDtm", Date.class);
     public static final Property<Map<Object, PersonEvent>> EVENTS = Property.create("events", Map.class);
     public static final Property<List<PersonIdentity>> IDENTITIES = Property.create("identities", List.class);
+    public static final Property<List<PersonReference>> PERSON_REFERENCES = Property.create("personReferences", List.class);
     public static final Property<PersonIdentity> PRIMARY_IDENTITY = Property.create("primaryIdentity", PersonIdentity.class);
     public static final Property<Relationship> RELATIONSHIP_AS_CHILD = Property.create("relationshipAsChild", Relationship.class);
     public static final Property<List<Relationship>> RELATIONSHIPS_AS_PRIMARY = Property.create("relationshipsAsPrimary", List.class);
@@ -38,17 +43,31 @@ public abstract class _Person extends AbstractModifiable {
     public static final Property<User> USER_CREATED = Property.create("userCreated", User.class);
     public static final Property<User> USER_MODIFIED = Property.create("userModified", User.class);
 
+    protected String additionalInfo;
     protected Date createdDtm;
+    protected String gender;
+    protected String genderDesc;
     protected Date modifiedDtm;
 
     protected Object events;
     protected Object identities;
+    protected Object personReferences;
     protected Object primaryIdentity;
     protected Object relationshipAsChild;
     protected Object relationshipsAsPrimary;
     protected Object relationshipsAsSecondary;
     protected Object userCreated;
     protected Object userModified;
+
+    public void setAdditionalInfo(String additionalInfo) {
+        beforePropertyWrite("additionalInfo", this.additionalInfo, additionalInfo);
+        this.additionalInfo = additionalInfo;
+    }
+
+    public String getAdditionalInfo() {
+        beforePropertyRead("additionalInfo");
+        return this.additionalInfo;
+    }
 
     public void setCreatedDtm(Date createdDtm) {
         beforePropertyWrite("createdDtm", this.createdDtm, createdDtm);
@@ -58,6 +77,26 @@ public abstract class _Person extends AbstractModifiable {
     public Date getCreatedDtm() {
         beforePropertyRead("createdDtm");
         return this.createdDtm;
+    }
+
+    public void setGender(String gender) {
+        beforePropertyWrite("gender", this.gender, gender);
+        this.gender = gender;
+    }
+
+    public String getGender() {
+        beforePropertyRead("gender");
+        return this.gender;
+    }
+
+    public void setGenderDesc(String genderDesc) {
+        beforePropertyWrite("genderDesc", this.genderDesc, genderDesc);
+        this.genderDesc = genderDesc;
+    }
+
+    public String getGenderDesc() {
+        beforePropertyRead("genderDesc");
+        return this.genderDesc;
     }
 
     public void setModifiedDtm(Date modifiedDtm) {
@@ -94,6 +133,19 @@ public abstract class _Person extends AbstractModifiable {
     @SuppressWarnings("unchecked")
     public List<PersonIdentity> getIdentities() {
         return (List<PersonIdentity>)readProperty("identities");
+    }
+
+    public void addToPersonReferences(PersonReference obj) {
+        addToManyTarget("personReferences", obj, true);
+    }
+
+    public void removeFromPersonReferences(PersonReference obj) {
+        removeToManyTarget("personReferences", obj, true);
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<PersonReference> getPersonReferences() {
+        return (List<PersonReference>)readProperty("personReferences");
     }
 
     public void setPrimaryIdentity(PersonIdentity primaryIdentity) {
@@ -161,14 +213,22 @@ public abstract class _Person extends AbstractModifiable {
         }
 
         switch(propName) {
+            case "additionalInfo":
+                return this.additionalInfo;
             case "createdDtm":
                 return this.createdDtm;
+            case "gender":
+                return this.gender;
+            case "genderDesc":
+                return this.genderDesc;
             case "modifiedDtm":
                 return this.modifiedDtm;
             case "events":
                 return this.events;
             case "identities":
                 return this.identities;
+            case "personReferences":
+                return this.personReferences;
             case "primaryIdentity":
                 return this.primaryIdentity;
             case "relationshipAsChild":
@@ -193,8 +253,17 @@ public abstract class _Person extends AbstractModifiable {
         }
 
         switch (propName) {
+            case "additionalInfo":
+                this.additionalInfo = (String)val;
+                break;
             case "createdDtm":
                 this.createdDtm = (Date)val;
+                break;
+            case "gender":
+                this.gender = (String)val;
+                break;
+            case "genderDesc":
+                this.genderDesc = (String)val;
                 break;
             case "modifiedDtm":
                 this.modifiedDtm = (Date)val;
@@ -204,6 +273,9 @@ public abstract class _Person extends AbstractModifiable {
                 break;
             case "identities":
                 this.identities = val;
+                break;
+            case "personReferences":
+                this.personReferences = val;
                 break;
             case "primaryIdentity":
                 this.primaryIdentity = val;
@@ -239,10 +311,14 @@ public abstract class _Person extends AbstractModifiable {
     @Override
     protected void writeState(ObjectOutputStream out) throws IOException {
         super.writeState(out);
+        out.writeObject(this.additionalInfo);
         out.writeObject(this.createdDtm);
+        out.writeObject(this.gender);
+        out.writeObject(this.genderDesc);
         out.writeObject(this.modifiedDtm);
         out.writeObject(this.events);
         out.writeObject(this.identities);
+        out.writeObject(this.personReferences);
         out.writeObject(this.primaryIdentity);
         out.writeObject(this.relationshipAsChild);
         out.writeObject(this.relationshipsAsPrimary);
@@ -254,10 +330,14 @@ public abstract class _Person extends AbstractModifiable {
     @Override
     protected void readState(ObjectInputStream in) throws IOException, ClassNotFoundException {
         super.readState(in);
+        this.additionalInfo = (String)in.readObject();
         this.createdDtm = (Date)in.readObject();
+        this.gender = (String)in.readObject();
+        this.genderDesc = (String)in.readObject();
         this.modifiedDtm = (Date)in.readObject();
         this.events = in.readObject();
         this.identities = in.readObject();
+        this.personReferences = in.readObject();
         this.primaryIdentity = in.readObject();
         this.relationshipAsChild = in.readObject();
         this.relationshipsAsPrimary = in.readObject();

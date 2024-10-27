@@ -10,7 +10,6 @@ import org.apache.tapestry5.services.PageRenderLinkSource;
 
 import net.xytra.sylvarbo.base.AbstractViewPage;
 import net.xytra.sylvarbo.persistent.Person;
-import net.xytra.sylvarbo.persistent.PersonEvent;
 import net.xytra.sylvarbo.persistent.Relationship;
 import net.xytra.sylvarbo.persistent.RelationshipEvent;
 
