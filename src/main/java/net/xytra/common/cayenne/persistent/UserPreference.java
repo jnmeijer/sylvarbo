@@ -1,6 +1,6 @@
-package net.xytra.sylvarbo.persistent;
+package net.xytra.common.cayenne.persistent;
 
-import net.xytra.sylvarbo.persistent.auto._UserPreference;
+import net.xytra.common.cayenne.persistent.auto._UserPreference;
 
 public class UserPreference extends _UserPreference {
 

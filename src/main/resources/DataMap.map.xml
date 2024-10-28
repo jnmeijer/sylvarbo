@@ -146,7 +146,7 @@
 		<obj-attribute name="modifiedDtm" type="java.util.Date" lock="true" db-attribute-path="MODIFIED_DTM"/>
 		<obj-attribute name="originalUrl" type="java.lang.String" db-attribute-path="ORIGINAL_URL"/>
 	</obj-entity>
-	<obj-entity name="Preference" className="net.xytra.sylvarbo.persistent.Preference" dbEntityName="XSA_PREFERENCE">
+	<obj-entity name="Preference" className="net.xytra.common.cayenne.persistent.Preference" dbEntityName="XSA_PREFERENCE">
 		<obj-attribute name="defaultValue" type="java.lang.String" lock="true" db-attribute-path="DEFAULT_VALUE"/>
 		<obj-attribute name="description" type="java.lang.String" db-attribute-path="DESCRIPTION"/>
 		<obj-attribute name="key" type="java.lang.String" lock="true" db-attribute-path="KEY"/>
@@ -174,7 +174,7 @@
 		<obj-attribute name="password" type="java.lang.String" lock="true" db-attribute-path="PASSWORD"/>
 		<obj-attribute name="username" type="java.lang.String" lock="true" db-attribute-path="USERNAME"/>
 	</obj-entity>
-	<obj-entity name="UserPreference" className="net.xytra.sylvarbo.persistent.UserPreference" dbEntityName="XSA_USER_PREFERENCE">
+	<obj-entity name="UserPreference" className="net.xytra.common.cayenne.persistent.UserPreference" dbEntityName="XSA_USER_PREFERENCE">
 		<obj-attribute name="value" type="java.lang.String" db-attribute-path="VALUE"/>
 	</obj-entity>
 	<db-relationship name="personEvents" source="XSA_PERSON" target="XSA_PERSON_EVENT" toMany="true">

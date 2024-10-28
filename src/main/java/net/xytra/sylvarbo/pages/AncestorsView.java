@@ -6,11 +6,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.tapestry5.EventContext;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.PageRenderLinkSource;
 
+import net.xytra.common.cayenne.persistent.Preference;
 import net.xytra.sylvarbo.AncestorsViewRowItem;
 import net.xytra.sylvarbo.base.AbstractViewPage;
 import net.xytra.sylvarbo.enums.PersonEventType;
@@ -22,13 +24,13 @@ import net.xytra.sylvarbo.persistent.Relationship;
  * View 5 generations from selected person to great-great-grandparents.
  */
 public class AncestorsView extends AbstractViewPage<Person> {
-    private final static byte NUM_GENERATIONS = 5;
-    private final static int NUM_INDIVIDUALS = 1 << (NUM_GENERATIONS);
-
     private static final boolean SHOW_EMPTY_ANCESTORS = true;
 
     @Inject
     private PageRenderLinkSource linkSource;
+
+    @Property
+    private int maxGenerations;
 
     @Property
     private List<AncestorsViewRowItem> rowItemList;
@@ -46,8 +48,16 @@ public class AncestorsView extends AbstractViewPage<Person> {
 
         onActivateForId(eventContext.get(String.class, 0));
 
+        // Get depth requested
+        maxGenerations = 5;
+        String requestedDepth = session.getUser().getPreferenceValueOrDefault(Preference.Keys.ANCESTORS_VIEW_DEPTH);
+        if (NumberUtils.isDigits(requestedDepth)) {
+            maxGenerations = Integer.parseInt(requestedDepth);
+            maxGenerations = Math.min(100, maxGenerations);
+        }
+
         Map<Long, Person> ancestorsMap = new HashMap<Long, Person>();
-        rowItemList = new ArrayList<AncestorsViewRowItem>(NUM_INDIVIDUALS*2);
+        rowItemList = new ArrayList<AncestorsViewRowItem>(1024); // an arbitrarily rather large number to start with
 
         ancestorsMap.put(1L, viewedObject);
         discoverParents(1, ancestorsMap, 1, 0);
@@ -69,9 +79,9 @@ public class AncestorsView extends AbstractViewPage<Person> {
             }
         }
 
-        if (generation < NUM_GENERATIONS && (relationship != null || SHOW_EMPTY_ANCESTORS)) {
+        if (generation < maxGenerations && (relationship != null || SHOW_EMPTY_ANCESTORS)) {
             rowId = discoverParents(identifier*2, ancestorsMap, generation+1, rowId);
-            rowItemList.add(new AncestorsViewRowItem("union placeholder for " + identifier*2 + " and " + (identifier*2+1), 0, ++rowId, NUM_GENERATIONS-generation, 1));
+            rowItemList.add(new AncestorsViewRowItem("union placeholder for " + identifier*2 + " and " + (identifier*2+1), 0, ++rowId, maxGenerations-generation, 1));
             rowId = discoverParents(identifier*2+1, ancestorsMap, generation+1, ++rowId);    
         }
 
@@ -110,7 +120,7 @@ public class AncestorsView extends AbstractViewPage<Person> {
         }
 
         if (birth != null) {
-            return ("n. " + birth.getDisplayedDate());
+            return ("o " + birth.getDisplayedDate());
         } else if (baptism != null) {
             return ("b. " + baptism.getDisplayedDate());
         } else {
@@ -131,9 +141,9 @@ public class AncestorsView extends AbstractViewPage<Person> {
         }
 
         if (death != null) {
-            return ("d. " + death.getDisplayedDate());
+            return ("+ " + death.getDisplayedDate());
         } else if (burial != null) {
-            return ("s. " + burial.getDisplayedDate());
+            return ("obs. " + burial.getDisplayedDate());
         } else {
             return null;
         }
@@ -144,17 +154,14 @@ public class AncestorsView extends AbstractViewPage<Person> {
     private String currentHeader;
 
     public List<String> getHeaders() {
-        List<String> headers = new ArrayList<String>(NUM_GENERATIONS);
-        for (int i=0; i<NUM_GENERATIONS; i++) {
+        List<String> headers = new ArrayList<String>(maxGenerations);
+        for (int i=0; i<maxGenerations; i++) {
             headers.add("Generation " + (i+1));
         }
 
         return headers;
     }
 
-    public String getHeaderWidth() {
-        return String.format("%.1f%%", 100.0/NUM_GENERATIONS);
-    }
     // Basic stuff
     @Override
     protected Number parseIdString(String id) {

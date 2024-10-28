@@ -1,5 +1,8 @@
 package net.xytra.common.cayenne.persistent;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.apache.cayenne.ObjectContext;
 import org.apache.cayenne.query.ObjectSelect;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -23,6 +26,15 @@ public class User extends _User {
 
     private static String encodePassword(String password) {
         return DigestUtils.sha256Hex("i@U<" + password);
+    }
+
+    public String getPreferenceValueOrDefault(String key) {
+        List<UserPreference> userPref = getUserPreferences().stream().filter(up -> up.getPreference().getKey().equals(Preference.Keys.ANCESTORS_VIEW_DEPTH)).collect(Collectors.toList());
+        if (userPref.size() == 0) {
+            return Preference.getDefaultValueForKey(key, getObjectContext());
+        }
+
+        return userPref.get(0).getValue();
     }
 
     public static void main(String[] args) {

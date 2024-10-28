@@ -6,8 +6,8 @@
 		<entity name="XSA_RELATIONSHIP_EVENT" x="0.0" y="0.0" width="183.0" height="212.0"/>
 		<entity name="XSA_USER_PREFERENCE" x="0.0" y="0.0" width="163.0" height="92.0"/>
 		<entity name="XSA_RELATIONSHIP" x="0.0" y="0.0" width="148.0" height="152.0"/>
-		<entity name="XSA_PREFERENCE" x="0.0" y="0.0" width="121.0" height="92.0"/>
 		<entity name="XSA_PERSON_REFERENCE" x="0.0" y="0.0" width="174.0" height="167.0"/>
+		<entity name="XSA_PREFERENCE" x="0.0" y="0.0" width="121.0" height="92.0"/>
 		<entity name="XSA_PERSON_IDENTITY" x="0.0" y="0.0" width="157.0" height="152.0"/>
 		<entity name="XSA_USER" x="0.0" y="0.0" width="117.0" height="167.0"/>
 		<entity name="XSA_PERSON" x="0.0" y="0.0" width="160.0" height="182.0"/>
