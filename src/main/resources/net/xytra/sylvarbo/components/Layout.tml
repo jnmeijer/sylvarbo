@@ -32,6 +32,9 @@
                                 <t:any element="li" class="nav-intem">
                                     <t:pagelink page="personList" class="prop:classForPageName">Person List</t:pagelink>
                                 </t:any>
+                                <t:any element="li" class="nav-intem">
+                                    <t:pagelink page="PreferencesEdit" class="prop:classForPageName">Preferences</t:pagelink>
+                                </t:any>
                             </t:if>
                         </ul>
                         <span class="navbar-right">

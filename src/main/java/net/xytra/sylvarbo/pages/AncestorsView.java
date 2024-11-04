@@ -24,7 +24,7 @@ import net.xytra.sylvarbo.persistent.Relationship;
  * View 5 generations from selected person to great-great-grandparents.
  */
 public class AncestorsView extends AbstractViewPage<Person> {
-    private static final boolean SHOW_EMPTY_ANCESTORS = true;
+    private static final boolean SHOW_EMPTY_ANCESTORS = false;
 
     @Inject
     private PageRenderLinkSource linkSource;

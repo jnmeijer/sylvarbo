@@ -1,0 +1,24 @@
+<html t:type="layout" title="Edit Preferences | sylvarbo"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_4.xsd"
+      xmlns:p="tapestry:parameter">
+
+ <div class="row">
+  <div class="col-12">
+   <h1>Edit Preferences</h1>
+   <t:form t:id="editForm">
+    <ul>
+     <t:loop source="validationErrors" value="currentError">
+      <li><font color="red">${currentError}</font></li>
+     </t:loop>
+    </ul>
+    <table border="0" margin="1">
+     <tr>
+      <td>Starting number of generations displayed in AncestorsView:&nbsp;</td>
+      <td><t:textfield value="defaultAncestorsViewDepth"/></td>
+     </tr>
+    </table>
+    <t:submit value="Save"/>
+   </t:form>
+  </div>
+ </div>
+</html>
