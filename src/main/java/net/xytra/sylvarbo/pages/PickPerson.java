@@ -93,15 +93,33 @@ public class PickPerson extends AbstractTypedPage<Person> {
         if (expList.isEmpty()) {
             return new ArrayList<PersonIdentity>();
         } else {
-            //List<Person> resultList = ObjectSelect.query(Person.class).select(context());
-            //Arrays.asList(Cayenne.objectForPK(context(), Person.class, 241));
-            //return resultList;
-            //return ObjectSelect.query(Person.class).where(ExpressionFactory.and(expList)).select(context());
-            // Get list of Persons from first criteria
+            List<PersonIdentity> qualifyingIdentities = null;
+
+            // Get list of Persons from first criterion
             List<PersonName> names = ObjectSelect.query(PersonName.class).where(expList.get(0)).select(context());
-            //System.err.println("names: " + names);
-            //List<Person> matches = names.stream().map(n -> n.getIdentity().getPerson()).collect(Collectors.toList());
-            return names.stream().map(n -> n.getIdentity()).collect(Collectors.toList());
+            final List<PersonIdentity> identities1 = names.stream().map(n -> n.getIdentity()).collect(Collectors.toList());
+            qualifyingIdentities = identities1;
+
+            // Continue with 2nd criterion if it exists
+            if (expList.size() > 1) {
+                names = ObjectSelect.query(PersonName.class).where(expList.get(1)).select(context());
+                // Filter PersonNames based on those with an identity already found
+                names = names.stream().filter(n -> identities1.contains(n.getIdentity())).collect(Collectors.toList());
+                // Collect a new narrowed list of identities
+                final List<PersonIdentity> identities2 = names.stream().map(n -> n.getIdentity()).collect(Collectors.toList());
+                qualifyingIdentities = identities2;
+
+                // Continue with 3rd criterion if it exists
+                if (expList.size() > 2) {
+                    names = ObjectSelect.query(PersonName.class).where(expList.get(2)).select(context());
+                    // Filter PersonNames based on those with an identity already found
+                    names = names.stream().filter(n -> identities2.contains(n.getIdentity())).collect(Collectors.toList());
+                    // Collect a new narrowed list of identities
+                    qualifyingIdentities = names.stream().map(n -> n.getIdentity()).collect(Collectors.toList());
+                }
+            }
+
+            return qualifyingIdentities;
         }
     }
 
