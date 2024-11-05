@@ -13,12 +13,12 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.PageRenderLinkSource;
 
 import net.xytra.common.cayenne.persistent.Preference;
-import net.xytra.sylvarbo.AncestorsViewRowItem;
 import net.xytra.sylvarbo.base.AbstractViewPage;
 import net.xytra.sylvarbo.enums.PersonEventType;
 import net.xytra.sylvarbo.persistent.Person;
 import net.xytra.sylvarbo.persistent.PersonEvent;
 import net.xytra.sylvarbo.persistent.Relationship;
+import net.xytra.sylvarbo.renderhelp.AncestorsViewRowItem;
 
 /**
  * View 5 generations from selected person to great-great-grandparents.

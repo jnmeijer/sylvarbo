@@ -49,6 +49,7 @@ public abstract class AbstractEditPage<T extends AbstractPersistentWithId> exten
      * If id numeric, find Object by id; if "new", create new and store UUID; otherwise, assume UUID and get by UUID.
      * @param id
      */
+    @SuppressWarnings("unchecked")
     protected void onActivateForId(String id) {
         System.err.println("--- AbstractEditPage.activate() with id="+id);
         if (NUMBER_PATTERN.matcher(id).matches()) {
