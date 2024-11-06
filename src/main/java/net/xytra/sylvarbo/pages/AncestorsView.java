@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.math.NumberUtils;
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.tapestry5.EventContext;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
@@ -15,9 +16,11 @@ import org.apache.tapestry5.services.PageRenderLinkSource;
 import net.xytra.common.cayenne.persistent.Preference;
 import net.xytra.sylvarbo.base.AbstractViewPage;
 import net.xytra.sylvarbo.enums.PersonEventType;
+import net.xytra.sylvarbo.enums.RelationshipEventType;
 import net.xytra.sylvarbo.persistent.Person;
 import net.xytra.sylvarbo.persistent.PersonEvent;
 import net.xytra.sylvarbo.persistent.Relationship;
+import net.xytra.sylvarbo.persistent.RelationshipEvent;
 import net.xytra.sylvarbo.renderhelp.AncestorsViewRowItem;
 
 /**
@@ -81,7 +84,7 @@ public class AncestorsView extends AbstractViewPage<Person> {
 
         if (generation < maxGenerations && (relationship != null || SHOW_EMPTY_ANCESTORS)) {
             rowId = discoverParents(identifier*2, ancestorsMap, generation+1, rowId);
-            rowItemList.add(new AncestorsViewRowItem("union placeholder for " + identifier*2 + " and " + (identifier*2+1), 0, ++rowId, maxGenerations-generation, 1));
+            rowItemList.add(new AncestorsViewRowItem(relationship, 0, ++rowId, maxGenerations-generation, 1));
             rowId = discoverParents(identifier*2+1, ancestorsMap, generation+1, ++rowId);    
         }
 
@@ -104,6 +107,10 @@ public class AncestorsView extends AbstractViewPage<Person> {
 
     public Person getCurrentRowItemPerson() {
         return (Person)currentRowItem.getItem();
+    }
+
+    public Relationship getCurrentRowItemRelationship() {
+        return (Relationship)currentRowItem.getItem();
     }
 
     // Details
@@ -147,6 +154,37 @@ public class AncestorsView extends AbstractViewPage<Person> {
         } else {
             return null;
         }
+    }
+
+    public String getMarriageDivorceLines() {
+        if (getCurrentRowItemRelationship() == null) {
+            return null;
+        }
+
+        RelationshipEvent marriage = null;
+        RelationshipEvent divorce = null;
+
+        for (RelationshipEvent event: getCurrentRowItemRelationship().getEvents().values()) {
+            if (event.getTypeEnum() == RelationshipEventType.WEDDING) {
+                marriage = event;
+            } else if (event.getTypeEnum() == RelationshipEventType.DIVORCE) {
+                divorce = event;
+            }
+        }
+
+        StringBuilder sb = new StringBuilder();
+        if (marriage != null) {
+            sb.append("x " + StringEscapeUtils.escapeHtml4(marriage.getDisplayedDate()));
+        }
+
+        if (divorce != null) {
+            if (marriage != null) {
+                sb.append("<br/>");
+            }
+            sb.append(")( " + StringEscapeUtils.escapeHtml4(divorce.getDisplayedDate()));
+        }
+
+        return sb.toString();
     }
 
     // Headers

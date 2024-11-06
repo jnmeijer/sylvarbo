@@ -21,7 +21,7 @@
      <t:if test="isCurrentRowItemAPerson">${currentRowItem.identifier}. ${currentRowItemPerson.primaryIdentity.displayableName}<br/>
       <i>${birthOrBaptismLine}<br/>
       ${deathOrBurialLine}</i>
-      <p:else><i>${currentRowItem.item}</i></p:else>
+      <p:else><i><t:OutputRaw value="marriageDivorceLines"/></i></p:else>
      </t:if>
     </td>
    </t:loop>
