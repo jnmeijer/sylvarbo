@@ -8,10 +8,10 @@
     </div>
 </div>
 
-<table border="1">
+<table width="${tableWidth}" border="1">
  <tr>
   <t:loop source="headers" value="currentHeader">
-   <th>${currentHeader}</th>
+   <th width="${columnWidth}">${currentHeader}</th>
   </t:loop>
  </tr>
  <t:loop source="rowIds" value="currentRowId">

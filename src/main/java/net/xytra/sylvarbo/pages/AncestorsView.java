@@ -184,7 +184,12 @@ public class AncestorsView extends AbstractViewPage<Person> {
             sb.append(")( " + StringEscapeUtils.escapeHtml4(divorce.getDisplayedDate()));
         }
 
-        return sb.toString();
+        String result = sb.toString();
+        if (result.length() == 0) {
+            return "&nbsp;"; // Force the result to take a certain vertical space
+        } else {
+            return result;
+        }
     }
 
     // Headers
@@ -198,6 +203,14 @@ public class AncestorsView extends AbstractViewPage<Person> {
         }
 
         return headers;
+    }
+
+    public int getTableWidth() {
+        return maxGenerations*getColumnWidth();
+    }
+
+    public int getColumnWidth() {
+        return 130;
     }
 
     // Basic stuff
