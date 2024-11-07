@@ -1,16 +1,16 @@
-<html t:type="layout" title="View Person | sylvarbo"
+<html t:type="layout" title="Edit Person | sylvarbo"
       xmlns:t="http://tapestry.apache.org/schema/tapestry_5_4.xsd"
       xmlns:p="tapestry:parameter">
 
-<div class="row">
-    <div class="col-12">
-        <h1>View Person</h1>
-    </div>
-</div>
-<t:pageLink page="AncestorsView" context="viewedObject.id">View Ancestry</t:pageLink>
+ <div class="row">
+  <div class="col-12">
+   <h1>Edit Person</h1>
+  </div>
+ </div>
+ <t:pageLink page="AncestorsView" context="viewedObject.id">View Ancestry</t:pageLink>
  <t:form t:id="editForm">
-<div class="row">
-    <div class="col-12">
+  <div class="row">
+   <div class="col-12">
     <table border="1">
      <tr>
       <td>All identities</td>
@@ -25,12 +25,16 @@
              <p:else>${currentIdentity.displayableName}</p:else>
             </t:if>
            </td>
+           <td><t:actionLink t:id="markIdentityAsPrimary" context="currentIdentityIndex">Mark as primary</t:actionLink></td>
+           <td><t:actionLink t:id="deleteIdentity" context="currentIdentityIndex">Delete</t:actionLink></td>
           </tr>
          </t:loop>
         </table>
         <p:else><b>${viewedObject.primaryIdentity.displayableName}</b></p:else>
        </t:if>
        <br/>
+       <t:select t:id="style"/>
+       <t:submit t:id="addIdentity" value="Add identity"/>
       </td>
      </tr>
      <tr>
@@ -44,9 +48,11 @@
            <t:if test="viewedObject.events.get(currentEventId).originalDate">(${viewedObject.events.get(currentEventId).originalDate})</t:if>
           </td>
           <td>${viewedObject.events.get(currentEventId).locationDesc}</td>
+          <td><t:actionLink t:id="deleteEvent" context="currentEventId">Delete</t:actionLink></td>
          </tr>
         </t:loop>
        </table>
+       <t:pageLink page="PersonEventAdd" context="[viewedObject.id, 'new']">Add event</t:pageLink>
       </td>
      </tr>
      <tr>
@@ -56,18 +62,19 @@
         <ul>
          <li>
           <t:if test="viewedObject.relationshipAsChild.primaryParent">
-           <t:pageLink page="PersonView" context="viewedObject.relationshipAsChild.primaryParent.id">${viewedObject.relationshipAsChild.primaryParent.primaryIdentity.displayableName}</t:pageLink>
+           <t:pageLink page="PersonEdit" context="viewedObject.relationshipAsChild.primaryParent.id">${viewedObject.relationshipAsChild.primaryParent.primaryIdentity.displayableName}</t:pageLink>
            <p:else>(unspecified)</p:else>
           </t:if>
          </li>
          <li>
           <t:if test="viewedObject.relationshipAsChild.secondaryParent">
-           <t:pageLink page="PersonView" context="viewedObject.relationshipAsChild.secondaryParent.id">${viewedObject.relationshipAsChild.secondaryParent.primaryIdentity.displayableName}</t:pageLink>
+           <t:pageLink page="PersonEdit" context="viewedObject.relationshipAsChild.secondaryParent.id">${viewedObject.relationshipAsChild.secondaryParent.primaryIdentity.displayableName}</t:pageLink>
            <p:else>(unspecified)</p:else>
           </t:if>
          </li>
         </ul>
         <t:pageLink page="RelationshipView" context="viewedObject.relationshipAsChild.id">View relationship</t:pageLink>
+        <p:else><t:pageLink page="RelationshipView" context="['new', 'c', viewedObject.id]">Create relationship as child</t:pageLink></p:else>
        </t:if>
       </td>
      </tr>
@@ -78,14 +85,14 @@
         <t:loop source="viewedObject.relationshipsAsPrimary" index="currentRelationshipIndex">
          <li>
           <t:if test="currentRelationshipAsPrimary.secondaryParent">
-           With <t:pageLink page="PersonView" context="currentRelationshipAsPrimary.secondaryParent.id">${currentRelationshipAsPrimary.secondaryParent.primaryIdentity.displayableName}</t:pageLink>
+           With <t:pageLink page="PersonEdit" context="currentRelationshipAsPrimary.secondaryParent.id">${currentRelationshipAsPrimary.secondaryParent.primaryIdentity.displayableName}</t:pageLink>
            <p:else><i>No partner indicated</i></p:else>
           </t:if>
           &nbsp;(<t:pageLink page="RelationshipView" context="currentRelationshipAsPrimary.id">View relationship</t:pageLink>)
           <t:if test="currentRelationshipAsPrimary.children">
            <ul>
             <t:loop source="currentRelationshipAsPrimary.children" index="currentChildIndex">
-             <li><t:pageLink page="PersonView" context="currentChildAsPrimary.id">${currentChildAsPrimary.primaryIdentity.displayableName}</t:pageLink></li>
+             <li><t:pageLink page="PersonEdit" context="currentChildAsPrimary.id">${currentChildAsPrimary.primaryIdentity.displayableName}</t:pageLink></li>
             </t:loop>
            </ul>
            <p:else><br/><i>No children</i></p:else>
@@ -95,14 +102,14 @@
         <t:loop source="viewedObject.relationshipsAsSecondary" index="currentRelationshipIndex">
          <li>
           <t:if test="currentRelationshipAsSecondary.primaryParent">
-           With <t:pageLink page="PersonView" context="currentRelationshipAsSecondary.primaryParent.id">${currentRelationshipAsSecondary.primaryParent.primaryIdentity.displayableName}</t:pageLink>
+           With <t:pageLink page="PersonEdit" context="currentRelationshipAsSecondary.primaryParent.id">${currentRelationshipAsSecondary.primaryParent.primaryIdentity.displayableName}</t:pageLink>
            <p:else><i>No partner indicated</i></p:else>
           </t:if>
           &nbsp;(<t:pageLink page="RelationshipView" context="currentRelationshipAsSecondary.id">View relationship</t:pageLink>)
           <t:if test="currentRelationshipAsSecondary.children">
            <ul>
             <t:loop source="currentRelationshipAsSecondary.children" index="currentChildIndex">
-             <li><t:pageLink page="PersonView" context="currentChildAsSecondary.id">${currentChildAsSecondary.primaryIdentity.displayableName}</t:pageLink></li>
+             <li><t:pageLink page="PersonEdit" context="currentChildAsSecondary.id">${currentChildAsSecondary.primaryIdentity.displayableName}</t:pageLink></li>
             </t:loop>
            </ul>
            <p:else><br/><i>No children</i></p:else>
@@ -110,12 +117,12 @@
          </li>
         </t:loop>
        </ul>
+       Create relationship as <t:pageLink page="RelationshipView" context="['new', 'p1', viewedObject.id]">primary</t:pageLink> or <t:pageLink page="RelationshipView" context="['new', 'p2', viewedObject.id]">secondary</t:pageLink> parent.
       </td>
      </tr>
     </table>
-
-    </div>
-</div>
+   </div>
+  </div>
  </t:form>
 
 </html>

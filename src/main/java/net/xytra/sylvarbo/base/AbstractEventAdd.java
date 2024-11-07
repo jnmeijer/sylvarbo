@@ -107,7 +107,7 @@ public abstract class AbstractEventAdd<T extends AbstractEvent> extends Abstract
         super.onValidateFromEditForm();
 
         // The following is required otherwise the new item does not get shown
-        // in the events list of PersonView:
+        // in the events list of the Person/Relationship Edit page:
         context().invalidateObjects(object);
     }
 

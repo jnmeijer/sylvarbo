@@ -109,7 +109,7 @@ public class PersonIdentityAdd extends AbstractEditModifiablePage<PersonIdentity
     }
 
     protected Object onSuccess() {
-        // On success, need personId to be set so we can then navigate to PersonView
+        // On success, need personId to be set so we can then navigate to PersonEdit
         personId = editedObject.getPerson().getId().longValue();
 
         return getSuccessPageObject();
@@ -142,7 +142,7 @@ public class PersonIdentityAdd extends AbstractEditModifiablePage<PersonIdentity
     @Override
     protected Object getSuccessPageObject() {
         if (personId != null) {
-            return linkSource.createPageRenderLinkWithContext(PersonView.class, personId);
+            return linkSource.createPageRenderLinkWithContext(PersonEdit.class, personId);
         } else {
             return PersonList.class;
         }
