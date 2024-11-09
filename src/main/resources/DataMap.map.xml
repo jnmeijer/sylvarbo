@@ -8,7 +8,7 @@
 		<db-attribute name="ADDITIONAL_INFO" type="CLOB"/>
 		<db-attribute name="CREATED_DTM" type="TIMESTAMP" isMandatory="true"/>
 		<db-attribute name="CREATED_USER_ID" type="INTEGER" isMandatory="true"/>
-		<db-attribute name="GENDER" type="VARCHAR" isMandatory="true" length="8"/>
+		<db-attribute name="GENDER" type="VARCHAR" length="8"/>
 		<db-attribute name="GENDER_DESC" type="VARCHAR" length="1024"/>
 		<db-attribute name="ID" type="BIGINT" isPrimaryKey="true" isMandatory="true"/>
 		<db-attribute name="MODIFIED_DTM" type="TIMESTAMP" isMandatory="true"/>
@@ -66,7 +66,7 @@
 		<db-attribute name="DEFAULT_VALUE" type="VARCHAR" length="1024"/>
 		<db-attribute name="DESCRIPTION" type="VARCHAR" isMandatory="true" length="1024"/>
 		<db-attribute name="ID" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
-		<db-attribute name="KEY" type="VARCHAR" isMandatory="true" length="256"/>
+		<db-attribute name="PREF_KEY" type="VARCHAR" isMandatory="true" length="256"/>
 	</db-entity>
 	<db-entity name="XSA_RELATIONSHIP">
 		<db-attribute name="CREATED_DTM" type="TIMESTAMP" isMandatory="true"/>
@@ -106,8 +106,8 @@
 	<db-entity name="XSA_USER_PREFERENCE">
 		<db-attribute name="ID" type="INTEGER" isPrimaryKey="true" isMandatory="true"/>
 		<db-attribute name="PREFERENCE_ID" type="INTEGER" isMandatory="true"/>
+		<db-attribute name="PREF_VALUE" type="VARCHAR" length="1024"/>
 		<db-attribute name="USER_ID" type="INTEGER" isMandatory="true"/>
-		<db-attribute name="VALUE" type="VARCHAR" length="1024"/>
 	</db-entity>
 	<obj-entity name="Person" className="net.xytra.sylvarbo.persistent.Person" dbEntityName="XSA_PERSON" superClassName="net.xytra.common.cayenne.persistent.AbstractModifiable">
 		<obj-attribute name="additionalInfo" type="java.lang.String" db-attribute-path="ADDITIONAL_INFO"/>
@@ -149,7 +149,7 @@
 	<obj-entity name="Preference" className="net.xytra.common.cayenne.persistent.Preference" dbEntityName="XSA_PREFERENCE">
 		<obj-attribute name="defaultValue" type="java.lang.String" lock="true" db-attribute-path="DEFAULT_VALUE"/>
 		<obj-attribute name="description" type="java.lang.String" db-attribute-path="DESCRIPTION"/>
-		<obj-attribute name="key" type="java.lang.String" lock="true" db-attribute-path="KEY"/>
+		<obj-attribute name="key" type="java.lang.String" lock="true" db-attribute-path="PREF_KEY"/>
 	</obj-entity>
 	<obj-entity name="Relationship" className="net.xytra.sylvarbo.persistent.Relationship" dbEntityName="XSA_RELATIONSHIP" superClassName="net.xytra.common.cayenne.persistent.AbstractModifiable">
 		<obj-attribute name="createdDtm" type="java.util.Date" db-attribute-path="CREATED_DTM"/>
@@ -175,7 +175,7 @@
 		<obj-attribute name="username" type="java.lang.String" lock="true" db-attribute-path="USERNAME"/>
 	</obj-entity>
 	<obj-entity name="UserPreference" className="net.xytra.common.cayenne.persistent.UserPreference" dbEntityName="XSA_USER_PREFERENCE">
-		<obj-attribute name="value" type="java.lang.String" db-attribute-path="VALUE"/>
+		<obj-attribute name="value" type="java.lang.String" db-attribute-path="PREF_VALUE"/>
 	</obj-entity>
 	<db-relationship name="personEvents" source="XSA_PERSON" target="XSA_PERSON_EVENT" toMany="true">
 		<db-attribute-pair source="ID" target="PERSON_ID"/>

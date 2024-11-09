@@ -45,7 +45,7 @@ public class PersonEventAdd extends AbstractEventAdd<PersonEvent> {
 
     @Override
     protected Object getSuccessPageObject() {
-        return linkSource.createPageRenderLinkWithContext(PersonView.class, objectId);
+        return linkSource.createPageRenderLinkWithContext(PersonEdit.class, objectId);
     }
 
 }

@@ -17,14 +17,14 @@
        <ul>
         <li>
          <t:if test="viewedObject.primaryParent">
-          <t:pageLink page="PersonView" context="viewedObject.primaryParent.id">${viewedObject.primaryParent.primaryIdentity.displayableName}</t:pageLink>
+          <t:pageLink page="PersonEdit" context="viewedObject.primaryParent.id">${viewedObject.primaryParent.primaryIdentity.displayableName}</t:pageLink>
           &nbsp;<t:actionLink t:id="removePrimaryParent">Remove</t:actionLink>
           <p:else><t:pageLink page="PickPerson" context="[viewedObject.id, 'p1']">Pick primary parent</t:pageLink></p:else>
          </t:if>
         </li>
         <li>
          <t:if test="viewedObject.secondaryParent">
-          <t:pageLink page="PersonView" context="viewedObject.secondaryParent.id">${viewedObject.secondaryParent.primaryIdentity.displayableName}</t:pageLink>
+          <t:pageLink page="PersonEdit" context="viewedObject.secondaryParent.id">${viewedObject.secondaryParent.primaryIdentity.displayableName}</t:pageLink>
           &nbsp;<t:actionLink t:id="removeSecondaryParent">Remove</t:actionLink>
           <p:else><t:pageLink page="PickPerson" context="[viewedObject.id, 'p2']">Pick secondary parent</t:pageLink></p:else>
          </t:if>
@@ -56,7 +56,7 @@
        <ul>
         <t:loop source="viewedObject.children" index="currentChildIndex">
          <li>
-          <t:pageLink page="PersonView" context="currentChild.id">${currentChild.primaryIdentity.displayableName}</t:pageLink>
+          <t:pageLink page="PersonEdit" context="currentChild.id">${currentChild.primaryIdentity.displayableName}</t:pageLink>
           &nbsp;<t:actionLink t:id="removeChild" context="currentChildIndex">Remove</t:actionLink>
          </li>
         </t:loop>

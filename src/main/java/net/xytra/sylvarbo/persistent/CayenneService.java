@@ -87,7 +87,8 @@ public class CayenneService {
     public ObjectContext newObjectContext() {
         System.err.println("-- newObjectContext()!");
         ObjectContext context = cayenneRuntime.newContext();
-        SQLExec.query("SET DATABASE REFERENTIAL INTEGRITY FALSE").execute(context);
+        SQLExec.query("SET REFERENTIAL_INTEGRITY FALSE").execute(context);
+        //SQLExec.query("SET SCHEMA PUBLIC").execute(context);
         return context;
     }
 
