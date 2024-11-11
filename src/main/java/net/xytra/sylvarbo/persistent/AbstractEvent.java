@@ -1,7 +1,7 @@
 package net.xytra.sylvarbo.persistent;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.Calendar;
+import java.util.TimeZone;
 
 import net.xytra.common.cayenne.persistent.AbstractModifiable;
 import net.xytra.sylvarbo.enums.DateApproximation;
@@ -11,6 +11,8 @@ import net.xytra.sylvarbo.enums.DisplayableEnum;
 public abstract class AbstractEvent extends AbstractModifiable {
 
     private static final long serialVersionUID = 1L; 
+
+    private static final TimeZone UTC = TimeZone.getTimeZone("UTC");
 
     private String displayedDate;
 
@@ -41,7 +43,19 @@ public abstract class AbstractEvent extends AbstractModifiable {
                 sb.append(approximation.getDisplayed()).append(' ');
             }
 
-            sb.append(new SimpleDateFormat(DatePrecision.valueOf(getPrecision()).getDateFormat()).format(getDate()));
+            Calendar calendar = Calendar.getInstance(UTC);
+            calendar.clear();
+            calendar.setTimeInMillis(getDtm());
+            if (DatePrecision.Y.toString().equals(getPrecision())) {
+                sb.append(calendar.get(Calendar.YEAR));
+            } else if (DatePrecision.YM.toString().equals(getPrecision())) {
+                sb.append(calendar.get(Calendar.YEAR)).append('-').
+                    append(String.format("%02d", calendar.get(Calendar.MONTH)+1));
+            } else {
+                sb.append(calendar.get(Calendar.YEAR)).append('-').
+                    append(String.format("%02d", calendar.get(Calendar.MONTH)+1)).append('-').
+                    append(String.format("%02d", calendar.get(Calendar.DAY_OF_MONTH)));
+            }
 
             displayedDate = sb.toString();
         }
@@ -49,12 +63,6 @@ public abstract class AbstractEvent extends AbstractModifiable {
         return displayedDate;
     }
 
-    /*
-     * @return the timestamp as a java.util.Date object.
-     */
-    private Date getDate() {
-        return new Date(getDtm());
-    }
 
     // Enum accessors/getters
     public abstract DisplayableEnum getTypeEnum();
